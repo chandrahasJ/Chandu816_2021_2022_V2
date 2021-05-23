@@ -8,8 +8,11 @@ namespace RecurrsionEg101
 {
     class Program
     {
+
         static void Main(string[] args)
         {
+            Console.WriteLine("Checking...");
+
             Console.WriteLine("Hello World");
             Console.ReadLine();
         }
