@@ -8,12 +8,20 @@ namespace RecurrsionEg101
 {
     class Program
     {
+        public static void iteration(int n)
+        {
+            while (n > 0)
+            {
+                Console.WriteLine(n);
+                n = n - 1;
+            }
+        }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Checking...");
 
-            Console.WriteLine("Hello World");
+            iteration(5);
             Console.ReadLine();
         }
     }
