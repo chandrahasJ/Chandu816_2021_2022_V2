@@ -13,9 +13,9 @@ namespace RecurrsionTailAndHeadEg102
         static void Main(string[] args)
         {
             Recurrsion r = new Recurrsion();
-            r.calculate(4);
-
-
+            //r.calculateTailRecurrsion(4);
+            Console.WriteLine("-------");
+            r.calculateHeadRecurrsion(4);
 
             Console.ReadLine();
         }
