@@ -40,6 +40,21 @@ namespace RecurrsionTailAndHeadEg102
                 Console.WriteLine(k);
             }
         }
+
+        /// <summary>
+        /// Tree Recurrsion.
+        /// </summary>
+        /// <param name="n"></param>
+        public void calculateTreeRecurrsion(int n)
+        {
+            if (n > 0)
+            {
+                calculateTreeRecurrsion(n - 1);
+                int k = n * n;
+                Console.WriteLine(k);
+                calculateTreeRecurrsion(n - 1);
+            }
+        }
     }
 
 
