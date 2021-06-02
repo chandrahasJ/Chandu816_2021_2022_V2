@@ -6,17 +6,28 @@ using System.Threading.Tasks;
 
 namespace RecurrsionEg103
 {
-    public class Recurrsion
+    public class SumOfNumbers
     {
         public int calculateSumOfNaturalNumberViaFormule(int n)
         {
-            int part = n * n + n;
-            return part / 2;
+            return n * (n+1) / 2;
+        }
+
+        public int calculateSumofNaturalNumberViaIterative(int n)
+        {
+            int total = 0;
+            int i = 1;
+            while (i <= n)
+            {
+                total = total + i;
+                i = i + 1;
+            }
+            return total;
         }
 
         public int calculateSumofNatutalNumberViaRecurrsion(int n)
         {
-            if (n == 1)
+            if (n == 0)
             {
                 return n;
             }

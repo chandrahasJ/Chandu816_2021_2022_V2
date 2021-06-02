@@ -10,12 +10,14 @@ namespace RecurrsionEg103
     {
         static void Main(string[] args)
         {
-            Recurrsion r = new Recurrsion();
+            SumOfNumbers r = new SumOfNumbers();
 
 
             Console.WriteLine(r.calculateSumOfNaturalNumberViaFormule(5));
             Console.WriteLine("-------------------------");
             Console.WriteLine(r.calculateSumofNatutalNumberViaRecurrsion(5));
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(r.calculateSumofNaturalNumberViaIterative(5));
 
             Console.ReadLine();
         }
