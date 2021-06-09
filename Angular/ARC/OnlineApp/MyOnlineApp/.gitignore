@@ -40,6 +40,11 @@ yarn-error.log
 testem.log
 /typings
 
+#visualprojectfiles
+*.suo
+*.db.lock
+*.storage.ide
+
 # System Files
 .DS_Store
 Thumbs.db
