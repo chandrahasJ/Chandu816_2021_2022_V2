@@ -42,8 +42,8 @@ testem.log
 
 #visualprojectfiles
 *.suo
-*.db.lock
-*.storage.ide
+db.lock
+storage.ide
 
 # System Files
 .DS_Store

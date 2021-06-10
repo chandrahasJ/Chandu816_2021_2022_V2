@@ -15,8 +15,8 @@ bin-release/
 
 #visualprojectfiles
 *.suo
-*.db.lock
-*.storage.ide
+db.lock
+storage.ide
 
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
