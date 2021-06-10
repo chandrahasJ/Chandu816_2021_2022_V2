@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { of, Observable } from 'rxjs';
+import { ContactsService } from '../../services/contacts.service';
 
 @Component({
   selector: 'app-view-users',
@@ -8,11 +9,14 @@ import { of, Observable } from 'rxjs';
 })
 export class ViewUsersComponent implements OnInit {
 
+  userMsg: string = "";
   contacts$ : any;
   users : any;
   userStatus : any;
+  listUsers$ : any;
+  userDetails : any;
 
-  constructor() { }
+  constructor(private contactService : ContactsService) { }
 
   ngOnInit(): void {
     //Eg : 1
@@ -47,6 +51,25 @@ export class ViewUsersComponent implements OnInit {
       console.log(error)
     });
 
+    //Eg 3
+    this.contactService.getUsers().subscribe(data =>{
+      this.listUsers$ = data;
+    },error =>{
+      console.log(error)
+    });
+
+    //Eg.4 - toPromise -> once data is collected stop collecting more data.
+    this.contactService.viewUser()
+        .toPromise()
+        .then(response => {
+            this.userDetails = response;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .finally(()=>{
+            this.userMsg = "User details loaded";
+        });
   }
 
 }

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { ListUsersComponent } from './users/list-users/list-users.component';
 import { ViewUsersComponent } from './users/view-users/view-users.component';
 import { UsersModule } from './users/users.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { UsersModule } from './users/users.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     UsersModule
   ],
