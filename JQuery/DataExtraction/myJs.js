@@ -11,7 +11,7 @@ $(document).ready((e) => {
         var spanTitle = spans[e].title;
         if(spanTitle != ""){
             i++;
-            data += "<p>"+i+"- "+spanTitle+"</p>"
+            data += "<p>\""+spanTitle+"\",</p>"
         }
     });
     $("#divRenderData").html(data);
