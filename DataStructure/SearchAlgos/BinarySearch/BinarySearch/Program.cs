@@ -36,7 +36,28 @@ namespace BinarySearch
             searchItem = 500;
             found = bs.BinarySearch(ArrayData, ArrayData.Length, searchItem);
             Console.WriteLine($"Result for {searchItem}: " + found);
+            Console.WriteLine($"------------------------------------------------------------");
 
+            Console.WriteLine();
+            searchItem = 26;
+             found = bs.BinarySearchRecursionVersion(ArrayData, searchItem, 0, ArrayData.Length-1);
+            Console.WriteLine($" BinarySearchRecursionVersion Result for {searchItem}: " + found);
+
+            searchItem = 106;
+            found = bs.BinarySearchRecursionVersion(ArrayData, searchItem, 0, ArrayData.Length-1);
+            Console.WriteLine($"BinarySearchRecursionVersion Result for {searchItem}: " + found);
+
+            searchItem = 700;
+            found = bs.BinarySearchRecursionVersion(ArrayData, searchItem, 0, ArrayData.Length-1);
+            Console.WriteLine($" BinarySearchRecursionVersion Result for {searchItem}: " + found);
+
+            searchItem = 1000;
+            found = bs.BinarySearchRecursionVersion(ArrayData, searchItem, 0, ArrayData.Length-1);
+            Console.WriteLine($" BinarySearchRecursionVersion Result for {searchItem}: " + found); 
+
+            searchItem = 500;
+            found = bs.BinarySearchRecursionVersion(ArrayData, searchItem, 0, ArrayData.Length-1);
+            Console.WriteLine($"BinarySearchRecursionVersion Result for {searchItem}: " + found);
 
             Console.ReadLine();
 
