@@ -1,0 +1,50 @@
+[
+  {
+    "Id": 1,
+    "Name": "Birla House",
+    "Type": "House",
+    "Price": 12000
+  },
+  {
+    "Id": 2,
+    "Name": "C House",
+    "Type": "House",
+    "Price": 50000
+  },
+  {
+    "Id": 3,
+    "Name": "Chandrika House",
+    "Type": "House",
+    "Price": 50000000
+  },
+  {
+    "Id": 4,
+    "Name": "A House",
+    "Type": "House",
+    "Price": 554556
+  },
+  {
+    "Id": 5,
+    "Name": "BB House",
+    "Type": "House",
+    "Price": 12000
+  },
+  {
+    "Id": 6,
+    "Name": "Yogesh House",
+    "Type": "House",
+    "Price": 74121225
+  },
+  {
+    "Id": 7,
+    "Name": "Govind House",
+    "Type": "House",
+    "Price": 741258452
+  },
+  {
+    "Id": 8,
+    "Name": "PP House",
+    "Type": "House",
+    "Price": 12000
+  }
+]
