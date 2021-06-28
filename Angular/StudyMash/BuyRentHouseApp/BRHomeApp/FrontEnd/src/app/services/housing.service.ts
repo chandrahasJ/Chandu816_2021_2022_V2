@@ -11,12 +11,12 @@ export class HousingService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllProperties() : Observable<IProperty[]> {
+  getAllProperties(SellRent : number) : Observable<IProperty[]> {
     return this.httpClient.get<IProperty[]>('data/properties.json').pipe(
       map(data => {
         const propertiesArray: Array<IProperty> = [];
         for (const key in data) {
-          if (Object.prototype.hasOwnProperty.call(data, key)) {
+          if (Object.prototype.hasOwnProperty.call(data, key) && data[key].SellRent === SellRent) {
             //I was getting error stating that
             //no index signature with a parameter of type 'string' was found on type 'object'.ts(7053) in map
             //This error is resolved by providing get with get<IProperty[]>
