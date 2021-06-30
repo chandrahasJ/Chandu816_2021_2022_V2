@@ -1,6 +1,14 @@
 $(document).ready((e) => {
+    var url = this.window.location.toString();
+    console.log(url +"   "+ url.indexOf("getwpfmvvm.html") + "   "+ url.indexOf("run.html"));
     
-    $('#divDataFromFile').html(domdata);
+    if(url.indexOf("run.html") != -1){        
+        console.log("a");
+        $('#divDataFromFile').html(domdata);
+    }
+    else if(url.indexOf("getwpfmvvm.html") != -1){
+        $('#divDataFromFile').html(domDataMVVM);
+    }
     var spans = $("#divDataFromFile").find("span.ytd-playlist-panel-video-renderer");
    
     var data = "";
