@@ -9,130 +9,77 @@ namespace RenamingFileFromData
 {
     public class DataClass
     {
-        string FilePath = @"<Add Your Path>";
+        string FilePath = @"F:\LearningPath\WPF\FullStackWPF";
         string[] data =
         {
-            "Angular and ASP.NET Core Web API Course | Learn by building real application | Free Tutorial",
+            "Domain Introduction and Entity Framework Setup - FULL STACK WPF (.NET CORE) MVVM #1",
 
-            "Angular Project Setup and Version History | Angular Tutorial",
+        "Entity Framework CRUD - FULL STACK WPF (.NET CORE) MVVM #2",
 
-            "What has changed from Angular 9 (Major Release)",
+        "WPF in .NET Core and MVVM Navigation - FULL STACK WPF (.NET CORE) MVVM #3",
 
-            "Folder structure and flow of angular application | Angular Tutorial",
+        "API Service Calls and Async ViewModel Loading - FULL STACK WPF (.NET CORE) MVVM #4",
 
-            "Important Angular Extensions and multiple ways to create components",
+        "Adding an API Key (App.config Setup) - FULL STACK WPF (.NET CORE) MVVM #4.1",
 
-            "Component workflow and create property card component",
+        "Styling the Navigation Bar - FULL STACK WPF (.NET CORE) MVVM #5",
 
-            "What is GIT and GIT Hub",
+        "Creating a Card Control - FULL STACK WPF (.NET CORE) MVVM #6",
 
-            "Create property list",
+        "Fetching Stock Prices and Refactoring API Calls - FULL STACK WPF (.NET CORE) MVVM #7",
 
-            "Add CSS animation to Property Card",
+        "Inserting User Data with Entity Framework Core - FULL STACK WPF (.NET CORE) MVVM #8",
 
-            "Using Service and HTTP calls in Angular 9",
+        "Dependency Injection Setup - FULL STACK WPF (.NET CORE) MVVM #9",
 
-            "Modify HTTP Data using Pipe",
+        "Creating the ViewModel and View for Buying Stocks - FULL STACK WPF (.NET CORE) MVVM #10",
 
-            "Understand Routing - Part-1",
+        "Dynamic Views and Custom Element Styles - FULL STACK WPF (.NET CORE) MVVM #11",
 
-            "Understand Routing - Part 2",
+        "User Authentication (Login/Registration) Service - FULL STACK WPF (.NET CORE) MVVM #12",
 
-            "Understand Routing - Part 3",
+        "Unit Testing the Authentication Service (with NUnit and Moq) - FULL STACK WPF (.NET CORE) MVVM #13",
 
-            "Template Driven Forms in Angular",
+        "Integrating Authentication with the WPF Application - FULL STACK WPF (.NET CORE) MVVM #14",
 
-            "Reactive Forms in angular",
+        "Creating a Login Form in WPF - FULL STACK WPF (.NET CORE) MVVM #15",
 
-            "5 Reasons I love to use Reactive forms",
+        "Navigating Between Views - FULL STACK WPF (.NET CORE) MVVM #16",
 
-            "Save Data to Local Storage in Angular | Angular Tutorial",
+        "Using Delegates as View Model Factories - FULL STACK WPF (.NET CORE) MVVM #17",
 
-            "Add alertify notifications as service",
+        "Account State Management - FULL STACK WPF (.NET CORE) MVVM #18",
 
-            "Add Login Logout Functionality",
+        "Using LINQ to Calculate User Transaction Data - FULL STACK WPF (.NET CORE) MVVM #19",
 
-            "Design add new property form",
+        "ListView w/ GridView and Finishing the Home View - FULL STACK WPF (.NET CORE) MVVM #20",
 
-            "Enhance add new property form",
+        "Handling Exceptions and Messages - FULL STACK WPF (.NET CORE) MVVM #21",
 
-            "Save new property and display on list page",
+        ".NET Core Generic Host w/ Entity Framework Migrations - FULL STACK WPF (.NET CORE) MVVM #22",
 
-            "Saving multiple properties",
+        "View Model, View, and Navigation for User Registration - FULL STACK WPF (.NET CORE) MVVM #23",
 
-            "Migrate from Angular 9 to 10 & Create Property Detail view",
+        "Creating Reusable Controls - FULL STACK WPF (.NET CORE) MVVM #24",
 
-            "Add Route Resolver and Image Gallery",
+        "Completing the Domain Layer (w/ Unit Testing) - FULL STACK WPF (.NET CORE) MVVM #25",
 
-            "Add Filtering and Sorting using angular pipes",
+        "Configuring SQLite w/ Entity Framework Core - FULL STACK WPF (.NET CORE) MVVM #26",
 
-            "Deploy Angular Application to Firebase hosting for free",
+        "Reusing Commands & Implementing the Sell View/ViewModel - FULL STACK WPF (.NET CORE) MVVM #27",
 
-            "Build a Web API using ASP.Net Core",
+        "Clean Dependency Injection Setup w/ Extension Methods - FULL STACK WPF (.NET CORE) MVVM #28",
 
-            "Create WebAPI Project",
+        "Using HttpClient Best Practices - FULL STACK WPF (.NET CORE) MVVM #29",
 
-            "Consuming WebAPI in Angular",
+        "Porting to .NET 5 - FULL STACK WPF (.NET CORE) MVVM #30",
 
-            "Create DB and fetch data using EF Core Code First Approach",
+        "Disposing View Models - FULL STACK WPF (.NET CORE) MVVM #31",
 
-            "Implement add and delete operation in WebAPI",
+        "Toggling Form Submission - FULL STACK WPF (.NET CORE) MVVM #32",
 
-            "Using Repository Pattern",
-
-            "Using Unit of Work Pattern",
-
-            "Why to use DTO (Data Transfer Objects)",
-
-            "Using Automapper in C#",
-
-            "HTTP Put vs Patch for update",
-
-            "Input validation and exception handling in ASP.NET Web API",
-
-            "Handling Errors Globally in ASP .NET Core Web API",
-
-            "Add more features to Custom Middleware",
-
-            "What is JWT and why should you use JWT in WebAPI",
-
-            "Authenticate user with user id and password",
-
-            "Create JWT in ASP.NET Core and use it for Authorization",
-
-            "How to manage user secrets in dot net core",
-
-            "Protect passwords with hashing and salting",
-
-            "Deploy API on Azure",
-
-            "Deploy Angular App on Azure",
-
-            "Deploy Angular and Dot Net Core Web API on IIS",
-
-            "Migrate from Angular 10 to Angular 11",
-
-            "Migrating from TSLint to ESLint is a pain | Problems and Solutions",
-
-            "Hookup login and register component to Web API | Angular Free Tutorial",
-
-            "Global error handling in angular using interceptor | Free Angular Tutorial",
-
-            "Using retry and retryWhen in Angular for failed requests | Angular Tutorial",
-
-            "Add Property Related Entities | Define relationship between entities",
-
-            "Database seeding in Entity Framework Core | Angular + WebAPI Tutorial",
-
-            "Integrate property list page to web API | Angular Tutorial",
-
-            "Hookup Property Detail view to WebAPI",
-
-            "Populate Possession Date on Property Card",
-
-            "Hookup Add Property Page to WebAPI - Part 1 | Angular Tutorial"
-
-    };
+        "Loading Status and Command - FULL STACK WPF (.NET 5) MVVM #33"
+        };
 
         public void changeTheFileName()
         {
@@ -153,6 +100,26 @@ namespace RenamingFileFromData
                 }
             }
             
+        }
+
+        public void ChangeTheFileNameV2()
+        {
+            string[] fileData = Directory.GetFiles(FilePath, "*.mp4");
+            int i = 0;
+            foreach (var item in fileData)
+            {
+                string[] levelOne = item.Replace("(1080p).mp4", "").Split('#');
+                if (levelOne.Length > 1)
+                {
+                    
+                    FileInfo f = new FileInfo(item);
+                    string newFileName = FilePath + "\\" + levelOne[1] + "_" + f.Name;
+                    f.Rename(newFileName);
+                    Console.WriteLine("Done with File Numberiing -" + newFileName);
+                    //f.Delete();
+
+                }
+            }
         }
     }
 

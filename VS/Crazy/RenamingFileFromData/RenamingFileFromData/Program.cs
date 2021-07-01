@@ -11,7 +11,7 @@ namespace RenamingFileFromData
         static void Main(string[] args)
         {
             DataClass dc = new DataClass();
-            dc.changeTheFileName();
+            dc.ChangeTheFileNameV2();
             Console.ReadLine();
         }
     }
