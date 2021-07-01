@@ -3,10 +3,14 @@
     Add New Property
   </div>
   <div class="card-body">
-    <form (ngSubmit)="onSubmit(Form)" #Form="ngForm">
+    <form (ngSubmit)="onSubmit()" #Form="ngForm">
       <div class="form-group col-12">
         <label for="Name">Name</label>
-        <input type="text" class="form-control" ngModel name="Name">
+        <input type="text" class="form-control" ngModel name="Name" #propName="ngModel" required minlength="5">
+        <span *ngIf="!propName.valid && propName.touched" class="error-block">
+          <span *ngIf="propName.errors?.required">Please provide name</span>
+          <span *ngIf="propName.errors?.minlength">Name must be atleast 5 characters long</span>
+        </span>
       </div>
 
       <div class="form-group col-12">
@@ -20,7 +24,7 @@
       </div>
 
       <div class="form-group col-12">
-        <button type="submit" class="btn btn-primary m-2">Save</button>
+        <button [disabled]="!Form.valid" type="submit" class="btn btn-primary m-2">Save</button>
         <button type="reset" class="btn btn-primary">Cancel</button>
       </div>
 
