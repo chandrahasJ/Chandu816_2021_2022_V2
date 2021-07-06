@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTraderApp.Domain", "SimpleTraderApp.Domain\SimpleTraderApp.Domain.csproj", "{713B066F-FDC0-4783-8C36-EB38B667A3A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{713B066F-FDC0-4783-8C36-EB38B667A3A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713B066F-FDC0-4783-8C36-EB38B667A3A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713B066F-FDC0-4783-8C36-EB38B667A3A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713B066F-FDC0-4783-8C36-EB38B667A3A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB9CD7BF-3E85-4EB7-96D7-BD3E3FE7D030}
+	EndGlobalSection
+EndGlobal
