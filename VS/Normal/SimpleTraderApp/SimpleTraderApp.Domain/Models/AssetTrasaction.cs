@@ -11,5 +11,7 @@ namespace SimpleTraderApp.Domain.Models
         public bool IsPurchased { get; set; }
         public Stock Stock { get; set; }
         public int Shares { get; set; }
+
+        public DateTime DateProcessed { get; set; }
     }
 }
