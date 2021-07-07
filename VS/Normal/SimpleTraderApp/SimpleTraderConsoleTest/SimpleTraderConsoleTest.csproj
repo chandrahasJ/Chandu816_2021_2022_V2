@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleTraderApp.Domain\SimpleTraderApp.Domain.csproj" />
+    <ProjectReference Include="..\SimpleTraderApp.EFCore\SimpleTraderApp.EFCore.csproj" />
+  </ItemGroup>
+
+</Project>

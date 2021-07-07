@@ -4,9 +4,8 @@ using System.Text;
 
 namespace SimpleTraderApp.Domain.Models
 {
-    public class AssetTrasaction
+    public class AssetTrasaction : DomainObject
     {
-        public int Id { get; set; }
         public Account Account { get; set; }
         public bool IsPurchased { get; set; }
         public Stock Stock { get; set; }
