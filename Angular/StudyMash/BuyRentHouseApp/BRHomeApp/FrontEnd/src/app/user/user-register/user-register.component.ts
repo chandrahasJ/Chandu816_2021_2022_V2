@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import CustomValidations from 'src/app/helper/validation';
 import { IUser } from 'src/app/models/user';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +16,9 @@ export class UserRegisterComponent implements OnInit {
   userData! : IUser;
   regexpNumber = /[0-9\+\-\ ]/;
   submittedData = false;
-  constructor(private formBuilder : FormBuilder, private userService : UserService) { }
+  constructor(private formBuilder : FormBuilder,
+              private userService : UserService,
+              private alertifyService: AlertifyService) { }
 
   ngOnInit(): void {
     // this.registerationForm = new FormGroup({
@@ -80,6 +83,10 @@ export class UserRegisterComponent implements OnInit {
       this.userService.addUsers(this.getUserData());
       this.registerationForm.reset();
       this.submittedData = false;
+      this.alertifyService.success("Your are successfully registered.");
+    }
+    else{
+      this.alertifyService.error("Kindly provide the required  fields");
     }
   }
 
