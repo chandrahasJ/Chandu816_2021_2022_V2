@@ -15,4 +15,8 @@ export class AlertifyService {
   error(msg : string){
     alertify.error(msg);
   }
+
+  warning(msg : string){
+    alertify.warning(msg);
+  }
 }
