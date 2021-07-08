@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,26 +13,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UserLoginComponent implements OnInit {
   loginForm! : FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder : FormBuilder, 
+              private authService : AuthService,
+              private alertify : AlertifyService,
+              private router : Router) { }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      userName : new FormControl(null,Validators.required),
-      email : new FormControl(null,[Validators.required, Validators.email]),
-      password : new FormControl(null, [Validators.required, Validators.minLength(8)]),
+
+    this.loginForm = this.formBuilder.group({
+      userName : [null,Validators.required],
+      password : [null, [Validators.required]],
     });
   }
 
   onSubmit(){
-    console.log(this.loginForm);
+    console.log(this.loginForm.value);
+    const token = this.authService.authUser(this.loginForm.value);
+    if(token){
+      localStorage.setItem("token", token.userName);      
+      this.alertify.success("LoggedIn Successfully");
+      this.router.navigate(['/']);
+    }
+    else{
+      this.alertify.error ("username or password is wrong.");
+    }
   }
 
   get userName(){
     return this.loginForm.get('userName') as FormControl;
-  }
-
-  get email(){
-    return this.loginForm.get('email') as FormControl;
   }
 
   get password(){

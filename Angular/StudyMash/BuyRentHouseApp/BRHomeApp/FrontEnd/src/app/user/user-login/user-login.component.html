@@ -10,28 +10,13 @@
               <span class="error-block" *ngIf="!userName.valid && userName.touched">
                   Please provide Name
               </span>
-            </div>
-            <div class="form-group col-12">
-              <label for="Email" class="form-label">Email</label>
-              <input type="text" name="" class="form-control" formControlName="email"/>
-              <span class="error-block" *ngIf="!email.valid && email.touched">
-                  <span *ngIf="email?.hasError('required')">
-                    Please provide Email Id.
-                  </span>   
-                  <span *ngIf="email?.hasError('email')">
-                    Please provide valid proper email id.
-                  </span>   
-              </span>
-            </div>
+            </div>           
             <div class="form-group col-12">
               <label for="Password" class="form-label">Password</label>
               <input type="password" name="" class="form-control" formControlName="password"/>
               <span class="error-block" *ngIf="!password.valid && password.touched">
                 <span *ngIf="password?.hasError('required')">
                   Please provide password.
-                </span>   
-                <span *ngIf="password?.errors?.minlength">
-                  Password should not be lesser than 8 Character
                 </span>   
               </span>
             </div>
