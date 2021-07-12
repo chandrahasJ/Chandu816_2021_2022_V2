@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +18,10 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
 import { UserService } from './services/user.service';
 import { AlertifyService } from './services/alertify.service';
 import { AuthService } from './services/auth.service';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 const appRoutes : Routes = [
 ]
@@ -43,7 +46,8 @@ const appRoutes : Routes = [
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [
     HousingService,
