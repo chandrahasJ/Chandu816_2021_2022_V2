@@ -12,6 +12,11 @@ export class AddPropertyComponent implements OnInit {
   @ViewChild('AddPropertyTabSet', { static: false }) AddPropertyTabSet!: TabsetComponent;
   @ViewChild('Form') addPropertyForm : NgForm | undefined;
   
+  propertyType: Array<string> = ['House','Apartment','Duplex'];
+  furnishType: Array<string> = ['Fully Furnished','Semi Furnished','Un-Furnished'];
+  yesNoType : Array<string> =['Yes','No'];
+  mainEntranceArray : Array<string> = ['East', 'West', 'North', 'South'];
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {

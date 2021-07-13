@@ -5,18 +5,69 @@
       <form (ngSubmit)="onSubmit()" #Form="ngForm">
         <tabset #AddPropertyTabSet>
           <tab heading="Basic Info" id="tab1">
-
-            <div class="form-group col-12">              
-              <input type="radio" name="SellRent" id="Sell">
-              <label class="m-2">Sell</label>
-
-              <input type="radio" name="SellRent" id="Rent">
-              <label class="ms-2">Rent</label>
-
+            <p>I Want to</p>
+            <div class="btn-group" btnRadioGroup>
+              <label
+                for=""
+                class="btn btn-outline-primary m-1"
+                name="SellRent"
+                btnRadio=1
+                role="button"
+                >Sell</label
+              ><label
+                for=""
+                class="btn btn-outline-primary m-1 "
+                name="SellRent"
+                btnRadio=2
+                role="button"
+                >Rent</label
+              >
             </div>
 
             <div class="form-group col-12">
-              <label for="Name">Name</label>
+              <p>BHK</p>
+              <div class="btn-group" btnRadioGroup>
+                  <label *ngFor="let bhk of [1,2,3,4]"
+                          class="btn btn-outline-primary m-1"
+                          name="bhkData"                          
+                          tabindex="0"
+                          btnRadio={{bhk}}
+                          role="button">
+                        {{bhk}}
+                  </label>
+                </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Property Type</p>
+              <div class="btn-group" btnRadioGroup>
+                  <label *ngFor="let pType of propertyType"
+                          class="btn btn-outline-primary m-1"
+                          name="PropertyType"                          
+                          tabindex="0"
+                          btnRadio={{pType}}
+                          role="button">
+                        {{pType}}
+                  </label>
+                </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Furnishing Type</p>
+              <div class="btn-group" btnRadioGroup>
+                  <label *ngFor="let fType of furnishType"
+                          class="btn btn-outline-primary m-1"
+                          name="FurnishType"                          
+                          tabindex="0"
+                          btnRadio={{fType}}
+                          role="button">
+                        {{fType}}
+                  </label>
+                </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label for="Name">in Building\Society\Project</label>
               <input
                 type="text"
                 class="form-control"
@@ -40,13 +91,8 @@
             </div>
 
             <div class="form-group col-12">
-              <label for="Type">Type</label>
-              <input type="text" class="form-control" ngModel name="Type" />
-            </div>
-
-            <div class="form-group col-12">
-              <label for="Price">Price</label>
-              <input type="text" class="form-control" ngModel name="Price" />
+              <label for="City">City</label>
+              <input type="text" class="form-control" />
             </div>
 
             <div class="form-group col-12">
@@ -154,35 +200,74 @@
             </div>
           </tab>
           <tab heading="Other Details">
-
             <div class="form-group col-12">
-              <label for="RTM">Ready To Move</label> <hr/>
-              <input type="radio" name="RTM" id="Yes">
-              <label class="m-2">Yes</label>
-
-              <input type="radio" name="RTM" id="No">
-              <label class="ms-2">No</label>
-
+              <p>Ready To Move</p>
+              <div class="btn-group" btnRadioGroup>
+                  <label *ngFor="let ysType of yesNoType"
+                          class="btn btn-outline-primary m-1"
+                          name="RTM"                          
+                          tabindex="0"
+                          btnRadio={{ysType}}
+                          role="button">
+                        {{ysType}}
+                  </label>
+                </div>
             </div>
+
             <div class="form-group col-12">
               <label for="AvaialableDate">Possession/Avaialable From</label
-              ><input type="date" name="AvaialableDate" id="" class="form-control" />
+              ><input
+                type="date"
+                name="AvaialableDate"
+                id=""
+                class="form-control"
+              />
             </div>
             <div class="form-group col-12">
               <label for="PropertyAge">Age Of Property</label
-              ><input type="text" name="PropertyAge" id="" class="form-control" />
+              ><input
+                type="text"
+                name="PropertyAge"
+                id=""
+                class="form-control"
+              />
             </div>
             <div class="form-group col-12">
-              <label for="GatedCommunity">Gated Community</label
-              ><input type="text" name="GatedCommunity" id="" class="form-control" />
+              <p>Gated Community</p>
+                <div class="btn-group" btnRadioGroup>
+                    <label *ngFor="let ysType of yesNoType"
+                            class="btn btn-outline-primary m-1"
+                            name="GatedCommunity"                          
+                            tabindex="0"
+                            btnRadio={{ysType}}
+                            role="button">
+                          {{ysType}}
+                    </label>
+                  </div>
             </div>
+
             <div class="form-group col-12">
-              <label for="MainEntrances">Main Entrances</label
-              ><input type="text" name="MainEntrances" id="" class="form-control" />
+              <p>Main Entrances</p>
+                <div class="btn-group" btnRadioGroup>
+                    <label *ngFor="let meType of mainEntranceArray"
+                            class="btn btn-outline-primary m-1"
+                            name="MainEntrances"                          
+                            tabindex="0"
+                            btnRadio={{meType}}
+                            role="button">
+                          {{meType}}
+                    </label>
+                  </div>
             </div>
+            
             <div class="form-group col-12">
               <label for="Description">Description</label>
-              <textarea type="text" class="form-control" rows="6" name="Description"></textarea>
+              <textarea
+                type="text"
+                class="form-control"
+                rows="6"
+                name="Description"
+              ></textarea>
             </div>
 
             <div class="form-group col-12">
@@ -203,13 +288,12 @@
             </div>
           </tab>
           <tab heading="Photos">
-
-             <div class="form-group col-12">
-               <div class="photo-control">
-                 <button class="mt-5" type="button">Upload</button> <br/>
-                 This is under contruction
-                </div>
-             </div> 
+            <div class="form-group col-12">
+              <div class="photo-control">
+                <button class="mt-5" type="button">Upload</button> <br />
+                This is under contruction
+              </div>
+            </div>
 
             <div class="form-group col-12">
               <button
