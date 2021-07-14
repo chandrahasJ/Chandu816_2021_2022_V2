@@ -7,6 +7,7 @@ bin-release/
 #VS Folders
 .vs/
 /.vs
+.vs
 
 # Other files and folders
 .settings/
@@ -21,6 +22,10 @@ bin-release/
 *.suo
 db.lock
 storage.ide
+.dtbcache.v2
+
+ces
+cj_data.txt
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
