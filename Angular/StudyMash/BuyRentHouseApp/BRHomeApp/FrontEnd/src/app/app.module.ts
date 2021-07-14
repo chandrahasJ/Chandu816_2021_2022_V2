@@ -22,6 +22,7 @@ import { AuthService } from './services/auth.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 const appRoutes : Routes = [
@@ -49,7 +50,8 @@ const appRoutes : Routes = [
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     HousingService,
