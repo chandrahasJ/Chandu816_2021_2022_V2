@@ -22,21 +22,6 @@ namespace SimpleTraderApp.WPF
             Window window = new MainWindow();
             SecretManagerClass.Build();
 
-            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.DowJones).ContinueWith((task) =>
-            {
-                var index = task.Result;
-            });
-
-            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.Nasdaq).ContinueWith((task) =>
-            {
-                var index = task.Result;
-            });
-
-            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.SP500).ContinueWith((task) =>
-            {
-                var index = task.Result;
-            });
-
             window.DataContext = new MainViewModel();
             window.Show();
 

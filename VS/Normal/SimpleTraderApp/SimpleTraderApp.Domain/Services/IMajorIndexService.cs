@@ -9,5 +9,6 @@ namespace SimpleTraderApp.Domain.Services
     public interface IMajorIndexService
     {
         Task<MajorIndex> GetMajorIndex(MajorIndexType majorIndexType);
+        void SetApiKey(string _APIKey);
     }
 }

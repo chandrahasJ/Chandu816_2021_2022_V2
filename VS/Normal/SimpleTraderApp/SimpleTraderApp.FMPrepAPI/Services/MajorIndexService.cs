@@ -11,12 +11,22 @@ namespace SimpleTraderApp.FMPrepAPI.Services
 {
     public class MajorIndexService : IMajorIndexService
     {
-        private readonly string aPIKey;
+        public string aPIKey { get; private set; }
+        public MajorIndexService()
+        {
+
+        }
 
         public MajorIndexService(string _APIKey)
         {
             aPIKey = _APIKey;
         }
+
+        public void SetApiKey(string _APIKey)
+        {
+            aPIKey = _APIKey;
+        }
+
 
         public async Task<MajorIndex> GetMajorIndex(MajorIndexType majorIndexType)
         {

@@ -1,4 +1,5 @@
-﻿using SimpleTraderApp.WPF.State.Navigators;
+﻿using SimpleTraderApp.FMPrepAPI.Services;
+using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace SimpleTraderApp.WPF.Commands
                 switch (viewType)
                 {
                     case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel();
+                        _navigator.CurrentViewModel = new HomeViewModel(MajorIndexViewModel.LoadMajorIndexViewModel(new MajorIndexService()));
                         break;
                     case ViewType.Portfolio:
                         _navigator.CurrentViewModel = new PortfolioViewModel();
