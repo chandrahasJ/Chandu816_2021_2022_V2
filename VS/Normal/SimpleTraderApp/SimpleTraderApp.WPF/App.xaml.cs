@@ -1,4 +1,7 @@
-﻿using SimpleTraderApp.WPF.ViewModels;
+﻿using SimpleTraderApp.Domain.Models;
+using SimpleTraderApp.FMPrepAPI.Services;
+using SimpleTraderApp.WPF.Configurations;
+using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +20,23 @@ namespace SimpleTraderApp.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             Window window = new MainWindow();
+            SecretManagerClass.Build();
+
+            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.DowJones).ContinueWith((task) =>
+            {
+                var index = task.Result;
+            });
+
+            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.Nasdaq).ContinueWith((task) =>
+            {
+                var index = task.Result;
+            });
+
+            new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey).GetMajorIndex(MajorIndexType.SP500).ContinueWith((task) =>
+            {
+                var index = task.Result;
+            });
+
             window.DataContext = new MainViewModel();
             window.Show();
 

@@ -15,7 +15,8 @@ namespace SimpleTraderApp.Domain.Models
     {
         public double Price { get; set; }
         public double Changes { get; set; }
-        public double Ticker { get; set; }
+        public string Ticker { get; set; }
+        public string IndexName { get; set; }
         public MajorIndexType Type { get; set; }
     }
 }
