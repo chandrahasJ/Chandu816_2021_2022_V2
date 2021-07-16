@@ -1,13 +1,13 @@
 <div class="row mb-5">
-  <div class="col-8">
+  <div class="col-8 shadow-lg p-0 bg-white">
     <div class="card">
       <div class="card-header">
         <h3>List your property</h3>
       </div>
       <div class="card-body">
-        <div>
+        <div class="tab-panel">
           <form (ngSubmit)="onSubmit()" #Form="ngForm">
-            <tabset #AddPropertyTabSet>
+            <tabset  class="member-tabset" #AddPropertyTabSet>
               <tab heading="Basic Info" id="tab1">
                 <p>I Want to</p>
                 <div class="btn-group" btnRadioGroup>
@@ -365,7 +365,7 @@
       <div class="card-header">
         <h3>Your Property Preview</h3>
       </div>
-      <div class="card-body">
+      <div class="card-body shadow-lg p-3 bg-white">
         <app-property-card [Property]="propertyView"></app-property-card>
       </div>
     </div>    
