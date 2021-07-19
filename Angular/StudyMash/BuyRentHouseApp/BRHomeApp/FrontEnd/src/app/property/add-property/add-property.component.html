@@ -30,7 +30,8 @@
 
                 <div class="form-group col-12">
                   <p>BHK</p>
-                  <div class="btn-group" btnRadioGroup>
+                  <div class="btn-group" btnRadioGroup
+                       [(ngModel)]="propertyView.BHK" name="BHK">
                     <label
                       *ngFor="let bhk of [1, 2, 3, 4]"
                       class="btn btn-outline-primary m-1"
@@ -47,12 +48,12 @@
                 <div class="form-group col-12">
                   <p>Property Type</p>
                   <div class="btn-group" btnRadioGroup
-                       name="propertyType"
-                       [(ngModel)]="propertyView.Type">
+                       name="PType"
+                       [(ngModel)]="propertyView.PType">
                     <label
                       *ngFor="let pType of propertyType"
                       class="btn btn-outline-primary m-1"
-                      name="PropertyType"
+                      name="propertyType"
                       tabindex="0"
                       btnRadio="{{ pType }}"
                       role="button"
@@ -64,7 +65,8 @@
 
                 <div class="form-group col-12">
                   <p>Furnishing Type</p>
-                  <div class="btn-group" btnRadioGroup>
+                  <div class="btn-group" btnRadioGroup
+                    [(ngModel)]="propertyView.FType" name="FType">
                     <label
                       *ngFor="let fType of furnishType"
                       class="btn btn-outline-primary m-1"
@@ -73,6 +75,7 @@
                       btnRadio="{{ fType }}"
                       role="button"
                     >
+
                       {{ fType }}
                     </label>
                   </div>
@@ -105,7 +108,8 @@
 
                 <div class="form-group col-12">
                   <label for="City">City</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" 
+                    [(ngModel)]="propertyView.City" name="City"/>
                 </div>
 
                 <div class="form-group col-12">
@@ -146,7 +150,7 @@
                   ><input
                     type="text"
                     name="BuiltArea"
-                    id=""
+                    [(ngModel)]="propertyView.BuiltArea"
                     class="form-control"
                   />
                 </div>
@@ -366,7 +370,7 @@
         <h3>Your Property Preview</h3>
       </div>
       <div class="card-body shadow-lg p-3 bg-white">
-        <app-property-card [Property]="propertyView"></app-property-card>
+        <app-property-card [property]="propertyView" [hideIcon]="true"></app-property-card>
       </div>
     </div>    
   </div>
