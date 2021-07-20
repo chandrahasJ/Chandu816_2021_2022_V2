@@ -41,6 +41,11 @@ export class AddPropertyComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.addPropertyForm?.value.BasicInfoTab)
+    console.log(this.addPropertyForm?.value.PriceAndAreaTab)
+    console.log(this.addPropertyForm?.value.AddressTab)
+    console.log(this.addPropertyForm?.value.OtherDetailsTab)
+    console.log(this.addPropertyForm?.value.PhotosTab)
     console.log(this.addPropertyForm)
   }
 

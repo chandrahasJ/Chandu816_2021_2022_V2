@@ -8,9 +8,9 @@
         <div class="tab-panel">
           <form (ngSubmit)="onSubmit()" #Form="ngForm">
             <tabset  class="member-tabset" #AddPropertyTabSet>
-              <tab heading="Basic Info" id="tab1">
+              <tab heading="Basic Info" id="tab1" ngModelGroup="BasicInfoTab" #BasicInfoTab="ngModelGroup">
                 <p>I Want to</p>
-                <div class="btn-group" btnRadioGroup>
+                <div class="btn-group" btnRadioGroup ngModel name="SellRent" required>
                   <label
                     for=""
                     class="btn btn-outline-primary m-1"
@@ -117,12 +117,14 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(1)"
+                    [disabled] = "!BasicInfoTab.valid"
                   >
                     Next
                   </button>
                 </div>
               </tab>
-              <tab heading="Pricing and Area">
+              
+              <tab heading="Pricing and Area" ngModelGroup="PriceAndAreaTab" #PriceAndAreaTab="ngModelGroup">
                 <div class="form-group col-12">
                   <label for="Price">Price</label
                   ><input type="text" name="Price" [(ngModel)]="propertyView.Price" class="form-control" />
@@ -169,6 +171,7 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(2)"
+                    [disabled] = "!PriceAndAreaTab.valid"
                   >
                     Next
                   </button>
@@ -181,7 +184,8 @@
                   </button>
                 </div>
               </tab>
-              <tab heading="Address">
+              
+              <tab heading="Address" ngModelGroup="AddressTab" #AddressTab="ngModelGroup">
                 <div class="form-group col-12">
                   <label for="Floor">Floor</label
                   ><input type="text" name="Floor" id="" class="form-control" />
@@ -219,6 +223,7 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(3)"
+                    [disabled] = "!AddressTab.valid"
                   >
                     Next
                   </button>
@@ -231,7 +236,8 @@
                   </button>
                 </div>
               </tab>
-              <tab heading="Other Details">
+              
+              <tab heading="Other Details" ngModelGroup="OtherDetailsTab" #OtherDetailsTab="ngModelGroup">
                 <div class="form-group col-12">
                   <p>Ready To Move</p>
                   <div class="btn-group" btnRadioGroup>
@@ -318,6 +324,7 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(4)"
+                    [disabled] = "!OtherDetailsTab.valid"
                   >
                     Next
                   </button>
@@ -330,7 +337,8 @@
                   </button>
                 </div>
               </tab>
-              <tab heading="Photos">
+
+              <tab heading="Photos" ngModelGroup="PhotosTab" #PhotosTab="ngModelGroup">
                 <div class="form-group col-12">
                   <div class="photo-control">
                     <button class="mt-5" type="button">Upload</button> <br />
@@ -358,6 +366,7 @@
                   </button>
                 </div>
               </tab>
+
             </tabset>
           </form>
         </div>
