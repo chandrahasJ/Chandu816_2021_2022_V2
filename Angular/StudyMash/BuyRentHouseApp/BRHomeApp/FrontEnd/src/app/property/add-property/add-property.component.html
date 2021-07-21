@@ -6,11 +6,11 @@
       </div>
       <div class="card-body">
         <div class="tab-panel">
-          <form (ngSubmit)="onSubmit()" #Form="ngForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="addPropertyForm">
             <tabset  class="member-tabset" #AddPropertyTabSet>
-              <tab heading="Basic Info" id="tab1" ngModelGroup="BasicInfoTab" #BasicInfoTab="ngModelGroup">
+              <tab heading="Basic Info" id="tab1">
                 <p>I Want to</p>
-                <div class="btn-group" btnRadioGroup ngModel name="SellRent" required>
+                <div class="btn-group" btnRadioGroup  formControlName="SellRent" required>
                   <label
                     for=""
                     class="btn btn-outline-primary m-1"
@@ -31,7 +31,8 @@
                 <div class="form-group col-12">
                   <p>BHK</p>
                   <div class="btn-group" btnRadioGroup
-                       [(ngModel)]="propertyView.BHK" name="BHK">
+                       [(ngModel)]="propertyView.BHK" name="BHK"
+                       [ngModelOptions]="{standalone: true}">
                     <label
                       *ngFor="let bhk of [1, 2, 3, 4]"
                       class="btn btn-outline-primary m-1"
@@ -48,7 +49,7 @@
                 <div class="form-group col-12">
                   <p>Property Type</p>
                   <div class="btn-group" btnRadioGroup
-                       name="PType"
+                       formControlName="PType"
                        [(ngModel)]="propertyView.PType">
                     <label
                       *ngFor="let pType of propertyType"
@@ -66,6 +67,7 @@
                 <div class="form-group col-12">
                   <p>Furnishing Type</p>
                   <div class="btn-group" btnRadioGroup
+                    [ngModelOptions]="{standalone: true}"
                     [(ngModel)]="propertyView.FType" name="FType">
                     <label
                       *ngFor="let fType of furnishType"
@@ -86,14 +88,12 @@
                   <input
                     type="text"
                     class="form-control"
-                    ngModel
-                    name="Name"
-                    #propName="ngModel"
+                    formControlName="Name"
                     required
                     minlength="5"
                     [(ngModel)]="propertyView.Name"
                   />
-                  <span
+                  <!-- <span
                     *ngIf="!propName.valid && propName.touched"
                     class="error-block"
                   >
@@ -103,12 +103,13 @@
                     <span *ngIf="propName.errors?.minlength"
                       >Name must be atleast 5 characters long</span
                     >
-                  </span>
+                  </span> -->
                 </div>
 
                 <div class="form-group col-12">
                   <label for="City">City</label>
                   <input type="text" class="form-control" 
+                    [ngModelOptions]="{standalone: true}"
                     [(ngModel)]="propertyView.City" name="City"/>
                 </div>
 
@@ -117,17 +118,18 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(1)"
-                    [disabled] = "!BasicInfoTab.valid"
                   >
                     Next
                   </button>
                 </div>
               </tab>
               
-              <tab heading="Pricing and Area" ngModelGroup="PriceAndAreaTab" #PriceAndAreaTab="ngModelGroup">
+              <tab heading="Pricing and Area"  >
                 <div class="form-group col-12">
                   <label for="Price">Price</label
-                  ><input type="text" name="Price" [(ngModel)]="propertyView.Price" class="form-control" />
+                  ><input type="text" formControlName="Price" 
+                    [(ngModel)]="propertyView.Price" 
+                    class="form-control" />
                 </div>
                 <div class="form-group col-12">
                   <label for="Security">Security Deposit</label
@@ -151,7 +153,7 @@
                   <label for="BuiltArea">Built Area in Sq. Feet</label
                   ><input
                     type="text"
-                    name="BuiltArea"
+                    formControlName="BuiltArea"
                     [(ngModel)]="propertyView.BuiltArea"
                     class="form-control"
                   />
@@ -171,7 +173,6 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(2)"
-                    [disabled] = "!PriceAndAreaTab.valid"
                   >
                     Next
                   </button>
@@ -185,7 +186,7 @@
                 </div>
               </tab>
               
-              <tab heading="Address" ngModelGroup="AddressTab" #AddressTab="ngModelGroup">
+              <tab heading="Address"  >
                 <div class="form-group col-12">
                   <label for="Floor">Floor</label
                   ><input type="text" name="Floor" id="" class="form-control" />
@@ -222,8 +223,7 @@
                   <button
                     type="button"
                     class="btn btn-primary m-2 float-end"
-                    (click)="selectTab(3)"
-                    [disabled] = "!AddressTab.valid"
+                    (click)="selectTab(3)"                    
                   >
                     Next
                   </button>
@@ -237,7 +237,7 @@
                 </div>
               </tab>
               
-              <tab heading="Other Details" ngModelGroup="OtherDetailsTab" #OtherDetailsTab="ngModelGroup">
+              <tab heading="Other Details"  >
                 <div class="form-group col-12">
                   <p>Ready To Move</p>
                   <div class="btn-group" btnRadioGroup>
@@ -324,7 +324,6 @@
                     type="button"
                     class="btn btn-primary m-2 float-end"
                     (click)="selectTab(4)"
-                    [disabled] = "!OtherDetailsTab.valid"
                   >
                     Next
                   </button>
@@ -338,7 +337,7 @@
                 </div>
               </tab>
 
-              <tab heading="Photos" ngModelGroup="PhotosTab" #PhotosTab="ngModelGroup">
+              <tab heading="Photos"  >
                 <div class="form-group col-12">
                   <div class="photo-control">
                     <button class="mt-5" type="button">Upload</button> <br />
@@ -355,7 +354,6 @@
                     Back
                   </button>
                   <button
-                    [disabled]="!Form.valid"
                     type="submit"
                     class="btn btn-primary ms-5 float-end"
                   >

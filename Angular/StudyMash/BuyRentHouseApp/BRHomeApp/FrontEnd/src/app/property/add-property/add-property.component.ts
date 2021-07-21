@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
@@ -11,8 +11,10 @@ import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
 })
 export class AddPropertyComponent implements OnInit {
   @ViewChild('AddPropertyTabSet', { static: false }) AddPropertyTabSet!: TabsetComponent;
-  @ViewChild('Form') addPropertyForm : NgForm | undefined;
+  //  @ViewChild('Form') addPropertyForm : NgForm | undefined;
   
+  addPropertyForm! : FormGroup;
+
   propertyType: Array<string> = ['House','Apartment','Duplex'];
   furnishType: Array<string> = ['Fully Furnished','Semi Furnished','Un-Furnished'];
   yesNoType : Array<string> =['Yes','No'];
@@ -31,9 +33,20 @@ export class AddPropertyComponent implements OnInit {
     RTM : 0
   };
 
-  constructor(private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+    this.createAddPropertyForm();
+  }
+
+  createAddPropertyForm(){
+    this.addPropertyForm = this.formBuilder.group({
+        SellRent : [null, Validators.required],
+        PType : [null, Validators.required],
+        Name : [null, Validators.required],
+        Price : [null, Validators.required],
+        BuiltArea : [null, Validators.required]
+    });
   }
 
   onBack(){
@@ -41,11 +54,7 @@ export class AddPropertyComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.addPropertyForm?.value.BasicInfoTab)
-    console.log(this.addPropertyForm?.value.PriceAndAreaTab)
-    console.log(this.addPropertyForm?.value.AddressTab)
-    console.log(this.addPropertyForm?.value.OtherDetailsTab)
-    console.log(this.addPropertyForm?.value.PhotosTab)
+ 
     console.log(this.addPropertyForm)
   }
 
