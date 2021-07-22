@@ -108,7 +108,7 @@
                     [(ngModel)]="propertyView.Name"
                   />
                   <span
-                    *ngIf="!Name.valid && Name.touched"
+                    *ngIf="Name.invalid && (Name.touched || nextButtonClicked)"
                     class="error-block"
                   >
                  <span *ngIf="Name.errors?.required"
@@ -125,7 +125,7 @@
                   <input type="text" class="form-control"
                     formControlName="City"
                     [(ngModel)]="propertyView.City" name="City"/>
-                    <div class="error-block" *ngIf="City.invalid && City.touched">
+                    <div class="error-block" *ngIf="City.invalid && (City.touched || nextButtonClicked)">
                       Please provide city name
                     </div>
                 </div>
