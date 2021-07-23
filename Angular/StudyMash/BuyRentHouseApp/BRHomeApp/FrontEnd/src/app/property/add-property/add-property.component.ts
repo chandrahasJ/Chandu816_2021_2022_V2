@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import {  Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
+import { Property } from 'src/app/models/Property';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { HousingService } from 'src/app/services/housing.service';
 
 @Component({
   selector: 'app-add-property',
@@ -12,6 +15,8 @@ import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
 export class AddPropertyComponent implements OnInit {
   @ViewChild('AddPropertyTabSet', { static: false }) AddPropertyTabSet!: TabsetComponent;
   //  @ViewChild('Form') addPropertyForm : NgForm | undefined;
+
+  property = new Property();
 
   addPropertyForm! : FormGroup;
 
@@ -36,7 +41,10 @@ export class AddPropertyComponent implements OnInit {
     RTM : 0
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+             private router: Router,
+             private alertifyService : AlertifyService,
+             private houseService: HousingService ) { }
 
   ngOnInit(): void {
     this.createAddPropertyForm();
@@ -83,20 +91,56 @@ export class AddPropertyComponent implements OnInit {
   onSubmit(){
     this.nextButtonClicked = true;
     if( this.allTabsValid()){
+      this.mapProperty();
+      this.houseService.addProperty(this.property);
       console.log(this.addPropertyForm);
-      console.log("Congrats, your property has been listed successfully");
+
+      if(this.SellRent.value === '2'){
+        this.router.navigate(['/rent-property']);
+      }
+      else{
+        this.router.navigate(['/']);
+      }
+      this.alertifyService.success("Congrats, your property has been listed successfully");
       this.nextButtonClicked = false;
     }
     else{
-      console.log("Please review the form and provide all the required data.");
+      this.alertifyService.error("Please review the form and provide all the required data.");
     }
 
+  }
+
+  mapProperty() : void{
+    this.property.Name = this.Name.value;
+    this.property.Price = this.Price.value;
+    this.property.SellRent = +this.SellRent.value;
+    this.property.PType = this.PType.value;
+    this.property.FType = this.FType.value;
+    this.property.BuiltArea = this.BuiltArea.value;
+    this.property.BHK = this.BHK.value;
+    this.property.City = this.City.value;
+    this.property.RTM = this.RTM.value;
+    this.property.Address = this.Address.value;
+    this.property.CarpetArea = this.CarpetArea?.value;
+    this.property.Address2 = this.Landmark?.value;
+    this.property.FloorNo = this.FloorNo?.value;
+    this.property.TotalFloor = this.TotalFloor?.value;
+    this.property.AOP = this.AOP?.value;
+    this.property.Possession = this.Possession?.value;
+    this.property.MainEntrance = this.MainEntrance?.value;
+    this.property.Security = this.Security?.value;
+    this.property.Gated = this.Gated?.value;
+    this.property.Maintenance = this.Maintenance?.value;
+    this.property.Description = this.Description?.value;
+    this.property.PostedOn = new Date().toString();
+    this.property.PostedBy = "CJ";
   }
 
   selectTab(tabId: number, isCurrentTabValid : boolean) {
     this.nextButtonClicked = true;
     if(isCurrentTabValid){
       this.AddPropertyTabSet.tabs[tabId].active = true;
+      this.nextButtonClicked = false;
     }
   }
 
@@ -123,62 +167,113 @@ export class AddPropertyComponent implements OnInit {
     return true;
   }
 
-  // //Getter Method
-  get BasicInfoTab(){
-    return this.addPropertyForm.controls.BasicInfoTab as FormGroup
-  }
+  //#region Getter Method
+    //#region BasicInfoTab
+    get BasicInfoTab(){
+      return this.addPropertyForm.controls.BasicInfoTab as FormGroup
+    }
 
-  get SellRent(){
-    return this.BasicInfoTab.controls.SellRent as FormControl;
-  }
+    get SellRent(){
+      return this.BasicInfoTab.controls.SellRent as FormControl;
+    }
 
-  get Name(){
-    return this.BasicInfoTab.controls.Name as FormControl;
-  }
+    get Name(){
+      return this.BasicInfoTab.controls.Name as FormControl;
+    }
 
-  get PType(){
-    return this.BasicInfoTab.controls.PType as FormControl;
-  }
+    get PType(){
+      return this.BasicInfoTab.controls.PType as FormControl;
+    }
 
-  get FType(){
-    return this.BasicInfoTab.controls.FType as FormControl;
-  }
+    get FType(){
+      return this.BasicInfoTab.controls.FType as FormControl;
+    }
 
-  get City(){
-    return this.BasicInfoTab.controls.City as FormControl;
-  }
+    get City(){
+      return this.BasicInfoTab.controls.City as FormControl;
+    }
 
-  get BHK(){
-    return this.BasicInfoTab.controls.BHK as FormControl;
-  }
+    get BHK(){
+      return this.BasicInfoTab.controls.BHK as FormControl;
+    }
+    //#endregion BasicInfoTab
 
-  get PriceInfoTab(){
-    return this.addPropertyForm.controls.PriceInfoTab as FormGroup
-  }
+    //#region PriceInfoTab
+    get PriceInfoTab(){
+      return this.addPropertyForm.controls.PriceInfoTab as FormGroup
+    }
 
-  get Price(){
-    return this.PriceInfoTab.controls.Price as FormControl;
-  }
+    get Price(){
+      return this.PriceInfoTab.controls.Price as FormControl;
+    }
 
-  get BuiltArea(){
-    return this.PriceInfoTab.controls.BuiltArea as FormControl;
-  }
+    get BuiltArea(){
+      return this.PriceInfoTab.controls.BuiltArea as FormControl;
+    }
 
-  get AddressInfoTab(){
-    return this.addPropertyForm.controls.AddressInfoTab as FormGroup
-  }
+    get Maintenance(){
+      return this.PriceInfoTab.controls.Maintenance as FormControl;
+    }
 
-  get Address(){
-    return this.AddressInfoTab.controls.Address as FormControl;
-  }
+    get Security(){
+      return this.PriceInfoTab.controls.Security as FormControl;
+    }
 
-  get OtherInfoTab(){
-    return this.addPropertyForm.controls.OtherInfoTab as FormGroup
-  }
+    get CarpetArea(){
+      return this.PriceInfoTab.controls.CarpetArea as FormControl;
+    }
+    //#endregion PriceInfoTab
 
-  get RTM(){
-    return this.OtherInfoTab.controls.RTM as FormControl;
-  }
+    //#region  AddressInfoTab
+    get AddressInfoTab(){
+      return this.addPropertyForm.controls.AddressInfoTab as FormGroup
+    }
 
-  //Getter Method
+    get Address(){
+      return this.AddressInfoTab.controls.Address as FormControl;
+    }
+
+    get Landmark(){
+      return this.AddressInfoTab.controls.Landmark as FormControl;
+    }
+
+    get FloorNo(){
+      return this.AddressInfoTab.controls.FloorNo as FormControl;
+    }
+
+    get TotalFloor(){
+      return this.AddressInfoTab.controls.TotalFloor as FormControl;
+    }
+    //#endregion AddressInfoTab
+
+    //#region OtherInfoTab
+    get OtherInfoTab(){
+      return this.addPropertyForm.controls.OtherInfoTab as FormGroup
+    }
+
+    get RTM(){
+      return this.OtherInfoTab.controls.RTM as FormControl;
+    }
+
+    get Gated(){
+      return this.OtherInfoTab.controls.Gated as FormControl;
+    }
+
+    get Description(){
+      return this.OtherInfoTab.controls.Description as FormControl;
+    }
+
+    get AOP(){
+      return this.OtherInfoTab.controls.AOP as FormControl;
+    }
+
+    get Possession(){
+      return this.OtherInfoTab.controls.Possession as FormControl;
+    }
+
+    get MainEntrance(){
+      return this.OtherInfoTab.controls.MainEntrance as FormControl;
+    }
+    //#endregion OtherInfoTab
+  //#endregion Getter Method
 }

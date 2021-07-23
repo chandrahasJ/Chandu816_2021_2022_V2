@@ -160,16 +160,16 @@
                   ><input
                     type="text"
                     name="SecurityDeposit"
-                    id=""
+                    formControlName="Security"
                     class="form-control"
                   />
                 </div>
                 <div class="form-group col-12" *ngIf="SellRent.value == 2">
-                  <label for="Maintenances">Maintenances</label
+                  <label for="Maintenance">Maintenances</label
                   ><input
                     type="text"
-                    name="Maintenances"
-                    id=""
+                    name="Maintenance"
+                    formControlName="Maintenance"
                     class="form-control"
                   />
                 </div>
@@ -190,7 +190,7 @@
                   ><input
                     type="text"
                     name="CarpetArea"
-                    id=""
+                    formControlName="CarpetArea"
                     class="form-control"
                   />
                 </div>
@@ -216,14 +216,14 @@
               <tab heading="Address" formGroupName="AddressInfoTab" >
                 <div class="form-group col-12">
                   <label for="Floor">Floor</label
-                  ><input type="text" name="Floor" id="" class="form-control" />
+                  ><input type="text" name="Floor" formControlName="FloorNo" class="form-control" />
                 </div>
                 <div class="form-group col-12">
                   <label for="TotalFloor">Total Floor</label
                   ><input
                     type="text"
                     name="TotalFloor"
-                    id=""
+                    formControlName="TotalFloor"
                     class="form-control"
                   />
                 </div>
@@ -239,11 +239,11 @@
                   </div>
                 </div>
                 <div class="form-group col-12">
-                  <label for="LandMark">LandMark</label
+                  <label for="Landmark">LandMark</label
                   ><input
                     type="text"
-                    name="LandMark"
-                    id=""
+                    name="Landmark"
+                    formControlName="Landmark"
                     class="form-control"
                   />
                 </div>
@@ -292,6 +292,7 @@
                     type="text"
                     name="AvaialableDate"
                     placeholder="Datepicker"
+                    formControlName="Possession"
                     class="form-control"
                     bsDatepicker
                     [bsConfig]="{
@@ -305,13 +306,13 @@
                   ><input
                     type="text"
                     name="PropertyAge"
-                    id=""
+                    formControlName="AOP"
                     class="form-control"
                   />
                 </div>
                 <div class="form-group col-12">
                   <p>Gated Community</p>
-                  <div class="btn-group" btnRadioGroup>
+                  <div class="btn-group" btnRadioGroup formControlName="Gated">
                     <label
                       *ngFor="let ysType of yesNoType"
                       class="btn btn-outline-primary m-1"
@@ -327,7 +328,7 @@
 
                 <div class="form-group col-12">
                   <p>Main Entrances</p>
-                  <div class="btn-group" btnRadioGroup>
+                  <div class="btn-group" btnRadioGroup formControlName="MainEntrance">
                     <label
                       *ngFor="let meType of mainEntranceArray"
                       class="btn btn-outline-primary m-1"
@@ -345,6 +346,7 @@
                   <label for="Description">Description</label>
                   <textarea
                     type="text"
+                    formControlName="Description"
                     class="form-control"
                     rows="6"
                     name="Description"
