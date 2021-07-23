@@ -48,7 +48,6 @@ namespace SimpleTraderApp.FMPrepAPI.Services
             {
                 case MajorIndexType.DowJones:
                     return ".DJI";
-                    break;
                 case MajorIndexType.Nasdaq:
                     return ".IXIC";
                 case MajorIndexType.SP500:
