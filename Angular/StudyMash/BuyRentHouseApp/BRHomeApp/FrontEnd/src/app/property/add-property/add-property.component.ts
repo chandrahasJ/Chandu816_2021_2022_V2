@@ -92,6 +92,7 @@ export class AddPropertyComponent implements OnInit {
     this.nextButtonClicked = true;
     if( this.allTabsValid()){
       this.mapProperty();
+      console.log(this.property);
       this.houseService.addProperty(this.property);
       console.log(this.addPropertyForm);
 
@@ -111,6 +112,7 @@ export class AddPropertyComponent implements OnInit {
   }
 
   mapProperty() : void{
+    this.property.Id = this.houseService.generateNewPropertyId();
     this.property.Name = this.Name.value;
     this.property.Price = this.Price.value;
     this.property.SellRent = +this.SellRent.value;
