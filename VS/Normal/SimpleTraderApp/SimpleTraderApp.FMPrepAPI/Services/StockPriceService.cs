@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleTraderApp.Domain.Exceptions;
 using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services;
 using SimpleTraderApp.FMPrepAPI.Results;
@@ -29,13 +30,15 @@ namespace SimpleTraderApp.FMPrepAPI.Services
         }
         public async Task<double> GetPrice(string symbol)
         {
-            using (HttpClient client = new HttpClient())
+            using (FMPrepHttpClient client = new FMPrepHttpClient())
             {
-                string urlStockPrice = $"https://financialmodelingprep.com/api/v3/quote-short/{symbol}?{GetAPIQuery()}";
-                HttpResponseMessage responseMessage = await client.GetAsync(urlStockPrice);
-                string jsonReponse = await responseMessage.Content.ReadAsStringAsync();
+                string urlStockPrice = $"quote-short/{symbol}?{GetAPIQuery()}";
 
-                StockPriceResult stockPriceResult = JsonConvert.DeserializeObject<StockPriceResult>(jsonReponse);
+                StockPriceResult stockPriceResult = await client.GetTaskAsync<StockPriceResult>(urlStockPrice);
+                if (stockPriceResult.Price == 0)
+                {
+                    throw new InvalidSymbolException(symbol);
+                }
                 return stockPriceResult.Price;
             }
         }

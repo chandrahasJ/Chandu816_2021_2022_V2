@@ -14,11 +14,11 @@ namespace SimpleTraderApp.EFCore
 
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<AssetTrasaction> AssetTrasactions { get; set; }
+        public DbSet<AssetTransaction> AssetTrasactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AssetTrasaction>().OwnsOne(a => a.Stock);
+            modelBuilder.Entity<AssetTransaction>().OwnsOne(a => a.Asset);
             base.OnModelCreating(modelBuilder);
         }
     }
