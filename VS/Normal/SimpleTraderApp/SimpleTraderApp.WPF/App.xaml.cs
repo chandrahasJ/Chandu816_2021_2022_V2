@@ -1,4 +1,7 @@
 ﻿using SimpleTraderApp.Domain.Models;
+using SimpleTraderApp.Domain.Services;
+using SimpleTraderApp.Domain.Services.TransactionServices;
+using SimpleTraderApp.EFCore.Services;
 using SimpleTraderApp.FMPrepAPI.Services;
 using SimpleTraderApp.WPF.Configurations;
 using SimpleTraderApp.WPF.ViewModels;
@@ -21,6 +24,14 @@ namespace SimpleTraderApp.WPF
         {
             Window window = new MainWindow();
             SecretManagerClass.Build();
+
+            IStockPriceService stockPriceService = new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey);
+            IDataService<Account> accountServices = new GenericDataService<Account>(new EFCore.SimpleTraderAppDbContextFactory());
+            IBuyStockService buyStockService = new BuyStockService(stockPriceService, accountServices);
+
+
+            
+
 
             window.DataContext = new MainViewModel();
             window.Show();

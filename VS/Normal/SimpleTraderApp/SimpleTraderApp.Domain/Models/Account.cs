@@ -8,6 +8,6 @@ namespace SimpleTraderApp.Domain.Models
     {
         public User AccountHolder { get; set; }
         public double Balance { get; set; }
-        public IEnumerable<AssetTransaction> AssetTrasactions { get; set; }
+        public ICollection<AssetTransaction> AssetTrasactions { get; set; }
     }
 }

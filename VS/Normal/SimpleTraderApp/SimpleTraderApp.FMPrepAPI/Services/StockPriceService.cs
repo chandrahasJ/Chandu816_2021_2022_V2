@@ -28,6 +28,7 @@ namespace SimpleTraderApp.FMPrepAPI.Services
         {
             aPIKey = _APIKey;
         }
+
         public async Task<double> GetPrice(string symbol)
         {
             using (FMPrepHttpClient client = new FMPrepHttpClient())

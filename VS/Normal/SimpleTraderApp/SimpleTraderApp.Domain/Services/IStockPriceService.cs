@@ -8,5 +8,7 @@ namespace SimpleTraderApp.Domain.Services
     public interface  IStockPriceService
     {
         Task<double> GetPrice(string symbol);
+
+        void SetApiKey(string _APIKey);
     }
 }
