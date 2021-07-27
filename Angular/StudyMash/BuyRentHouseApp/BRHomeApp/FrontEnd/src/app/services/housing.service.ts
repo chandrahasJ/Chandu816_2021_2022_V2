@@ -13,30 +13,47 @@ export class HousingService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllPropertiesViaSellRent(SellRent : number) : Observable<IProperty[]> {
+
+  getAllProperties(SellRent? : number) : Observable<IProperty[]> {
     return this.httpClient.get<IProperty[]>('data/properties.json').pipe(
       map(data => {
         const propertiesArray: Array<IProperty> = [];
         const localStorageProperties = JSON.parse(localStorage.getItem('newProperty')!);
         if(localStorageProperties){
           for (let key in localStorageProperties) {
-            if (Object.prototype.hasOwnProperty.call(localStorageProperties, key)
-               && localStorageProperties[key].SellRent === SellRent ) {
+            if(SellRent){
+              if (Object.prototype.hasOwnProperty.call(localStorageProperties, key)
+                  && localStorageProperties[key].SellRent === SellRent ) {
 
-              const element = localStorageProperties[key];
-              propertiesArray.push(element);
+                const element = localStorageProperties[key];
+                propertiesArray.push(element);
+              }
+            }
+            else{
+              if (Object.prototype.hasOwnProperty.call(localStorageProperties, key)  ) {
+                const element = localStorageProperties[key];
+                propertiesArray.push(element);
+              }
             }
           }
         }
 
         for (const key in data) {
-          if (Object.prototype.hasOwnProperty.call(data, key)
-             && data[key].SellRent === SellRent ) {
-            //I was getting error stating that
-            //no index signature with a parameter of type 'string' was found on type 'object'.ts(7053) in map
-            //This error is resolved by providing get with get<IProperty[]>
-            const element = data[key];
-            propertiesArray.push(element);
+          if(SellRent){
+            if (Object.prototype.hasOwnProperty.call(data, key)
+              && data[key].SellRent === SellRent ) {
+              //I was getting error stating that
+              //no index signature with a parameter of type 'string' was found on type 'object'.ts(7053) in map
+              //This error is resolved by providing get with get<IProperty[]>
+              const element = data[key];
+              propertiesArray.push(element);
+            }
+          }
+          else{
+            if (Object.prototype.hasOwnProperty.call(data, key)  ) {
+              const element = data[key];
+              propertiesArray.push(element);
+            }
           }
         }
         return propertiesArray;
@@ -56,23 +73,6 @@ export class HousingService {
     localStorage.setItem('newProperty', JSON.stringify(newProperties));
   }
 
-  getAllProperties() :  Observable<IProperty[]>{
-    return this.httpClient.get<IProperty[]>('data/properties.json').pipe(
-      map(data => {
-        const propertiesArray: Array<IProperty> = [];
-        for (const key in data) {
-          if (Object.prototype.hasOwnProperty.call(data, key)) {
-            //I was getting error stating that
-            //no index signature with a parameter of type 'string' was found on type 'object'.ts(7053) in map
-            //This error is resolved by providing get with get<IProperty[]>
-            const element = data[key];
-            propertiesArray.push(element);
-          }
-        }
-        return propertiesArray;
-      })
-    );
-  }
 
   generateNewPropertyId(){
     let propertyId = 0;
@@ -86,6 +86,14 @@ export class HousingService {
       localStorage.setItem('PID', String(propertyId));
       return propertyId;
     }
+  }
+
+  getProperty(Id : number){
+    return this.getAllProperties().pipe(
+      map( propertiesArray  => {
+        return propertiesArray.find(p => p.Id === Id);
+      })
+    )
   }
 
 }

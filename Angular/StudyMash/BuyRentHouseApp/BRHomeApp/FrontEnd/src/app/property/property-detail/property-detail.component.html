@@ -1,7 +1,148 @@
 <p>property-detail works! selected property id - {{propertyId}}</p>
-<br>
-<br>
-<button class="btn btn-primary" (click)="onSelectNextPage()" >Next Page</button>
+
+<div class="row shadow">
+  <div class="col-sm-4 p-0">
+    <div class="card">
+      <div class="card-img-wrapper">
+        <img *ngIf="property.Image" class="card-img-top" src="assets/images/{{property.Image}}" />
+        <img *ngIf="!property.Image"class="card-img-top" src="assets/images/houseart_default.png" />
+      </div>
+      <div class="card-body">
+        <h1 class="card-title">{{property.Name}}</h1>
+        <div>
+            <strong>{{property.BHK}} BHK {{property.PType}} @{{property.Price}}</strong>
+        </div>
+        <div>
+          <strong>
+              in {{property.City}}
+          </strong>
+        </div>
+        <hr/>
+        <div>
+          <strong>Build Area :</strong>
+          {{property.BuiltArea}} sq. ft.
+        </div>
+        <div>
+            <strong>Carpet Area :</strong>
+            {{property.CarpetArea}} sqft.
+        </div>
+        <div>
+          <strong>
+            Furnishing Type:
+          </strong>
+          {{property.FType}}
+        </div>
+      </div>
+      <div class="footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary">Like</button>
+          <button class="btn btn-success">Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 p-0">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Overview">
+            <h1>Overview</h1>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="heading">
+                  <strong>Project Name</strong>
+                  <p>
+                    {{property.Name}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>Floor Number</strong>
+                  <p>
+                    {{property.FloorNo}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>
+                    Age of Property
+                  </strong>
+                  <p>
+                    {{property.AOP}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>
+                    Possession
+                  </strong>
+                  <p>
+                    {{property.Possession}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="heading">
+                  <strong>
+                      Main Entrance
+                  </strong>
+                  <p>
+                    {{property.MainEntrance}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>
+                    Gated Community
+                  </strong>
+                  <p>
+                    {{property.Gated}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>
+                    Security Deposit
+                  </strong>
+                  <p>
+                    {{property.Security}}
+                  </p>
+                </div>
+                <div class="heading">
+                  <strong>Maintenance</strong>
+                  <p>
+                    {{property.Maintenance}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="heading">
+                  <strong>
+                    About Property
+                  </strong>
+                  <p>
+                    {{property.Description}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </tab>
+          <tab heading="Address">
+            <h1>Address</h1>
+            <div class="heading">
+                <strong>{{property.Address}}</strong> <br/>
+                <strong>{{property.Address2}}</strong> <br/>
+                <strong>{{property.City}}</strong>
+            </div>
+          </tab>
+          <tab heading="Photos">
+            <h1>Photos</h1>
+          </tab>
+          <tab heading="Contact">
+            <h1>Contact</h1>
+            This should be restriced area only logged in users can view this information
+          </tab>
+        </tabset>
+      </div>
+  </div>
+</div>
+
+
+<!-- <button class="btn btn-primary" (click)="onSelectNextPage()" >Next Page</button>
 <button class="btn btn-primary" (click)="onSelectBackPage()" >Back Page</button>
 
 
@@ -11,6 +152,6 @@
 <button class="btn btn-primary"  routerLink="/property-detail/2">2</button>
 <button class="btn btn-primary"  routerLink="/property-detail/3">3</button>
 <button class="btn btn-primary"  routerLink="/property-detail/4">4</button>
-<button class="btn btn-primary"  [routerLink]="['/property-detail/','5']">5</button>
+<button class="btn btn-primary"  [routerLink]="['/property-detail/','5']">5</button> -->
 
 
