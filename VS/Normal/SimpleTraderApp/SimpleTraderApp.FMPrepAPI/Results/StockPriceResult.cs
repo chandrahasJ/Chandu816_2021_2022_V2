@@ -7,5 +7,6 @@ namespace SimpleTraderApp.FMPrepAPI.Results
     public class StockPriceResult
     {
         public double Price { get; set; }
+        public long Volume { get; set; }
     }
 }
