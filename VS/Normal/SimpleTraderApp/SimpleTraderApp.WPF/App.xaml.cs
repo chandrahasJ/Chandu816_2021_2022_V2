@@ -20,18 +20,28 @@ namespace SimpleTraderApp.WPF
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             Window window = new MainWindow();
             SecretManagerClass.Build();
 
-            IStockPriceService stockPriceService = new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey);
-            IDataService<Account> accountServices = new GenericDataService<Account>(new EFCore.SimpleTraderAppDbContextFactory());
-            IBuyStockService buyStockService = new BuyStockService(stockPriceService, accountServices);
+            //IStockPriceService stockPriceService = new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey);
+            //IDataService<Account> accountServices = new AccountDataService(new EFCore.SimpleTraderAppDbContextFactory());
+            //IBuyStockService buyStockService = new BuyStockService(stockPriceService, accountServices);
 
+            //Account buyer = await accountServices.Get(1);
 
-            
+            //await buyStockService.BuyStock(buyer, "AAPL", 100).ContinueWith(data =>
+            //{
+            //    if (data.Exception == null)
+            //    {
 
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //});
 
             window.DataContext = new MainViewModel();
             window.Show();
