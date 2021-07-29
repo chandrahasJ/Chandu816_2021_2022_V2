@@ -14,10 +14,10 @@ export class HousingService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getAllProperties(SellRent? : number) : Observable<IProperty[]> {
-    return this.httpClient.get<IProperty[]>('data/properties.json').pipe(
+  getAllProperties(SellRent? : number) : Observable<Property[]> {
+    return this.httpClient.get<Property[]>('data/properties.json').pipe(
       map(data => {
-        const propertiesArray: Array<IProperty> = [];
+        const propertiesArray: Array<Property> = [];
         const localStorageProperties = JSON.parse(localStorage.getItem('newProperty')!);
         if(localStorageProperties){
           for (let key in localStorageProperties) {
@@ -88,10 +88,10 @@ export class HousingService {
     }
   }
 
-  getProperty(Id : number){
+  getProperty(Id : number) : Observable<Property>{
     return this.getAllProperties().pipe(
       map( propertiesArray  => {
-        return propertiesArray.find(p => p.Id === Id);
+        return propertiesArray.find(p => p.Id === Id) as Property;
       })
     )
   }
