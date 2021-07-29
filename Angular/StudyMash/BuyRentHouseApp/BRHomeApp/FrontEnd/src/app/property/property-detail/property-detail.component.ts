@@ -25,14 +25,20 @@ export class PropertyDetailComponent implements OnInit {
     //this.propertyId = +this.activateddRoute.snapshot.params['propertyid'];
 
     // This code works this user click from any where as it is a observable
-    this.activateddRoute.params.subscribe(params => {
-      this.propertyId = +params['propertyid'];
-      this.housingService.getProperty(this.propertyId).subscribe(
-        (data) => {
-          this.property = data;
-        }
-      );
-    });
+    // this.activateddRoute.params.subscribe(params => {
+    //   this.propertyId = +params['propertyid'];
+    //   this.housingService.getProperty(this.propertyId).subscribe(
+    //     (data) => {
+    //       this.property = data;
+    //     }
+    //   );
+    // });
+
+    this.activateddRoute.data.subscribe(
+      (data ) => {
+        this.property = data['propertyInformation'];
+      }
+    );
 
   }
 

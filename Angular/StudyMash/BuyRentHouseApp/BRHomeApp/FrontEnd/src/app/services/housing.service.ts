@@ -91,7 +91,7 @@ export class HousingService {
   getProperty(Id : number) : Observable<Property>{
     return this.getAllProperties().pipe(
       map( propertiesArray  => {
-        return propertiesArray.find(p => p.Id === Id) as Property;
+        return propertiesArray.find(p => p.Id == Id) as Property;
       })
     )
   }
