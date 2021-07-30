@@ -1,6 +1,7 @@
 ﻿using SimpleTraderApp.WPF.Commands;
 using SimpleTraderApp.WPF.Models;
 using SimpleTraderApp.WPF.ViewModels;
+using SimpleTraderApp.WPF.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,12 @@ namespace SimpleTraderApp.WPF.State.Navigators
     {
         private ViewModelBase _currentViewModel;
 
-        public ICommand UpdateCurrentViewModelCommand => new UpdateCurrentViewModelCommand(this);
+        public ICommand UpdateCurrentViewModelCommand { get; set; }
+
+        public Navigator(ISimpleTradeViewModelAbstractFactory viewModelAbstractFactory)
+        {
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(this, viewModelAbstractFactory);
+        }
 
         public ViewModelBase CurrentViewModel { get => _currentViewModel;
             set 

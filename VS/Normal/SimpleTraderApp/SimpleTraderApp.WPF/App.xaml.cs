@@ -1,10 +1,14 @@
-﻿using SimpleTraderApp.Domain.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services;
 using SimpleTraderApp.Domain.Services.TransactionServices;
+using SimpleTraderApp.EFCore;
 using SimpleTraderApp.EFCore.Services;
 using SimpleTraderApp.FMPrepAPI.Services;
 using SimpleTraderApp.WPF.Configurations;
+using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
+using SimpleTraderApp.WPF.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,31 +26,43 @@ namespace SimpleTraderApp.WPF
     {
         protected override async void OnStartup(StartupEventArgs e)
         {
-            Window window = new MainWindow();
-            SecretManagerClass.Build();
+            
 
-            //IStockPriceService stockPriceService = new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey);
-            //IDataService<Account> accountServices = new AccountDataService(new EFCore.SimpleTraderAppDbContextFactory());
-            //IBuyStockService buyStockService = new BuyStockService(stockPriceService, accountServices);
+            IServiceProvider serviceProvider = CreateServiceProvider();
+            IBuyStockService buyStockService = serviceProvider.GetRequiredService<IBuyStockService>();
 
-            //Account buyer = await accountServices.Get(1);
-
-            //await buyStockService.BuyStock(buyer, "AAPL", 100).ContinueWith(data =>
-            //{
-            //    if (data.Exception == null)
-            //    {
-
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //});
-
-            window.DataContext = new MainViewModel();
+            Window window  = serviceProvider.GetRequiredService<MainWindow>();
             window.Show();
 
+
             base.OnStartup(e);
+        }
+
+        private IServiceProvider CreateServiceProvider()
+        {
+            IServiceCollection services = new ServiceCollection();
+
+            SecretManagerClass.Build();
+
+
+            services.AddSingleton<SimpleTraderAppDbContextFactory>();
+            services.AddSingleton<IDataService<Account>, AccountDataService>();
+            services.AddSingleton<IStockPriceService>(x => new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
+            services.AddSingleton<IBuyStockService, BuyStockService>();
+            services.AddSingleton<IMajorIndexService>(x => new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
+
+            services.AddSingleton< ISimpleTradeViewModelAbstractFactory,SimpleTradeViewModelAbstractFactory >();
+
+            services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
+            services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
+            services.AddSingleton<ISimpleTraderViewModelFactory<MajorIndexListingViewModel>, MajorIndexListingViewModelFactory>();
+
+            services.AddScoped<INavigator, Navigator>();
+            services.AddScoped<MainViewModel>();
+
+            services.AddScoped<MainWindow>(x => new MainWindow(x.GetRequiredService<MainViewModel>()));
+
+            return services.BuildServiceProvider();           
         }
     }
 }

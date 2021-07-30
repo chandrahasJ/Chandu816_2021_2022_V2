@@ -11,7 +11,7 @@ namespace SimpleTraderApp.WPF.Configurations
     /// Code Taken from below website
     /// https://ballardsoftware.com/adding-appsettings-json-configuration-to-a-net-core-console-application/
     /// </summary>
-    public class SecretManagerClass
+    public class SecretManagerClass 
     {
         private SecretManagerClass()
         {

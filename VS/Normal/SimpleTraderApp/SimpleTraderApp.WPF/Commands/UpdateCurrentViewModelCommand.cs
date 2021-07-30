@@ -1,6 +1,7 @@
 ﻿using SimpleTraderApp.FMPrepAPI.Services;
 using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
+using SimpleTraderApp.WPF.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,12 +12,14 @@ namespace SimpleTraderApp.WPF.Commands
     public class UpdateCurrentViewModelCommand : ICommand
     {
         private readonly INavigator _navigator;
+        private readonly ISimpleTradeViewModelAbstractFactory _viewModelAbstractFactory;
 
         public event EventHandler CanExecuteChanged;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator)
+        public UpdateCurrentViewModelCommand(INavigator navigator, ISimpleTradeViewModelAbstractFactory viewModelAbstractFactory)
         {
             this._navigator = navigator;
+            this._viewModelAbstractFactory = viewModelAbstractFactory;
         }
 
         public bool CanExecute(object parameter)
@@ -29,15 +32,7 @@ namespace SimpleTraderApp.WPF.Commands
             if (parameter is ViewType)
             {
                 ViewType viewType = (ViewType)parameter;
-                switch (viewType)
-                {
-                    case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel(MajorIndexListingViewModel.LoadMajorIndexViewModel(new MajorIndexService()));
-                        break;
-                    case ViewType.Portfolio:
-                        _navigator.CurrentViewModel = new PortfolioViewModel();
-                        break;
-                }
+                _navigator.CurrentViewModel = _viewModelAbstractFactory.CreateViewModel(viewType);
             }
         }
     }
