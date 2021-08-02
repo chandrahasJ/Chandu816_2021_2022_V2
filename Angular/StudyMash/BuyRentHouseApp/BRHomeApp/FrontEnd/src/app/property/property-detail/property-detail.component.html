@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-8 p-0">
+  <div class="col-sm-8 p-3">
       <div class="tab-panel">
         <tabset class="member-tabset">
           <tab heading="Overview">
@@ -130,7 +130,7 @@
             </div>
           </tab>
           <tab heading="Photos">
-            <h1>Photos</h1>
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
           </tab>
           <tab heading="Contact">
             <h1>Contact</h1>
