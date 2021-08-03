@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleTraderApp.WPF.ViewModels.Factories
 {
-    public interface ISimpleTradeViewModelAbstractFactory
+    public interface IRootSimpleTradeViewModelFactory
     {
         ViewModelBase CreateViewModel(ViewType viewType);
     }

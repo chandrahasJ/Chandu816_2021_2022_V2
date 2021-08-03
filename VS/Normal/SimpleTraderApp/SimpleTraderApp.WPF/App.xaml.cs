@@ -24,7 +24,7 @@ namespace SimpleTraderApp.WPF
     /// </summary>
     public partial class App : Application
     {
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override  void OnStartup(StartupEventArgs e)
         {
             
 
@@ -51,7 +51,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService>(x => new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
 
-            services.AddSingleton< ISimpleTradeViewModelAbstractFactory,SimpleTradeViewModelAbstractFactory >();
+            services.AddSingleton< IRootSimpleTradeViewModelFactory,RootSimpleTradeViewModelFactory >();
 
             services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
@@ -59,6 +59,7 @@ namespace SimpleTraderApp.WPF
 
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();
+            services.AddScoped<BuyViewModel>();
 
             services.AddScoped<MainWindow>(x => new MainWindow(x.GetRequiredService<MainViewModel>()));
 
