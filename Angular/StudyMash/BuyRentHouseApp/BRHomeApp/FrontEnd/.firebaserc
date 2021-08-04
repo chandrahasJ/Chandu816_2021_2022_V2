@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "brhomeapp"
+  },
+  "targets": {
+    "brhomeapp": {
+      "hosting": {
+        "BRHomeApp": [
+          "brhomeapp"
+        ]
+      }
+    }
+  }
+}
