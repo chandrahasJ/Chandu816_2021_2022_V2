@@ -15,17 +15,25 @@
         <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
             <TextBox Width="100"   Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="Search" Margin="10 0 0 0" Command="{ Binding SearchSymbolCommand}"  />
-            <!--<TextBlock Width="200" Text="{Binding StockPrice}"/>-->
         </WrapPanel>
 
-        <WrapPanel Grid.Row="1" Margin="0 10 0 0">
-            <Border BorderBrush="Black" BorderThickness="1" Padding="20">
+        <WrapPanel Grid.Row="1" Margin="0 20 0 0">
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SearchResultSymbol}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
+            <Border BorderBrush="ForestGreen" BorderThickness="1" Padding="20" CornerRadius="3 0 0 3">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Text="{Binding Symbol}" FontSize="32"/>
-                    <TextBlock Text="{Binding StockPrice, StringFormat={}{0:c}}" Margin="0 10 0 0" />
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding SearchResultSymbol}" FontSize="32"/>
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding StockPrice, StringFormat={}{0:c}}" Margin="0 10 0 0" />
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Black" BorderThickness="1"  Padding="20">
+            <Border BorderBrush="ForestGreen" BorderThickness="0 1 1 1"  Padding="20" CornerRadius="0 3 3 0">
                 <StackPanel>
                     <WrapPanel Margin="0 10">
                         <TextBlock Width="150" Text="Shares to Buy" />

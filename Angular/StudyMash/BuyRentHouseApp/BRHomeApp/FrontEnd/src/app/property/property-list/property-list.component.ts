@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProperty } from 'src/app/models/IProperty.interface';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 
 
@@ -13,7 +14,14 @@ import { HousingService } from 'src/app/services/housing.service';
 export class PropertyListComponent implements OnInit {
   propertyCollections: Array<IProperty>;
   SellRent = 1;
-  constructor(private housingServices : HousingService, private activatedRoute: ActivatedRoute) {
+  SearchCity = '';
+  City = '';
+  SortByParams = 'Select';
+  SortByDirection = 'asc';
+
+  constructor(private housingServices : HousingService,
+              private activatedRoute: ActivatedRoute,
+              private alertyService: AlertifyService) {
     this.propertyCollections = [];
   }
 
@@ -32,5 +40,27 @@ export class PropertyListComponent implements OnInit {
       }, error =>{
         console.log(error);
       });
+  }
+
+  onSearchCityFilterClick(){
+    this.SearchCity = this.City;
+  }
+
+  onSearchCityFilterClear(){
+    this.SearchCity = '';
+    this.City = '';
+  }
+
+  onSortDirection(){
+    if(this.SortByParams === 'Select'){
+      this.alertyService.error('Select Sort By option');
+      return;
+    }
+    if(this.SortByDirection === 'asc'){
+      this.SortByDirection = 'desc';
+    }
+    else{
+      this.SortByDirection = 'asc';
+    }
   }
 }
