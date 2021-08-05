@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services;
+using SimpleTraderApp.Domain.Services.AuthServices;
 using SimpleTraderApp.Domain.Services.TransactionServices;
 using SimpleTraderApp.EFCore;
 using SimpleTraderApp.EFCore.Services;
@@ -30,6 +32,12 @@ namespace SimpleTraderApp.WPF
 
             IServiceProvider serviceProvider = CreateServiceProvider();
             IBuyStockService buyStockService = serviceProvider.GetRequiredService<IBuyStockService>();
+            IAuthenticationService authenticationService = serviceProvider.GetRequiredService<IAuthenticationService>();
+
+            //authenticationService.Register("t@g.com", "CP", "ABC", "ABC");
+
+            authenticationService.Login("CP","AC");
+
 
             Window window  = serviceProvider.GetRequiredService<MainWindow>();
             window.Show();
@@ -47,9 +55,13 @@ namespace SimpleTraderApp.WPF
 
             services.AddSingleton<SimpleTraderAppDbContextFactory>();
             services.AddSingleton<IDataService<Account>, AccountDataService>();
+            services.AddSingleton<IAccountService, AccountDataService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IStockPriceService>(x => new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService>(x => new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
+
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
             services.AddSingleton< IRootSimpleTradeViewModelFactory,RootSimpleTradeViewModelFactory >();
 

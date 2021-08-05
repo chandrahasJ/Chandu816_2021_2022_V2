@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SimpleTraderApp.EFCore.Services
 {
-    public class AccountDataService : IDataService<Account>
+    public class AccountDataService : IAccountService
     {
         private readonly SimpleTraderAppDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Account> _nonQueryDataService;
@@ -40,7 +40,10 @@ namespace SimpleTraderApp.EFCore.Services
         {
             using (SimpleTraderAppDbContext traderAppDbContext = _contextFactory.CreateDbContext())
             {
-                Account entity = await traderAppDbContext.Accounts.Include(a =>a.AssetTrasactions).FirstOrDefaultAsync((e) => e.Id == id);
+                Account entity = await traderAppDbContext.Accounts
+                    .Include(a => a.AccountHolder)
+                    .Include(a => a.AssetTrasactions)
+                    .FirstOrDefaultAsync((e) => e.Id == id);
                 return entity;
             }
         }
@@ -49,7 +52,34 @@ namespace SimpleTraderApp.EFCore.Services
         {
             using (SimpleTraderAppDbContext traderAppDbContext = _contextFactory.CreateDbContext())
             {
-                IEnumerable<Account> entity = await traderAppDbContext.Accounts.Include(a => a.AssetTrasactions).ToListAsync();
+                IEnumerable<Account> entity = await traderAppDbContext.Accounts
+                    .Include(a => a.AccountHolder)
+                    .Include(a => a.AssetTrasactions)
+                    .ToListAsync();
+                return entity;
+            }
+        }
+
+        public async Task<Account> GetByUserName(string username)
+        {
+            using (SimpleTraderAppDbContext traderAppDbContext = _contextFactory.CreateDbContext())
+            {
+                Account entity = await traderAppDbContext.Accounts
+                    .Include(a => a.AccountHolder)
+                    .Include(a => a.AssetTrasactions)
+                    .FirstOrDefaultAsync((e) => e.AccountHolder.UserName == username);
+                return entity;
+            }
+        }
+
+        public async Task<Account> GetByEmailId(string emailId)
+        {
+            using (SimpleTraderAppDbContext traderAppDbContext = _contextFactory.CreateDbContext())
+            {
+                Account entity = await traderAppDbContext.Accounts
+                    .Include(a => a.AccountHolder)
+                    .Include(a => a.AssetTrasactions)
+                    .FirstOrDefaultAsync((e) => e.AccountHolder.Email == emailId);
                 return entity;
             }
         }

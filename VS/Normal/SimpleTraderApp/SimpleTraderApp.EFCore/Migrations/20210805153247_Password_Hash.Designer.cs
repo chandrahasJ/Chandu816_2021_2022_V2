@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleTraderApp.EFCore;
 
 namespace SimpleTraderApp.EFCore.Migrations
 {
     [DbContext(typeof(SimpleTraderAppDbContext))]
-    partial class SimpleTraderAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210805153247_Password_Hash")]
+    partial class Password_Hash
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +80,7 @@ namespace SimpleTraderApp.EFCore.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("PasswordString")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
