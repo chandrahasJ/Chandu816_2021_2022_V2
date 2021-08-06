@@ -122,9 +122,14 @@
 
                 <div class="form-group col-12">
                   <label for="City">City</label>
-                  <input type="text" class="form-control"
+                  <select class="form-control"
                     formControlName="City"
-                    [(ngModel)]="propertyView.City" name="City"/>
+                    [(ngModel)]="propertyView.City" name="City">
+                    <option value="">--Select City--</option>
+                    <option *ngFor="let city of cityArray" value="{{city}}">
+                      {{city}}
+                    </option>
+                  </select>
                     <div class="error-block" *ngIf="City.invalid && (City.touched || nextButtonClicked)">
                       Please provide city name
                     </div>

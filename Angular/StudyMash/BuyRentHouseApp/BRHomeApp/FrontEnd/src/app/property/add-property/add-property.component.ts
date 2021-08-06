@@ -25,6 +25,7 @@ export class AddPropertyComponent implements OnInit {
   yesNoType : Array<string> =['Yes','No'];
   mainEntranceArray : Array<string> = ['East', 'West', 'North', 'South'];
   BHKArray : Array<string> =['1','2','3','4','5'];
+  cityArray!: string[];
 
   nextButtonClicked : boolean = false;
 
@@ -47,7 +48,16 @@ export class AddPropertyComponent implements OnInit {
              private houseService: HousingService ) { }
 
   ngOnInit(): void {
+    this.getDataFromAPI();
     this.createAddPropertyForm();
+  }
+
+  getDataFromAPI(){
+    this.houseService.getAllCities().subscribe(
+      data =>{
+        this.cityArray = data;
+      }
+    );
   }
 
   createAddPropertyForm(){

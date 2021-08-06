@@ -27,6 +27,17 @@ namespace BRHomeWebApi
         {
 
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BRHomeWebApi", Version = "v1" });
@@ -44,6 +55,8 @@ namespace BRHomeWebApi
             }
 
             app.UseRouting();
+
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthorization();
 

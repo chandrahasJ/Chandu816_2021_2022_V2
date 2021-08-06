@@ -96,4 +96,7 @@ export class HousingService {
     )
   }
 
+  getAllCities() : Observable<string[]>{
+    return this.httpClient.get<string[]>('http://localhost:5000/api/City');
+  }
 }
