@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using SimpleTraderApp.Domain.Exceptions;
 using SimpleTraderApp.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -24,24 +25,41 @@ namespace SimpleTraderApp.Domain.Services.AuthServices
             PasswordVerificationResult passwordVerificationResult = _passwordHasher.VerifyHashedPassword(storedAccount.AccountHolder.PasswordHash, password);
             if (passwordVerificationResult != PasswordVerificationResult.Success)
             {
-                throw new Exception("Fa");
+                throw new InvalidPasswordException(username, password);
             }
 
             return storedAccount;
         }
 
-        public async Task<bool> Register(string emailId, string username, string password, string confirmPassword)
+        public async Task<RegisterResult> Register(string emailId, string username, string password, string confirmPassword)
         {
-            bool success = true;
-            if (password == confirmPassword)
+            RegisterResult registerResult = RegisterResult.Success;
+
+            if (password != confirmPassword)
             {
-                
+                registerResult = RegisterResult.PasswordDoNotMatch;
+            }                
+
+            Account emailAccount = await _accountDataService.GetByEmailId(emailId);
+            if (emailAccount != null)
+            {
+                registerResult = RegisterResult.EmailAlreadyExists;
+            }
+
+            Account userNameAccount = await _accountDataService.GetByUserName(username);
+            if (userNameAccount != null)
+            {
+                registerResult = RegisterResult.UserNameAlreadyExists;
+            }
+
+            if (registerResult == RegisterResult.Success)
+            {
                 string hashedPassword = _passwordHasher.HashPassword(password);
 
                 User user = new User()
                 {
                     Email = emailId,
-                    UserName = username,                    
+                    UserName = username,
                     DateJoined = DateTime.Now,
                     PasswordHash = hashedPassword
                 };
@@ -53,7 +71,8 @@ namespace SimpleTraderApp.Domain.Services.AuthServices
 
                 await _accountDataService.Create(account);
             }
-            return success;
+                       
+            return registerResult;
         }
     }
 }
