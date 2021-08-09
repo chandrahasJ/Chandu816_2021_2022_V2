@@ -126,8 +126,8 @@
                     formControlName="City"
                     [(ngModel)]="propertyView.City" name="City">
                     <option value="">--Select City--</option>
-                    <option *ngFor="let city of cityArray" value="{{city}}">
-                      {{city}}
+                    <option *ngFor="let city of cityArray" value="{{city.id}}">
+                      {{city.name}}
                     </option>
                   </select>
                     <div class="error-block" *ngIf="City.invalid && (City.touched || nextButtonClicked)">

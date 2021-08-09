@@ -25,7 +25,7 @@ export class AddPropertyComponent implements OnInit {
   yesNoType : Array<string> =['Yes','No'];
   mainEntranceArray : Array<string> = ['East', 'West', 'North', 'South'];
   BHKArray : Array<string> =['1','2','3','4','5'];
-  cityArray!: string[];
+  cityArray!: any[];
 
   nextButtonClicked : boolean = false;
 
