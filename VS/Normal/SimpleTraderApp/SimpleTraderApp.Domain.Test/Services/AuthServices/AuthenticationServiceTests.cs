@@ -95,5 +95,83 @@ namespace SimpleTraderApp.Domain.Test.Services.AuthServices
             Assert.AreEqual(expectedUserName, actualUserName);
         }
 
+        [Test]
+        public async Task Register_WithPasswordNotMatching__RetursPasswordDoesNotMatch()
+        {
+            //Arrange 
+            RegisterResult expectedResult = RegisterResult.PasswordDoNotMatch;
+            string password = "test";
+            string confirmPassword = "test1";
+
+            //Act 
+            RegisterResult actualResult = await  _mockAuthenticationService.Register(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    password,
+                    confirmPassword
+                );
+
+            //Asserts
+            Assert.AreEqual(expectedResult,actualResult);
+        }
+
+        [Test]
+        public async Task Register_WithExistingEmailId__RetursEmailAlreadyExists()
+        {
+            //Arrange 
+            RegisterResult expectedResult = RegisterResult.EmailAlreadyExists;
+            string email = "test@gmail.com";
+            _mockAccountServices.Setup(x => x.GetByEmailId(email)).ReturnsAsync(new Account());
+
+            //Act 
+            RegisterResult actualResult = await _mockAuthenticationService.Register(
+                    email,
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()
+                );
+
+            //Asserts
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [Test]
+        public async Task Register_WithExistingUserName__RetursUserNameAlreadyExists()
+        {
+            //Arrange 
+            RegisterResult expectedResult = RegisterResult.UserNameAlreadyExists;
+            string userName = "test@gmail.com";
+            _mockAccountServices.Setup(x => x.GetByUserName(userName)).ReturnsAsync(new Account());
+
+            //Act 
+            RegisterResult actualResult = await _mockAuthenticationService.Register(
+                    It.IsAny<string>(),
+                    userName,
+                    It.IsAny<string>(),
+                    It.IsAny<string>()
+                );
+
+            //Asserts
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [Test]
+        public async Task Register_WithNonExistingUserNameAndPassword__RetursSuccess()
+        {
+            //Arrange 
+            RegisterResult expectedResult = RegisterResult.Success;
+ 
+            //Act 
+            RegisterResult actualResult = await _mockAuthenticationService.Register(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()
+                );
+
+            //Asserts
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
     }
 }
