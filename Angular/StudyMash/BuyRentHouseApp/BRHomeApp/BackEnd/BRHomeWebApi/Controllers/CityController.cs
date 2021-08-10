@@ -60,7 +60,7 @@ namespace BRHomeWebApi.Controllers
             _bRHomeDbContext.Cities.Remove(city);
             await _bRHomeDbContext.SaveChangesAsync();
             
-            return Ok(city);
+            return Ok(id);
         }
     }
 }
