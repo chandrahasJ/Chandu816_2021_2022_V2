@@ -8,6 +8,7 @@ using SimpleTraderApp.EFCore;
 using SimpleTraderApp.EFCore.Services;
 using SimpleTraderApp.FMPrepAPI.Services;
 using SimpleTraderApp.WPF.Configurations;
+using SimpleTraderApp.WPF.State.Authenticators;
 using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
 using SimpleTraderApp.WPF.ViewModels.Factories;
@@ -56,7 +57,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<SimpleTraderAppDbContextFactory>();
             services.AddSingleton<IDataService<Account>, AccountDataService>();
             services.AddSingleton<IAccountService, AccountDataService>();
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();            
             services.AddSingleton<IStockPriceService>(x => new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService>(x => new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
@@ -68,8 +69,10 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<MajorIndexListingViewModel>, MajorIndexListingViewModelFactory>();
+            services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
 
             services.AddScoped<INavigator, Navigator>();
+            services.AddScoped<IAuthenticator, Authenticator>();
             services.AddScoped<MainViewModel>();
             services.AddScoped<BuyViewModel>();
 
