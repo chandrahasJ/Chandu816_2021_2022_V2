@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BRHomeWebApi.Core.RepositoryPattern;
 using BRHomeWebApi.DataC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,11 +43,15 @@ namespace BRHomeWebApi
                         .AllowAnyMethod();
                 });
             });
-            
+
+            //Register Services for Repos
+            services.AddScoped<ICityRepository, CityRepository>();
+                        
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BRHomeWebApi", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

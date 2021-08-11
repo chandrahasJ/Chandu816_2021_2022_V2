@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BRHomeWebApi.Core.RepositoryPattern;
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +14,18 @@ namespace BRHomeWebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class CityController : ControllerBase
-    {
-        private readonly BRHomeDbContext _bRHomeDbContext;
+    { 
+        private readonly ICityRepository _cityRepository;
 
-        public CityController(BRHomeDbContext bRHomeDbContext)
-        {
-            this._bRHomeDbContext = bRHomeDbContext;
+        public CityController(ICityRepository cityRepository)
+        { 
+            this._cityRepository = cityRepository;
         }
 
         [HttpGet("")]
         public async Task<ActionResult> Get()
         {
-            var cities = await _bRHomeDbContext.Cities.ToListAsync();
+            var cities = await _cityRepository.GetCitiesAsync();
             return Ok(cities);
         }
 
@@ -36,29 +37,28 @@ namespace BRHomeWebApi.Controllers
             {
                 Name = cityName
             };
-            await _bRHomeDbContext.Cities.AddAsync(city);
-            await _bRHomeDbContext.SaveChangesAsync();
+             _cityRepository.AddCity(city);
+            await _cityRepository.SaveAsync();
             
-            return Ok(city);
+            return StatusCode(201);
         }
 
         //api/city/
         [HttpPost()]
         public async Task<ActionResult> Post(City city)
         {
-            await _bRHomeDbContext.Cities.AddAsync(city);
-            await _bRHomeDbContext.SaveChangesAsync();
+                _cityRepository.AddCity(city);
+            await _cityRepository.SaveAsync();
             
-            return Ok(city);
+              return StatusCode(201);
         }
 
 
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var city = await _bRHomeDbContext.Cities.FindAsync(id);
-            _bRHomeDbContext.Cities.Remove(city);
-            await _bRHomeDbContext.SaveChangesAsync();
+            _cityRepository.DeleteCity(id);
+            await _cityRepository.SaveAsync();
             
             return Ok(id);
         }
