@@ -35,9 +35,9 @@ namespace SimpleTraderApp.WPF
             IBuyStockService buyStockService = serviceProvider.GetRequiredService<IBuyStockService>();
             IAuthenticationService authenticationService = serviceProvider.GetRequiredService<IAuthenticationService>();
 
-            //authenticationService.Register("t@g.com", "CP", "ABC", "ABC");
+            authenticationService.Register("t@g.com", "CP", "ABC", "ABC");
 
-            authenticationService.Login("CP","AC");
+            //authenticationService.Login("CP","AC");
 
 
             Window window  = serviceProvider.GetRequiredService<MainWindow>();

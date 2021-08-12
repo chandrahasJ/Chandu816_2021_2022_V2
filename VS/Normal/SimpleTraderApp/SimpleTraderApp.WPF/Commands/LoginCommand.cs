@@ -1,4 +1,5 @@
 ﻿using SimpleTraderApp.WPF.State.Authenticators;
+using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,14 @@ namespace SimpleTraderApp.WPF.Commands
 {
     public class LoginCommand : ICommand
     {
-        private readonly IAuthenticator _authenticator;
 
-        public LoginCommand(IAuthenticator authenticator)
+        private readonly IAuthenticator _authenticator;
+        private readonly LoginViewModel _loginViewModel;
+
+        public LoginCommand( LoginViewModel loginViewModel, IAuthenticator authenticator)
         {
             this._authenticator = authenticator;
+            this._loginViewModel = loginViewModel;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -23,15 +27,16 @@ namespace SimpleTraderApp.WPF.Commands
         }
 
         public async void Execute(object parameter)
-        {            
+        {
+            bool success = true;
             try
             {
-
+                success = await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
             }
             catch (Exception ex)
             {
 
-                throw;
+                success = false;
             }
         }
     }

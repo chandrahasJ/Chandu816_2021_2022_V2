@@ -1,4 +1,5 @@
 ﻿using SimpleTraderApp.WPF.Commands;
+using SimpleTraderApp.WPF.State.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,13 +8,10 @@ using System.Windows.Input;
 namespace SimpleTraderApp.WPF.ViewModels
 {
     public class LoginViewModel : ViewModelBase
-    {
-        public LoginViewModel()
-        {
-            LoginCommand = new LoginCommand();
-        }
-
+    {     
         private string _userName;
+        private readonly IAuthenticator _authenticator;
+
         public string UserName
         {
             get
@@ -28,5 +26,11 @@ namespace SimpleTraderApp.WPF.ViewModels
         }
 
         public ICommand  LoginCommand { get; }
+
+        public LoginViewModel(IAuthenticator authenticator)
+        {
+            this._authenticator = authenticator;
+            LoginCommand = new LoginCommand(this, authenticator);
+        }
     }
 }
