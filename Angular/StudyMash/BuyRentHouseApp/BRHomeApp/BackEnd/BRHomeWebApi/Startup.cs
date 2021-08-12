@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BRHomeWebApi.Core.RepositoryPattern;
+
 using BRHomeWebApi.DataC;
+using BRHomeWebApi.Pattern;
+using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +43,7 @@ namespace BRHomeWebApi
             });
 
             //Register Services for Repos
-            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
                         
             services.AddSwaggerGen(c =>
             {

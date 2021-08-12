@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BRHomeWebApi.Core.RepositoryPattern;
+using System.Threading.Tasks; 
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Models;
+using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 //using BRHomeWebApi.Models;
@@ -14,18 +14,18 @@ namespace BRHomeWebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class CityController : ControllerBase
-    { 
-        private readonly ICityRepository _cityRepository;
+    {  
+        private readonly IUnitOfWork _uow;
 
-        public CityController(ICityRepository cityRepository)
-        { 
-            this._cityRepository = cityRepository;
+        public CityController(  IUnitOfWork uow)
+        {  
+            this._uow = uow;
         }
 
         [HttpGet("")]
         public async Task<ActionResult> Get()
         {
-            var cities = await _cityRepository.GetCitiesAsync();
+            var cities = await _uow.cityRepository.GetCitiesAsync();
             return Ok(cities);
         }
 
@@ -37,8 +37,8 @@ namespace BRHomeWebApi.Controllers
             {
                 Name = cityName
             };
-             _cityRepository.AddCity(city);
-            await _cityRepository.SaveAsync();
+             _uow.cityRepository.AddCity(city);
+            await _uow.SaveAsync();
             
             return StatusCode(201);
         }
@@ -47,8 +47,8 @@ namespace BRHomeWebApi.Controllers
         [HttpPost()]
         public async Task<ActionResult> Post(City city)
         {
-                _cityRepository.AddCity(city);
-            await _cityRepository.SaveAsync();
+                _uow.cityRepository.AddCity(city);
+            await _uow.SaveAsync();
             
               return StatusCode(201);
         }
@@ -57,8 +57,8 @@ namespace BRHomeWebApi.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            _cityRepository.DeleteCity(id);
-            await _cityRepository.SaveAsync();
+            _uow.cityRepository.DeleteCity(id);
+            await _uow.SaveAsync();
             
             return Ok(id);
         }

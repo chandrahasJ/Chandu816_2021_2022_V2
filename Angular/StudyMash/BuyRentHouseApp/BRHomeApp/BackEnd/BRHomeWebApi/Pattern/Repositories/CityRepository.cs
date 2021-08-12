@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Models;
+using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BRHomeWebApi.Core.RepositoryPattern
+namespace BRHomeWebApi.Pattern.Repositories
 {
     public class CityRepository : ICityRepository
     {
@@ -28,11 +29,6 @@ namespace BRHomeWebApi.Core.RepositoryPattern
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
           return await _bRHomeDbContext.Cities.ToListAsync();
-        }
-
-        public async Task<bool> SaveAsync()
-        {
-             return await _bRHomeDbContext.SaveChangesAsync() > 0 ;
         }
     }
 }
