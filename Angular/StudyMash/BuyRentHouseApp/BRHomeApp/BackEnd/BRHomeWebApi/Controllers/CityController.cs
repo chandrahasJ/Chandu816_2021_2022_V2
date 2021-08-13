@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks; 
 using BRHomeWebApi.DataC;
+using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,11 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> Get()
         {
             var cities = await _uow.cityRepository.GetCitiesAsync();
-            return Ok(cities);
+            var cityDtoData = cities.Select(x => new CityDto(){
+                                                Id = x.Id,
+                                                Name = x.Name
+                                            });
+            return Ok(cityDtoData);
         }
 
         //api/city/add/{cityName}
@@ -35,7 +40,9 @@ namespace BRHomeWebApi.Controllers
         {
             City city = new City()
             {
-                Name = cityName
+                Name = cityName,
+                LastUpdatedBy = "Cj",
+                LastUpdateOn = DateTime.Now
             };
              _uow.cityRepository.AddCity(city);
             await _uow.SaveAsync();
@@ -45,8 +52,15 @@ namespace BRHomeWebApi.Controllers
 
         //api/city/
         [HttpPost()]
-        public async Task<ActionResult> Post(City city)
+        public async Task<ActionResult> Post(CityDto cityDto)
         {
+            City city = new City()
+            {
+                Name = cityDto.Name,
+                LastUpdatedBy = "Cj",
+                LastUpdateOn = DateTime.Now
+            };
+            
                 _uow.cityRepository.AddCity(city);
             await _uow.SaveAsync();
             
