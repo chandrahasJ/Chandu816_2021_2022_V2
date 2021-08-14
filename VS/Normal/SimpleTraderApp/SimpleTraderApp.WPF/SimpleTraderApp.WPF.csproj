@@ -7,6 +7,10 @@
     <UserSecretsId>e90e1f14-efeb-4a91-aa2c-b0347b9b18e8</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\login-background.jpg" />
+  </ItemGroup>
+
 
   
   <ItemGroup>
@@ -29,6 +33,12 @@
     <ProjectReference Include="..\SimpleTraderApp.Domain\SimpleTraderApp.Domain.csproj" />
     <ProjectReference Include="..\SimpleTraderApp.EFCore\SimpleTraderApp.EFCore.csproj" />
     <ProjectReference Include="..\SimpleTraderApp.FMPrepAPI\SimpleTraderApp.FMPrepAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\login-background.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

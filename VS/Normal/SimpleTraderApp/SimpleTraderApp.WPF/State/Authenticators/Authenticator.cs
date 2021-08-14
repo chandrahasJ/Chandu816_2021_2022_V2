@@ -1,5 +1,6 @@
 ﻿using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services.AuthServices;
+using SimpleTraderApp.WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleTraderApp.WPF.State.Authenticators
 {
-    public class Authenticator : IAuthenticator
+    public class Authenticator : ObservableObject, IAuthenticator
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -16,7 +17,21 @@ namespace SimpleTraderApp.WPF.State.Authenticators
             this._authenticationService = authenticationService;
         }
 
-        public Account CurrentAccount { get; private set; }
+
+        private Account _currentAccount;
+        public Account CurrentAccount
+        {
+            get
+            {
+                return _currentAccount;
+            }
+            set
+            {
+                _currentAccount = value;
+                OnPropertyChanged(nameof(CurrentAccount));
+                OnPropertyChanged(nameof(IsLoggedIn));
+            }
+        }
 
         public bool IsLoggedIn => CurrentAccount != null;
 

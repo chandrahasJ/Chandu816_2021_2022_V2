@@ -27,16 +27,14 @@ namespace SimpleTraderApp.WPF.Commands
         }
 
         public async void Execute(object parameter)
-        {
-            bool success = true;
+        { 
             try
             {
-                success = await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
+                await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
             }
             catch (Exception ex)
             {
-
-                success = false;
+                throw ex;
             }
         }
     }

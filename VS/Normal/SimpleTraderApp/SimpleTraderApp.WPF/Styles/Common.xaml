@@ -9,12 +9,13 @@
     <SolidColorBrush x:Key="BrushPrimary2" Color="{StaticResource ColorPrimary2}" />
     
     
-    <!--TextBoxes-->
-    <Style TargetType="TextBox">
+    <!--Common Style For TextBoxes-->
+    <Style TargetType="Control" x:Key="TextBoxBase">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="2"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
+                <ControlTemplate TargetType="Control">
                     <Border BorderThickness="1" CornerRadius="3" BorderBrush="Gray">
                         <ScrollViewer x:Name="PART_ContentHost"/>
                     </Border>
@@ -23,6 +24,10 @@
         </Setter>
     </Style>
     
+    <!--Text Box & Password Boxes-->
+    <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBase}" />
+    <Style TargetType="PasswordBox" BasedOn="{StaticResource TextBoxBase}" />
+
     <!--Button-->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource BrushPrimary2}" />
