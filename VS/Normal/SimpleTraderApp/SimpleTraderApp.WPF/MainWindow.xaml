@@ -22,7 +22,7 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <controls:NavigationBar DataContext="{Binding Navigator}"/>
+            <controls:NavigationBar />
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ContentControl Content="{Binding Navigator.CurrentViewModel}" />

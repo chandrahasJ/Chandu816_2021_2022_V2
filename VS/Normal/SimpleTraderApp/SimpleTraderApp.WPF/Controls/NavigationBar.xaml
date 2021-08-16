@@ -32,21 +32,21 @@
             </Grid.ColumnDefinitions>
 
             <RadioButton Grid.Column="0" Content="Home" 
-                         IsChecked="{Binding CurrentViewModel, 
+                         IsChecked="{Binding Navigator.CurrentViewModel, 
                                      Mode=OneWay,
                                      ConverterParameter={x:Type vm:HomeViewModel },
                                      Converter={StaticResource EqualValueToParameterConverter}}"
                          Command="{Binding UpdateCurrentViewModelCommand}" 
                          CommandParameter="{x:Static nav:ViewType.Home}"/>
             <RadioButton Grid.Column="1" Content="PortFolio" 
-                        IsChecked="{Binding CurrentViewModel, 
+                        IsChecked="{Binding Navigator.CurrentViewModel, 
                             Mode=OneWay,
                             ConverterParameter={x:Type vm:PortfolioViewModel },
                             Converter={StaticResource EqualValueToParameterConverter}}"
                         Command="{Binding UpdateCurrentViewModelCommand}" 
                          CommandParameter="{x:Static nav:ViewType.Portfolio}"/>
             <RadioButton Grid.Column="2" Content="Buy Stocks" 
-                        IsChecked="{Binding CurrentViewModel, 
+                        IsChecked="{Binding Navigator.CurrentViewModel, 
                             Mode=OneWay,
                             ConverterParameter={x:Type vm:BuyViewModel },
                             Converter={StaticResource EqualValueToParameterConverter}}"

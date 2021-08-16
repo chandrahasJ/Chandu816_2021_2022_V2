@@ -1,5 +1,6 @@
 ﻿using SimpleTraderApp.WPF.Commands;
 using SimpleTraderApp.WPF.State.Authenticators;
+using SimpleTraderApp.WPF.State.Navigators;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SimpleTraderApp.WPF.ViewModels
     {     
         private string _userName;
         private readonly IAuthenticator _authenticator;
+        private readonly IReNavigator _reNavigator;
 
         public string UserName
         {
@@ -27,10 +29,11 @@ namespace SimpleTraderApp.WPF.ViewModels
 
         public ICommand  LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator)
+        public LoginViewModel(IAuthenticator authenticator, IReNavigator reNavigator)
         {
             this._authenticator = authenticator;
-            LoginCommand = new LoginCommand(this, authenticator);
+            this._reNavigator = reNavigator;
+            LoginCommand = new LoginCommand(this, authenticator, _reNavigator);
         }
     }
 }
