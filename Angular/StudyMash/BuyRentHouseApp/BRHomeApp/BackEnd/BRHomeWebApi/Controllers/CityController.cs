@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using AutoMapper;
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
@@ -17,20 +18,19 @@ namespace BRHomeWebApi.Controllers
     public class CityController : ControllerBase
     {  
         private readonly IUnitOfWork _uow;
+        private readonly IMapper _mapper;
 
-        public CityController(  IUnitOfWork uow)
+        public CityController(  IUnitOfWork uow, IMapper mapper)
         {  
             this._uow = uow;
+            this._mapper = mapper;
         }
 
         [HttpGet("")]
         public async Task<ActionResult> Get()
         {
             var cities = await _uow.cityRepository.GetCitiesAsync();
-            var cityDtoData = cities.Select(x => new CityDto(){
-                                                Id = x.Id,
-                                                Name = x.Name
-                                            });
+            var cityDtoData = _mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(cityDtoData);
         }
 
@@ -54,13 +54,10 @@ namespace BRHomeWebApi.Controllers
         [HttpPost()]
         public async Task<ActionResult> Post(CityDto cityDto)
         {
-            City city = new City()
-            {
-                Name = cityDto.Name,
-                LastUpdatedBy = "Cj",
-                LastUpdateOn = DateTime.Now
-            };
-            
+            City city = _mapper.Map<City>(cityDto);
+            city.LastUpdatedBy = "Cp";
+            city.LastUpdateOn = DateTime.Now;
+
                 _uow.cityRepository.AddCity(city);
             await _uow.SaveAsync();
             

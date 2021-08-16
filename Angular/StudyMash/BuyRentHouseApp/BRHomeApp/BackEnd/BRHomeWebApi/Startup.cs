@@ -1,5 +1,6 @@
 
 using BRHomeWebApi.DataC;
+using BRHomeWebApi.Helpers.AutoMapperHelpers;
 using BRHomeWebApi.Pattern;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -42,8 +43,11 @@ namespace BRHomeWebApi
                 });
             });
 
+            //Adding AutoMapper 
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            
             //Register Services for Repos
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();            
                         
             services.AddSwaggerGen(c =>
             {
