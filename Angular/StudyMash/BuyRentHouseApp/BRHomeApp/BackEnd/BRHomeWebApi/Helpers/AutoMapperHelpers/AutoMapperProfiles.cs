@@ -14,6 +14,7 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
         private void createMaps()
         {   
             CreateMap<City,CityDto>().ReverseMap();
+            CreateMap<City,CityUpdateDto>().ReverseMap();
         }
     }
 }

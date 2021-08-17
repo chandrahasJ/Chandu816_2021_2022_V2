@@ -31,7 +31,7 @@ namespace BRHomeWebApi
             services.AddDbContext<BRHomeDbContext>(options =>{
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>

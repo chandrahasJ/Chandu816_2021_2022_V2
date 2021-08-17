@@ -7,6 +7,7 @@ using BRHomeWebApi.DataC;
 using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 //using BRHomeWebApi.Models;
@@ -83,6 +84,41 @@ namespace BRHomeWebApi.Controllers
             cityFromDB.LastUpdateOn = DateTime.Now;
            
            _mapper.Map(cityDto,cityFromDB);
+
+           await _uow.SaveAsync();
+            
+              return StatusCode(200);
+        }
+
+        //api/city/update/{id}
+        ///<Summary>
+        /// Since HttpPatch gives more power to the API user 
+        /// It can be misused. it is security vulerblity. 
+        /// So we need use PUT by adding New DTOs
+        ///</Summary>
+        [HttpPatch("update/{id}")]
+        public async Task<ActionResult> UpdateCityPatch(int id, JsonPatchDocument<City> cityToPatch)
+        {
+            var cityFromDB = await _uow.cityRepository.FindCity(id);
+            cityFromDB.LastUpdatedBy = "Cp";
+            cityFromDB.LastUpdateOn = DateTime.Now;
+           
+           cityToPatch.ApplyTo(cityFromDB, ModelState);
+
+           await _uow.SaveAsync();
+            
+              return StatusCode(200);
+        }
+
+         //api/city/update/{id}
+        [HttpPut("updatecityname/{id}")]
+        public async Task<ActionResult> UpdateCityName(int id, CityUpdateDto cityUpdateDto)
+        {
+            var cityFromDB = await _uow.cityRepository.FindCity(id);
+            cityFromDB.LastUpdatedBy = "Cp";
+            cityFromDB.LastUpdateOn = DateTime.Now;
+           
+           _mapper.Map(cityUpdateDto,cityFromDB);
 
            await _uow.SaveAsync();
             
