@@ -26,6 +26,11 @@ namespace BRHomeWebApi.Pattern.Repositories
             _bRHomeDbContext.Cities.Remove(city);
         }
 
+        public async Task<City> FindCity(int id)
+        {
+            return  await _bRHomeDbContext.Cities.FindAsync(id);
+        }
+
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
           return await _bRHomeDbContext.Cities.ToListAsync();

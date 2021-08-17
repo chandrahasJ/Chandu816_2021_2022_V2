@@ -73,5 +73,20 @@ namespace BRHomeWebApi.Controllers
             
             return Ok(id);
         }
+
+         //api/city/update/{id}
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> UpdateCity(int id, CityDto cityDto)
+        {
+            var cityFromDB = await _uow.cityRepository.FindCity(id);
+            cityFromDB.LastUpdatedBy = "Cp";
+            cityFromDB.LastUpdateOn = DateTime.Now;
+           
+           _mapper.Map(cityDto,cityFromDB);
+
+           await _uow.SaveAsync();
+            
+              return StatusCode(200);
+        }
     }
 }
