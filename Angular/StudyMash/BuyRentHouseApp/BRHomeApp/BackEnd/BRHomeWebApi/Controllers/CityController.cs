@@ -79,7 +79,14 @@ namespace BRHomeWebApi.Controllers
         [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateCity(int id, CityDto cityDto)
         {
+            if(id == cityDto.Id)
+                return BadRequest("Update not allowed.");
+
             var cityFromDB = await _uow.cityRepository.FindCity(id);
+
+            if(cityFromDB == null)
+                return BadRequest("Update not allowed.");
+
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
            
@@ -100,6 +107,10 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> UpdateCityPatch(int id, JsonPatchDocument<City> cityToPatch)
         {
             var cityFromDB = await _uow.cityRepository.FindCity(id);
+
+            if(cityFromDB == null)
+                return BadRequest("Update not allowed.");
+                
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
            
@@ -115,6 +126,10 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> UpdateCityName(int id, CityUpdateDto cityUpdateDto)
         {
             var cityFromDB = await _uow.cityRepository.FindCity(id);
+
+            if(cityFromDB == null)
+                return BadRequest("Update not allowed.");
+
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
            
