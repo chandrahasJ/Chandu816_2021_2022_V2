@@ -1,10 +1,15 @@
 
+using System.Net;
 using BRHomeWebApi.DataC;
+using BRHomeWebApi.Extensions;
 using BRHomeWebApi.Helpers.AutoMapperHelpers;
+using BRHomeWebApi.MiddleWares;
 using BRHomeWebApi.Pattern;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,14 +63,10 @@ namespace BRHomeWebApi
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BRHomeWebApi v1"));
-            }
-
+        {    
+            //app.ConfigureExceptionHandler(env);
+            app.UseMiddleware<ExceptionMiddleWare>();
+            
             app.UseRouting();
 
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
