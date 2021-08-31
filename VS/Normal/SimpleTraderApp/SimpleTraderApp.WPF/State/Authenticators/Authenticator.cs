@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleTraderApp.WPF.State.Authenticators
 {
-    public class Authenticator : ObservableObject, IAuthenticator
+    public class Authenticator :  IAuthenticator
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
@@ -30,12 +30,12 @@ namespace SimpleTraderApp.WPF.State.Authenticators
             set
             {
                 _accountStore.CurrentAccount = value;
-                OnPropertyChanged(nameof(CurrentAccount));
-                OnPropertyChanged(nameof(IsLoggedIn));
+                StateChanged?.Invoke();
             }
         }
 
         public bool IsLoggedIn => CurrentAccount != null;
+        public event Action StateChanged;
 
         public async Task<bool> Login(string username, string password)
         {

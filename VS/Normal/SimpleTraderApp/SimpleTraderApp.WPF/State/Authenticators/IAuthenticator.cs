@@ -11,6 +11,7 @@ namespace SimpleTraderApp.WPF.State.Authenticators
     {
         Account CurrentAccount { get;  }
         bool IsLoggedIn { get;  }
+        event Action StateChanged;
         Task<RegisterResult> Register(string emailId, string username, string password, string confirmPassword);
         Task<bool> Login(string username, string password);
         void Logout();
