@@ -29,8 +29,7 @@ namespace BRHomeWebApi.Controllers
 
         [HttpGet("")]
         public async Task<ActionResult> Get()
-        {
-            throw new Exception();
+        { 
             var cities = await _uow.cityRepository.GetCitiesAsync();
             var cityDtoData = _mapper.Map<IEnumerable<CityDto>>(cities);
             return Ok(cityDtoData);

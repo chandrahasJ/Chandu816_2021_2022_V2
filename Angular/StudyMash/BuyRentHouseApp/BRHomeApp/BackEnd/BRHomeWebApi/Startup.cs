@@ -64,9 +64,10 @@ namespace BRHomeWebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {    
-            //app.ConfigureExceptionHandler(env);
-            app.UseMiddleware<ExceptionMiddleWare>();
+            app.ConfigureExceptionHandler(env);
             
+            //app.ConfigureInBuiltExceptionHandler(env);
+
             app.UseRouting();
 
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

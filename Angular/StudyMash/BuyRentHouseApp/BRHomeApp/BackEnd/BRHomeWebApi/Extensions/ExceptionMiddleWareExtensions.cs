@@ -2,6 +2,7 @@
 using System.Net;
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Helpers.AutoMapperHelpers;
+using BRHomeWebApi.MiddleWares;
 using BRHomeWebApi.Pattern;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -21,6 +22,12 @@ namespace BRHomeWebApi.Extensions
     public static class ExceptionMiddleWareExtensions
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app,
+                                                          IWebHostEnvironment env)
+        {
+           app.UseMiddleware<ExceptionMiddleWare>();
+        }
+
+        public static void ConfigureInBuiltExceptionHandler(this IApplicationBuilder app,
                                                           IWebHostEnvironment env)
         {            
             if (env.IsDevelopment())
