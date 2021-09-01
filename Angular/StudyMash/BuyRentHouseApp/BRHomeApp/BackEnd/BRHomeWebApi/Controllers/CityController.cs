@@ -13,10 +13,8 @@ using Microsoft.EntityFrameworkCore;
 //using BRHomeWebApi.Models;
 
 namespace BRHomeWebApi.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CityController : ControllerBase
+{ 
+    public class CityController : BaseController
     {  
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
