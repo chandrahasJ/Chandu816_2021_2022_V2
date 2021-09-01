@@ -1,5 +1,5 @@
 ﻿using SimpleTraderApp.WPF.Commands;
-using SimpleTraderApp.WPF.Models;
+ 
 using SimpleTraderApp.WPF.ViewModels;
 using SimpleTraderApp.WPF.ViewModels.Factories;
 using System;

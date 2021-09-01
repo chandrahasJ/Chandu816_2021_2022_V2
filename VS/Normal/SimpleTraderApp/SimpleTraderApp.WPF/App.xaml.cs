@@ -9,6 +9,7 @@ using SimpleTraderApp.EFCore.Services;
 using SimpleTraderApp.FMPrepAPI.Services;
 using SimpleTraderApp.WPF.Configurations;
 using SimpleTraderApp.WPF.State.Accounts;
+using SimpleTraderApp.WPF.State.Assets;
 using SimpleTraderApp.WPF.State.Authenticators;
 using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
@@ -102,6 +103,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
+            services.AddSingleton<IAssetStore, AssetStore>();
             services.AddScoped<MainViewModel>();
             services.AddScoped<BuyViewModel>();
 

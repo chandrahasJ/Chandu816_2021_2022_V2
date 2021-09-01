@@ -1,6 +1,6 @@
 ﻿using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services.AuthServices;
-using SimpleTraderApp.WPF.Models;
+ 
 using SimpleTraderApp.WPF.State.Accounts;
 using System;
 using System.Collections.Generic;
