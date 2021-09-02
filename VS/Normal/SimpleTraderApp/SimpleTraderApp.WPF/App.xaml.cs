@@ -70,8 +70,10 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<ViewModelDelegateReNavigator<HomeViewModel>>();
             services.AddSingleton<BuyViewModel>();
             services.AddSingleton<PortfolioViewModel>();
-            services.AddSingleton<HomeViewModel>(services =>
+            services.AddSingleton<AssetSummaryViewModel>();
+            services.AddSingleton<HomeViewModel>(services =>                  
                   new HomeViewModel(
+                        services.GetRequiredService<AssetSummaryViewModel>(),
                         MajorIndexListingViewModel.LoadMajorIndexViewModel(services.GetRequiredService<IMajorIndexService>()
                     ))
             ); 
@@ -103,7 +105,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
-            services.AddSingleton<IAssetStore, AssetStore>();
+            services.AddSingleton<AssetStore>();
             services.AddScoped<MainViewModel>();
             services.AddScoped<BuyViewModel>();
 

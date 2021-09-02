@@ -33,12 +33,19 @@ namespace SimpleTraderApp.WPF.Commands
         {
             try
             {
+                if (_buyViewModel.SharesToBuy == 0)
+                {
+                    return;
+                }
+
                 Account account = await _buyStockService.BuyStock(this._accountStore.CurrentAccount,
                 _buyViewModel.Symbol,
                 _buyViewModel.SharesToBuy
                 );
 
                 _accountStore.CurrentAccount = account;
+
+                MessageBox.Show("Success");
             }
             catch (Exception ex)
             {

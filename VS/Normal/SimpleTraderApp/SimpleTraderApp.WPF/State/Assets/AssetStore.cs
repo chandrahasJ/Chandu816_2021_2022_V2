@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SimpleTraderApp.WPF.State.Assets
 {
-    public class AssetStore : IAssetStore
+    public class AssetStore 
     {
         private readonly IAccountStore _accountStore;
 
