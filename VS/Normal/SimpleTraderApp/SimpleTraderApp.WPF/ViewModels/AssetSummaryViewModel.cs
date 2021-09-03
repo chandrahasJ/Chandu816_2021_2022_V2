@@ -14,7 +14,7 @@ namespace SimpleTraderApp.WPF.ViewModels
         private readonly ObservableCollection<AssetViewModel> _assets;
 
         public double AccountBalance => _assetStore.AccountBalance;
-        public IEnumerable<AssetViewModel> Assets => _assets;
+        public IEnumerable<AssetViewModel> TopAssets => _assets;
 
         public AssetSummaryViewModel(AssetStore assetStore)
         {
@@ -34,8 +34,10 @@ namespace SimpleTraderApp.WPF.ViewModels
         {
             IEnumerable<AssetViewModel> assetViewModels = _assetStore.AssetTransactions
                                                 .GroupBy(a => a.Asset.Symbol)
-                                                .Select(g => new AssetViewModel(g.Key, g.Sum(z => z.IsPurchased ? z.Shares : -z.Shares)))
-                                                .Where(x => x.Shares > 0);
+                                                .Select(g => new AssetViewModel(g.Key, g.Sum(z => z.IsPurchased ? z.Shares : -z.Shares)))                                                
+                                                .Where(x => x.Shares > 0)
+                                                .OrderByDescending(z => z.Shares)
+                                                .Take(3);
 
             _assets.Clear();
 
