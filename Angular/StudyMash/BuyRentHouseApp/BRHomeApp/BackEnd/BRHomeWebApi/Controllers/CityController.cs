@@ -7,6 +7,7 @@ using BRHomeWebApi.DataC;
 using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BRHomeWebApi.Controllers
 { 
+    [Authorize]
     public class CityController : BaseController
     {  
         private readonly IUnitOfWork _uow;

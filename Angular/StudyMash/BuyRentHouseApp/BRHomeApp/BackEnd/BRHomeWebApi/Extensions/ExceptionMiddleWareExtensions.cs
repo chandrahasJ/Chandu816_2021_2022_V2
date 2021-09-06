@@ -25,6 +25,12 @@ namespace BRHomeWebApi.Extensions
                                                           IWebHostEnvironment env)
         {
            app.UseMiddleware<ExceptionMiddleWare>();
+           if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BRHomeWebApi v1"));
+            }
         }
 
         public static void ConfigureInBuiltExceptionHandler(this IApplicationBuilder app,
