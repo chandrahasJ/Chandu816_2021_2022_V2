@@ -46,6 +46,18 @@ namespace BRHomeWebApi.Controllers
             return Ok(loginResDto);
         }
 
+        [HttpPost("Register")]
+        public async Task<ActionResult> Register(RegisterReqDto registerReqDto)
+        { 
+            if( await _uow.userRepository.IsUserExistAlready(registerReqDto.UserName))
+                return BadRequest("User Already Exists,Please try something else");
+
+            _uow.userRepository.Register(registerReqDto.UserName,registerReqDto.Password);
+            await _uow.SaveAsync();
+
+            return StatusCode(201);
+        }
+
         private string CreateToken(User user)
         {
             // There are two types of Security Key
