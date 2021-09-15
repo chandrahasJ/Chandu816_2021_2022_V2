@@ -28,9 +28,12 @@ namespace SimpleTraderApp.WPF.ViewModels
         }
 
         public ICommand  LoginCommand { get; }
+        public MessageViewModel ErrorMessageViewModel { get; }
+        public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
 
         public LoginViewModel(IAuthenticator authenticator, IReNavigator reNavigator)
         {
+            ErrorMessageViewModel = new MessageViewModel();
             this._authenticator = authenticator;
             this._reNavigator = reNavigator;
             LoginCommand = new LoginCommand(this, authenticator, _reNavigator);

@@ -1,4 +1,5 @@
-﻿using SimpleTraderApp.Domain.Models;
+﻿using SimpleTraderApp.Domain.Exceptions;
+using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services.TransactionServices;
 using SimpleTraderApp.WPF.State.Accounts;
 using SimpleTraderApp.WPF.ViewModels;
@@ -31,25 +32,38 @@ namespace SimpleTraderApp.WPF.Commands
 
         public async void Execute(object parameter)
         {
+            _buyViewModel.StatusMessage = String.Empty;
+            _buyViewModel.ErrorMessage = String.Empty;
+            string Symbol = _buyViewModel.Symbol;
+            int SharesToBuy = _buyViewModel.SharesToBuy;
             try
             {
-                if (_buyViewModel.SharesToBuy == 0)
+                if (SharesToBuy == 0)
                 {
                     return;
                 }
 
+
                 Account account = await _buyStockService.BuyStock(this._accountStore.CurrentAccount,
-                _buyViewModel.Symbol,
-                _buyViewModel.SharesToBuy
+                Symbol,
+                SharesToBuy
                 );
 
                 _accountStore.CurrentAccount = account;
 
-                MessageBox.Show("Success");
+                _buyViewModel.StatusMessage = $"Successfully purchased {SharesToBuy} shares of {Symbol}.";
             }
-            catch (Exception ex)
+            catch (InvalidSymbolException)
             {
-                MessageBox.Show(ex.Message);
+                _buyViewModel.ErrorMessage = "Symbol does not exists.";
+            }
+            catch (InsufficentFundExpection)
+            {
+                _buyViewModel.ErrorMessage = "Account has insufficent funds. Please transfer more money into your account.";
+            }
+            catch (Exception)
+            {
+                _buyViewModel.ErrorMessage = "Transaction Failed.";
             }
         }
     }

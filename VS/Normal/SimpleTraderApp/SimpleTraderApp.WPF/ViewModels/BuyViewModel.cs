@@ -13,6 +13,8 @@ namespace SimpleTraderApp.WPF.ViewModels
     {
         public BuyViewModel(IStockPriceService stockPriceService, IBuyStockService buyStockService, IAccountStore accountStore)
         {
+            this.ErrorMessageViewModel = new MessageViewModel();
+            this.StatusMessageViewModel = new MessageViewModel();
             this.SearchSymbolCommand = new SearchSymbolCommand(this, stockPriceService);
             this.BuyStockCommand = new BuyStockCommand(this, buyStockService, accountStore);
             
@@ -92,5 +94,9 @@ namespace SimpleTraderApp.WPF.ViewModels
 
         public ICommand BuyStockCommand { get; set; }
 
+        public MessageViewModel ErrorMessageViewModel { get; }
+        public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
+        public MessageViewModel StatusMessageViewModel { get;  }
+        public string StatusMessage { set => StatusMessageViewModel.Message = value; }
     }
 }

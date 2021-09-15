@@ -1,4 +1,5 @@
-﻿using SimpleTraderApp.WPF.State.Authenticators;
+﻿using SimpleTraderApp.Domain.Exceptions;
+using SimpleTraderApp.WPF.State.Authenticators;
 using SimpleTraderApp.WPF.State.Navigators;
 using SimpleTraderApp.WPF.ViewModels;
 using System;
@@ -16,7 +17,7 @@ namespace SimpleTraderApp.WPF.Commands
         private readonly LoginViewModel _loginViewModel;
 
         public LoginCommand( LoginViewModel loginViewModel, IAuthenticator authenticator, IReNavigator reNavigator)
-        {
+        {            
             this._authenticator = authenticator;
             this._reNavigator = reNavigator;
             this._loginViewModel = loginViewModel;
@@ -33,15 +34,20 @@ namespace SimpleTraderApp.WPF.Commands
         { 
             try
             {
-               bool isSuccess =  await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
-                if (isSuccess)
-                {
-                    _reNavigator.ReNavigate();
-                }
+                await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
+                _reNavigator.ReNavigate();
             }
-            catch (Exception ex)
+            catch(UserNameNotFoundException)
             {
-                throw ex;
+                _loginViewModel.ErrorMessage = "Username doesn't exists.";
+            }
+            catch (InvalidPasswordException)
+            {
+                _loginViewModel.ErrorMessage = "Incorrect Password.";
+            }
+            catch (Exception)
+            {
+                _loginViewModel.ErrorMessage = "Login Failed.";
             }
         }
     }

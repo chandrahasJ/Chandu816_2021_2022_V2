@@ -34,6 +34,10 @@ namespace SimpleTraderApp.FMPrepAPI.Services
         {
             using (FMPrepHttpClient client = new FMPrepHttpClient())
             {
+                if(String.IsNullOrEmpty(symbol))
+                {
+                    throw new InvalidSymbolException(symbol);
+                }
                 string urlStockPrice = $"quote-short/{symbol.ToUpper()}?{GetAPIQuery()}";
 
                 List<StockPriceResult> stockPriceResult = await client.GetTaskAsync<List<StockPriceResult>>(urlStockPrice);

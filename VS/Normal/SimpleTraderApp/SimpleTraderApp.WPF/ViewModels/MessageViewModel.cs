@@ -21,6 +21,6 @@ namespace SimpleTraderApp.WPF.ViewModels
             }
         }
 
-        public bool HasMessage => String.IsNullOrEmpty(Message);
+        public bool HasMessage => !String.IsNullOrEmpty(Message);
     }
 }

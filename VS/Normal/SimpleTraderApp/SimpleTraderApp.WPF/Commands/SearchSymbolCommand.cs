@@ -1,4 +1,5 @@
-﻿using SimpleTraderApp.Domain.Services;
+﻿using SimpleTraderApp.Domain.Exceptions;
+using SimpleTraderApp.Domain.Services;
 using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,20 @@ namespace SimpleTraderApp.WPF.Commands
 
         public async void Execute(object parameter)
         {
+            _buyViewModel.ErrorMessage = String.Empty;
             try
             {
-                _buyViewModel.StockPrice = await _stockPriceService.GetPrice(_buyViewModel.Symbol);
+                double stockPrice = await _stockPriceService.GetPrice(_buyViewModel.Symbol);
                 _buyViewModel.SearchResultSymbol = _buyViewModel.Symbol.ToUpper();
+                _buyViewModel.StockPrice = stockPrice;
             }
-            catch (Exception ex)
+            catch (InvalidSymbolException)
             {
-                MessageBox.Show(ex.Message);
+                _buyViewModel.ErrorMessage = "Symbol does not exists.";
+            }
+            catch (Exception)
+            {
+                _buyViewModel.ErrorMessage = "Transaction Failed.";
             }
         }
     }
