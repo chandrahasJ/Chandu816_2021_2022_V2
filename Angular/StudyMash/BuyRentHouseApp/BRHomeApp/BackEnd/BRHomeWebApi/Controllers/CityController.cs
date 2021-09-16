@@ -28,6 +28,7 @@ namespace BRHomeWebApi.Controllers
         }
 
         [HttpGet("")]
+        [AllowAnonymous]
         public async Task<ActionResult> Get()
         { 
             var cities = await _uow.cityRepository.GetCitiesAsync();

@@ -44,7 +44,7 @@ namespace BRHomeWebApi
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://localhost:8099")
                         .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
@@ -85,12 +85,16 @@ namespace BRHomeWebApi
             //app.ConfigureInBuiltExceptionHandler(env);
 
             app.UseRouting();
-
+            app.UseHsts();
+            app.UseHttpsRedirection();
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
