@@ -6,18 +6,18 @@ using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.Commands
 {
-    public class BuyStockCommand : ICommand
+    public class BuyStockCommand : AsyncCommandBase
     {
         private readonly BuyViewModel _buyViewModel;
         private readonly IBuyStockService _buyStockService;
         private readonly IAccountStore _accountStore;
 
-        public event EventHandler CanExecuteChanged;
         public BuyStockCommand(BuyViewModel buyViewModel, IBuyStockService buyStockService, IAccountStore accountStore)
         {
             this._buyViewModel = buyViewModel;
@@ -25,12 +25,7 @@ namespace SimpleTraderApp.WPF.Commands
             this._accountStore = accountStore;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public async void Execute(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             _buyViewModel.StatusMessage = String.Empty;
             _buyViewModel.ErrorMessage = String.Empty;

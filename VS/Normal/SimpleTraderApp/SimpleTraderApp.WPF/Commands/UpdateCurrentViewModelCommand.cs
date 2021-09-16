@@ -5,16 +5,15 @@ using SimpleTraderApp.WPF.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.Commands
 {
-    public class UpdateCurrentViewModelCommand : ICommand
+    public class UpdateCurrentViewModelCommand : AsyncCommandBase
     {
         private readonly INavigator _navigator;
         private readonly ISimpleTradeViewModelFactory _viewModelAbstractFactory;
-
-        public event EventHandler CanExecuteChanged;
 
         public UpdateCurrentViewModelCommand(INavigator navigator, ISimpleTradeViewModelFactory viewModelAbstractFactory)
         {
@@ -22,12 +21,7 @@ namespace SimpleTraderApp.WPF.Commands
             this._viewModelAbstractFactory = viewModelAbstractFactory;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return  true;
-        }
-
-        public void Execute(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             if (parameter is ViewType)
             {

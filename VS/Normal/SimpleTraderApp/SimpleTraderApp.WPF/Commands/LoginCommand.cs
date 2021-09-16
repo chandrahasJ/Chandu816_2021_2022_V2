@@ -5,11 +5,12 @@ using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.Commands
 {
-    public class LoginCommand : ICommand
+    public class LoginCommand : AsyncCommandBase
     {
 
         private readonly IAuthenticator _authenticator;
@@ -23,15 +24,9 @@ namespace SimpleTraderApp.WPF.Commands
             this._loginViewModel = loginViewModel;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
-            return true;
-        }
-
-        public async void Execute(object parameter)
-        { 
+            _loginViewModel.ErrorMessage = String.Empty;
             try
             {
                 await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
