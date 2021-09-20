@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUserForLoginResponse } from 'src/app/models/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserLoginComponent implements OnInit {
   loginForm! : FormGroup;
 
-  constructor(private formBuilder : FormBuilder, 
+  constructor(private formBuilder : FormBuilder,
               private authService : AuthService,
               private alertify : AlertifyService,
               private router : Router) { }
@@ -28,15 +29,14 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.loginForm.value);
-    const token = this.authService.authUser(this.loginForm.value);
-    if(token){
-      localStorage.setItem("token", token.userName);      
+    this.authService.authUser(this.loginForm.value).subscribe((response : IUserForLoginResponse) => {
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("userName", response.userName);
       this.alertify.success("LoggedIn Successfully");
       this.router.navigate(['/']);
-    }
-    else{
+    },error => {
       this.alertify.error ("username or password is wrong.");
-    }
+    });
   }
 
   get userName(){
