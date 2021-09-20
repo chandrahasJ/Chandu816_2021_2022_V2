@@ -12,7 +12,8 @@ namespace SimpleTraderApp.WPF.ViewModels
     {     
         private string _userName;
         private readonly IAuthenticator _authenticator;
-        private readonly IReNavigator _reNavigator;
+        private readonly IReNavigator _reLoginNavigator;
+        private readonly IReNavigator _reRegisterNavigator;
 
         public string UserName
         {
@@ -28,15 +29,20 @@ namespace SimpleTraderApp.WPF.ViewModels
         }
 
         public ICommand  LoginCommand { get; }
+        public ICommand ViewRegisterCommand { get; }
+        
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
 
-        public LoginViewModel(IAuthenticator authenticator, IReNavigator reNavigator)
+        public LoginViewModel(IAuthenticator authenticator, IReNavigator reLoginNavigator, IReNavigator reRegisterNavigator)
         {
             ErrorMessageViewModel = new MessageViewModel();
             this._authenticator = authenticator;
-            this._reNavigator = reNavigator;
-            LoginCommand = new LoginCommand(this, authenticator, _reNavigator);
+            this._reLoginNavigator = reLoginNavigator;
+            this._reRegisterNavigator = reRegisterNavigator;
+            LoginCommand = new LoginCommand(this, authenticator, _reLoginNavigator);
+
+            ViewRegisterCommand = new ReNavigateCommand(reRegisterNavigator);
         }
     }
 }
