@@ -29,7 +29,7 @@ namespace SimpleTraderApp.WPF.Commands
             _loginViewModel.ErrorMessage = String.Empty;
             try
             {
-                await _authenticator.Login(_loginViewModel.UserName, parameter.ToString());
+                await _authenticator.Login(_loginViewModel.UserName, _loginViewModel.Password);
                 _reNavigator.ReNavigate();
             }
             catch(UserNameNotFoundException)

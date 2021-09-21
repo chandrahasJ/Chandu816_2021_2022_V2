@@ -69,6 +69,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton< ISimpleTradeViewModelFactory,SimpleTradeViewModelFactory >();
             services.AddSingleton<ViewModelDelegateReNavigator<HomeViewModel>>();
             services.AddSingleton<ViewModelDelegateReNavigator<RegisterViewModel>>();
+            services.AddSingleton<ViewModelDelegateReNavigator<LoginViewModel>>();
             services.AddSingleton<BuyViewModel>();
             services.AddSingleton<PortfolioViewModel>();
             services.AddSingleton<AssetSummaryViewModel>();
@@ -94,7 +95,11 @@ namespace SimpleTraderApp.WPF
             });
 
             services.AddSingleton<CreateViewModel<RegisterViewModel>>(services => {
-                return () => new RegisterViewModel();
+                return () => new RegisterViewModel(
+                        services.GetRequiredService<IAuthenticator>(),                        
+                        services.GetRequiredService<ViewModelDelegateReNavigator<LoginViewModel>>(),
+                        services.GetRequiredService<ViewModelDelegateReNavigator<LoginViewModel>>()
+                    );
             });
 
             services.AddSingleton<CreateViewModel<PortfolioViewModel>>(services => {
@@ -113,7 +118,6 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<IAccountStore, AccountStore>();
             services.AddSingleton<AssetStore>();
             services.AddScoped<MainViewModel>();
-            services.AddScoped<BuyViewModel>();
 
             services.AddScoped<MainWindow>(x => new MainWindow(x.GetRequiredService<MainViewModel>()));
 
