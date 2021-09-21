@@ -54,7 +54,7 @@ namespace BRHomeWebApi.Pattern.Repositories
           return  await _bRHomeDbContext.Users.AnyAsync(x => x.UserName == userName);
         }
 
-        public void Register(string userName, string passWord)
+        public void Register(string userName, string passWord,string Email, long mobile)
         {
             byte[] passwordHash, passwordKey;
             using(var hmac = new  HMACSHA512())
@@ -66,7 +66,9 @@ namespace BRHomeWebApi.Pattern.Repositories
             User user = new User(){
                 UserName = userName,
                 Password = passwordHash,
-                PasswordKey = passwordKey
+                PasswordKey = passwordKey,
+                Email = Email,
+                Mobile = mobile
             };
 
             _bRHomeDbContext.Users.Add(user);

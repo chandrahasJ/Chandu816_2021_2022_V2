@@ -1,9 +1,9 @@
-export interface IUser
+export interface IUserForRegister
 {
     userName : string;
-    email : string;
+    email? : string;
     password: string;
-    mobile: number;
+    mobile?: number;
 }
 
 export interface IUserForLoginRequest{

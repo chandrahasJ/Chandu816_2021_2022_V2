@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser, IUserForLoginRequest, IUserForLoginResponse } from '../models/user';
+import {  IUserForLoginRequest, IUserForLoginResponse, IUserForRegister } from '../models/user';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,5 +19,20 @@ export class AuthService {
     //   userArray = JSON.parse(userDataFromLocalStorage);
     // }
     // return userArray.find((p : IUser) => p.userName == user.userName && p.password == user.password);
+  }
+
+  addUsers(user: IUserForRegister){
+    return this.http.post(this.baseUrl+'/account/register', user);
+    // let users = [];
+    // let getUsers = localStorage.getItem('Users');
+    // if(getUsers != null){
+    //   users = JSON.parse(getUsers);
+    //   console.log(users);
+    //   users = [user,...users];
+    // }
+    // else{
+    //   users = [user];
+    // }
+    // localStorage.setItem('Users', JSON.stringify(users));
   }
 }

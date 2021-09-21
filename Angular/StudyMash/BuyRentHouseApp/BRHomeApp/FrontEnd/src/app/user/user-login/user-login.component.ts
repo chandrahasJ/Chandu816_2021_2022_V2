@@ -30,12 +30,14 @@ export class UserLoginComponent implements OnInit {
   onSubmit(){
     console.log(this.loginForm.value);
     this.authService.authUser(this.loginForm.value).subscribe((response : IUserForLoginResponse) => {
+      console.log(response)
       localStorage.setItem("token", response.token);
       localStorage.setItem("userName", response.userName);
       this.alertify.success("LoggedIn Successfully");
       this.router.navigate(['/']);
     },error => {
-      this.alertify.error ("username or password is wrong.");
+      console.log(error)
+      this.alertify.error (error.error);
     });
   }
 

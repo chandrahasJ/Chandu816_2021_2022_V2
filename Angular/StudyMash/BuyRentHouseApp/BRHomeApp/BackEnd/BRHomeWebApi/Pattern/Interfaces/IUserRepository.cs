@@ -7,7 +7,7 @@ namespace BRHomeWebApi.Pattern.Interfaces
     {
         Task<User> Authenticate(string userName,string passWord );
 
-        void Register(string userName,string passWord );
+        void Register(string userName,string passWord ,string Email, long mobile);
 
         Task<bool> IsUserExistAlready(string userName);
     }

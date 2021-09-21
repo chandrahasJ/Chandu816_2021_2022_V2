@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import CustomValidations from 'src/app/helper/validation';
-import { IUser } from 'src/app/models/user';
+import { IUserForRegister } from 'src/app/models/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-register',
@@ -13,11 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 export class UserRegisterComponent implements OnInit {
 
   registerationForm!: FormGroup;
-  userData! : IUser;
+  userData! : IUserForRegister;
   regexpNumber = /[0-9\+\-\ ]/;
   submittedData = false;
   constructor(private formBuilder : FormBuilder,
-              private userService : UserService,
+              private authService : AuthService,
               private alertifyService: AlertifyService) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class UserRegisterComponent implements OnInit {
     });
   }
 
-  getUserData() : IUser{
+  getUserData() : IUserForRegister{
     return this.userData = {
       userName : this.userName.value,
       email : this.email.value,
@@ -80,16 +80,20 @@ export class UserRegisterComponent implements OnInit {
     this.submittedData = true;
     if(this.registerationForm.valid){
       //this.userData = Object.assign(this.userData, this.registerationForm.value);
-      this.userService.addUsers(this.getUserData());
-      this.registerationForm.reset();
-      this.submittedData = false;
-      this.alertifyService.success("Your are successfully registered.");
+      this.authService.addUsers(this.getUserData()).subscribe(() => {
+        this.registerationForm.reset();
+        this.submittedData = false;
+        this.alertifyService.success("Your are successfully registered.");
+      },error => {
+        this.submittedData = false;
+        this.alertifyService.error(error.error);
+      });
     }
     else{
       this.alertifyService.error("Kindly provide the required  fields");
     }
   }
 
- 
+
 
 }

@@ -36,7 +36,7 @@ namespace BRHomeWebApi.Controllers
            var user = await _uow.userRepository.Authenticate(loginReqDto.UserName,loginReqDto.Password);
            if(user ==  null)
            {
-               return Unauthorized();
+               return Unauthorized("Invalid user id or password.");
            }
            var loginResDto = new LoginResDto()
            {
@@ -52,7 +52,10 @@ namespace BRHomeWebApi.Controllers
             if( await _uow.userRepository.IsUserExistAlready(registerReqDto.UserName))
                 return BadRequest("User Already Exists,Please try something else");
 
-            _uow.userRepository.Register(registerReqDto.UserName,registerReqDto.Password);
+            _uow.userRepository.Register(registerReqDto.UserName,
+                                         registerReqDto.Password,
+                                         registerReqDto.Email,
+                                         registerReqDto.Mobile);
             await _uow.SaveAsync();
 
             return StatusCode(201);
