@@ -11,40 +11,19 @@ namespace SimpleTraderApp.WPF.ViewModels
     {
         private readonly AssetStore _assetStore;
 
-        private readonly ObservableCollection<AssetViewModel> _assets;
-
         public double AccountBalance => _assetStore.AccountBalance;
-        public IEnumerable<AssetViewModel> TopAssets => _assets;
+        public AssetListingViewModel AssetListingViewModel { get; }
 
         public AssetSummaryViewModel(AssetStore assetStore)
         {
             this._assetStore = assetStore;
-            _assets = new ObservableCollection<AssetViewModel>();
+            AssetListingViewModel = new AssetListingViewModel(assetStore, assetStore => assetStore.Take(3));
             _assetStore.StateChanged += _assetStore_StateChanged;
-            ResetBalance();
         }
 
         private void _assetStore_StateChanged()
         {
             OnPropertyChanged(nameof(AccountBalance));
-            ResetBalance();
-        }
-
-        private void ResetBalance()
-        {
-            IEnumerable<AssetViewModel> assetViewModels = _assetStore.AssetTransactions
-                                                .GroupBy(a => a.Asset.Symbol)
-                                                .Select(g => new AssetViewModel(g.Key, g.Sum(z => z.IsPurchased ? z.Shares : -z.Shares)))                                                
-                                                .Where(x => x.Shares > 0)
-                                                .OrderByDescending(z => z.Shares)
-                                                .Take(3);
-
-            _assets.Clear();
-
-            foreach (AssetViewModel assetViewModel in assetViewModels)
-            {
-                _assets.Add(assetViewModel);
-            }
         }
     }
 }

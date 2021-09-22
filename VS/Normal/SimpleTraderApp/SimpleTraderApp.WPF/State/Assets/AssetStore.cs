@@ -1,5 +1,6 @@
 ﻿using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.WPF.State.Accounts;
+using SimpleTraderApp.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,11 @@ namespace SimpleTraderApp.WPF.State.Assets
             this._accountStore = accountStore;
 
             _accountStore.StateChanged += _accountStore_StateChanged;
+        }
+
+        internal Func<IEnumerable<AssetViewModel>, IEnumerable<AssetViewModel>> Take(int v)
+        {
+            throw new NotImplementedException();
         }
 
         private void _accountStore_StateChanged()
