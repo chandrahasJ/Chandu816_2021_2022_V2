@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { HttperrorsInterceptor } from './services/httperrors.interceptor';
 
 
 const appRoutes : Routes = [
@@ -60,6 +61,11 @@ const appRoutes : Routes = [
     NgxGalleryModule
   ],
   providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:HttperrorsInterceptor,
+      multi:true
+    },
     HousingService,
     AlertifyService,
     AuthService

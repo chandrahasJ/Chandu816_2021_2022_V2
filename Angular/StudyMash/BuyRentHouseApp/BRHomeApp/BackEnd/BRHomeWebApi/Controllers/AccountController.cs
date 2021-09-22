@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper; 
 using BRHomeWebApi.Dtos;
+using BRHomeWebApi.Errors;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,9 +35,13 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> Login(LoginReqDto loginReqDto)
         { 
            var user = await _uow.userRepository.Authenticate(loginReqDto.UserName,loginReqDto.Password);
+           ApiError apiError = new ApiError();
            if(user ==  null)
            {
-               return Unauthorized("Invalid user id or password.");
+               apiError.ErrorCode = Unauthorized().StatusCode;
+               apiError.ErrorDetails = "This error appears when provided username or password doesn't exists";
+               apiError.ErrorMessage = "Invalid user id or password.";
+               return Unauthorized(apiError);
            }
            var loginResDto = new LoginResDto()
            {
@@ -49,9 +54,14 @@ namespace BRHomeWebApi.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> Register(RegisterReqDto registerReqDto)
         { 
-            if( await _uow.userRepository.IsUserExistAlready(registerReqDto.UserName))
-                return BadRequest("User Already Exists,Please try something else");
+            ApiError apiError = new ApiError();
 
+            if( await _uow.userRepository.IsUserExistAlready(registerReqDto.UserName)){                
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User Already Exists,Please try something else";
+                return BadRequest(apiError);
+            }
+                
             _uow.userRepository.Register(registerReqDto.UserName,
                                          registerReqDto.Password,
                                          registerReqDto.Email,

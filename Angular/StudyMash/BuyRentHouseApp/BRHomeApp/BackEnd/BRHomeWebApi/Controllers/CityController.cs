@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BRHomeWebApi.DataC;
 using BRHomeWebApi.Dtos;
+using BRHomeWebApi.Errors;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -80,13 +81,20 @@ namespace BRHomeWebApi.Controllers
         [HttpPut("update/{id}")]
         public async Task<ActionResult> UpdateCity(int id, CityDto cityDto)
         {
-            if(id == cityDto.Id)
-                return BadRequest("Update not allowed.");
+            ApiError apiError = new ApiError();
+            if(id == cityDto.Id){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                return BadRequest(apiError);
+            }
 
             var cityFromDB = await _uow.cityRepository.FindCity(id);
 
-            if(cityFromDB == null)
-                return BadRequest("Update not allowed.");
+            if(cityFromDB == null){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                return BadRequest(apiError);
+            }
 
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
@@ -107,10 +115,14 @@ namespace BRHomeWebApi.Controllers
         [HttpPatch("update/{id}")]
         public async Task<ActionResult> UpdateCityPatch(int id, JsonPatchDocument<City> cityToPatch)
         {
+            ApiError apiError = new ApiError();
             var cityFromDB = await _uow.cityRepository.FindCity(id);
 
-            if(cityFromDB == null)
-                return BadRequest("Update not allowed.");
+            if(cityFromDB == null){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                return BadRequest(apiError);
+            }
                 
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
@@ -126,10 +138,14 @@ namespace BRHomeWebApi.Controllers
         [HttpPut("updatecityname/{id}")]
         public async Task<ActionResult> UpdateCityName(int id, CityUpdateDto cityUpdateDto)
         {
+              ApiError apiError = new ApiError();
             var cityFromDB = await _uow.cityRepository.FindCity(id);
 
-            if(cityFromDB == null)
-                return BadRequest("Update not allowed.");
+            if(cityFromDB == null){
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "Update not allowed.";
+                return BadRequest(apiError);
+            }
 
             cityFromDB.LastUpdatedBy = "Cp";
             cityFromDB.LastUpdateOn = DateTime.Now;
