@@ -29,7 +29,7 @@ namespace SimpleTraderApp.WPF
     /// </summary>
     public partial class App : Application
     {
-        protected override  void OnStartup(StartupEventArgs e)
+        protected async override  void OnStartup(StartupEventArgs e)
         {
             
 
@@ -37,7 +37,11 @@ namespace SimpleTraderApp.WPF
             IBuyStockService buyStockService = serviceProvider.GetRequiredService<IBuyStockService>();
             IAuthenticationService authenticationService = serviceProvider.GetRequiredService<IAuthenticationService>();
 
-            authenticationService.Register("t@g.com", "CP", "ABC", "ABC");
+            var accountService = serviceProvider.GetRequiredService<IAccountService>();
+            var account = await accountService.GetByUserName("CP");
+
+            var sellerStockService = serviceProvider.GetRequiredService<ISellStockService>();
+           // account = await sellerStockService.SellStock(account, "GE", 2);
 
             //authenticationService.Login("CP","AC");
 
@@ -62,6 +66,7 @@ namespace SimpleTraderApp.WPF
             services.AddSingleton<IAuthenticationService, AuthenticationService>();            
             services.AddSingleton<IStockPriceService>(x => new StockPriceService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
             services.AddSingleton<IBuyStockService, BuyStockService>();
+            services.AddSingleton<ISellStockService, SellStockService>();
             services.AddSingleton<IMajorIndexService>(x => new MajorIndexService(SecretManagerClass.mySettingConfiguration.FMPApiKey));
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
