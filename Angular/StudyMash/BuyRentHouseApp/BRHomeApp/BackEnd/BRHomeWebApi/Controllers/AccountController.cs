@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper; 
 using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Errors;
+using BRHomeWebApi.Extensions;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,15 @@ namespace BRHomeWebApi.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginReqDto loginReqDto)
         { 
+            ApiError apiError = new ApiError();
+            if(loginReqDto.UserName.IsEmpty() || 
+                loginReqDto.Password.IsEmpty()){                
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User name or password cannot be empty.";
+                return BadRequest(apiError);
+            }
            var user = await _uow.userRepository.Authenticate(loginReqDto.UserName,loginReqDto.Password);
-           ApiError apiError = new ApiError();
+           
            if(user ==  null)
            {
                apiError.ErrorCode = Unauthorized().StatusCode;
@@ -55,6 +63,12 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> Register(RegisterReqDto registerReqDto)
         { 
             ApiError apiError = new ApiError();
+             if(registerReqDto.UserName.IsEmpty() || 
+                registerReqDto.Password.IsEmpty()){                
+                apiError.ErrorCode = BadRequest().StatusCode;
+                apiError.ErrorMessage = "User name or password cannot be empty.";
+                return BadRequest(apiError);
+            }
 
             if( await _uow.userRepository.IsUserExistAlready(registerReqDto.UserName)){                
                 apiError.ErrorCode = BadRequest().StatusCode;
