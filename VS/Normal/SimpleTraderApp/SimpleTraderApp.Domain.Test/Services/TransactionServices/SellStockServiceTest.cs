@@ -7,6 +7,7 @@ using SimpleTraderApp.Domain.Services.TransactionServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SimpleTraderApp.Domain.Test.Services.TransactionServices
 {
@@ -53,7 +54,7 @@ namespace SimpleTraderApp.Domain.Test.Services.TransactionServices
         {
             string expectedSymbol = "bad_symbol";
             int exceptedAccountShares = 10;
-            int exceptedRequiredShares = 10;
+            
             Account seller = CreateNewAccount(expectedSymbol, exceptedAccountShares);
             _mockStockPriceService.Setup(s => s.GetPrice(expectedSymbol)).ThrowsAsync(new InvalidSymbolException(expectedSymbol));
 
@@ -66,12 +67,36 @@ namespace SimpleTraderApp.Domain.Test.Services.TransactionServices
 
         [Test]
         public void SellStock_WithGetPriceFailure_ThrowExpection()
-        {
-            string expectedInvalidsymbol = "bad_symbol";
-            _mockStockPriceService.Setup(s => s.GetPrice(expectedInvalidsymbol)).ThrowsAsync(new Exception(expectedInvalidsymbol));
+        { 
+            Account seller = CreateNewAccount(It.IsAny<string>(),10);
+            _mockStockPriceService.Setup(s => s.GetPrice(It.IsAny<string>())).ThrowsAsync(new Exception());
+            Assert.ThrowsAsync<Exception>(() => _sellStockService.SellStock(seller, It.IsAny<string>(), 5));
+             
         }
 
+        [Test]
+        public void SellStock_WithAccountFailure_ThrowExpection()
+        {
+            Account seller = CreateNewAccount(It.IsAny<string>(), 10);
 
+            _mockIDataService.Setup(s => s.Update(It.IsAny<int>(), It.IsAny<Account>())).ThrowsAsync(new Exception());
+
+            Assert.ThrowsAsync<Exception>(() => _sellStockService.SellStock(seller, It.IsAny<string>(), 5));
+        }
+
+        [Test]
+        public async Task SellStock_WithSuccessfull_ReturnAccountWithNewTransaction()
+        {
+            int expextedTransactionCount = 2;
+
+            Account seller = CreateNewAccount(It.IsAny<string>(), 10);
+
+            seller = await _sellStockService.SellStock(seller, It.IsAny<string>(), 5);
+            int actualTransactionCount = seller.AssetTrasactions.Count;
+
+            Assert.AreEqual(expextedTransactionCount,actualTransactionCount);
+
+        }
 
         private static Account CreateNewAccount(string symbol, int shares)
         {
