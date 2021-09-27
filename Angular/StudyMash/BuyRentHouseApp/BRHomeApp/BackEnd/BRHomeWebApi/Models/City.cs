@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BRHomeWebApi.Models
 {
-    public class City
-    {
-        public int Id { get; set; }
+    public class City : BaseEntity
+    { 
         [Required(ErrorMessage = "Name is mandatory field.")]
         [StringLength(50, MinimumLength = 2 )]
         [RegularExpression(".*[a-zA-Z]+.*", ErrorMessage = "Only numeric field is not allowed.")]
@@ -13,7 +12,5 @@ namespace BRHomeWebApi.Models
         [Required(ErrorMessage = "Country is mandatory field.")]
         [RegularExpression(".*[a-zA-Z]+.*", ErrorMessage = "Only numeric field is not allowed.")]
         public string CountryName { get; set; }
-        public string LastUpdatedBy { get; set; }
-        public DateTime LastUpdateOn { get; set; }
     }
 }

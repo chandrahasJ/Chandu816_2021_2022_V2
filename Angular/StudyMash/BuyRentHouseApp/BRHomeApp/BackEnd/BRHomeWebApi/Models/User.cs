@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BRHomeWebApi.Models
 {
-    public class User
-    {
-        public int Id { get; set; }
+    public class User : BaseEntity
+    { 
         [Required]
         public string UserName { get; set; }
         [Required]

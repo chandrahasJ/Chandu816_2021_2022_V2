@@ -44,8 +44,8 @@ namespace BRHomeWebApi.Controllers
             City city = new City()
             {
                 Name = cityName,
-                LastUpdatedBy = "Cj",
-                LastUpdateOn = DateTime.Now
+                LastUpdatedBy = 8,
+                LastUpdatedOn = DateTime.Now
             };
              _uow.cityRepository.AddCity(city);
             await _uow.SaveAsync();
@@ -58,8 +58,9 @@ namespace BRHomeWebApi.Controllers
         public async Task<ActionResult> Post(CityDto cityDto)
         {
             City city = _mapper.Map<City>(cityDto);
-            city.LastUpdatedBy = "Cp";
-            city.LastUpdateOn = DateTime.Now;
+   
+            city.LastUpdatedBy = 8;
+            city.LastUpdatedOn = DateTime.Now;
 
                 _uow.cityRepository.AddCity(city);
             await _uow.SaveAsync();
@@ -96,8 +97,9 @@ namespace BRHomeWebApi.Controllers
                 return BadRequest(apiError);
             }
 
-            cityFromDB.LastUpdatedBy = "Cp";
-            cityFromDB.LastUpdateOn = DateTime.Now;
+            cityFromDB.LastUpdatedBy = 8;
+            cityFromDB.LastUpdatedOn = DateTime.Now;
+ 
            
            _mapper.Map(cityDto,cityFromDB);
 
@@ -124,8 +126,8 @@ namespace BRHomeWebApi.Controllers
                 return BadRequest(apiError);
             }
                 
-            cityFromDB.LastUpdatedBy = "Cp";
-            cityFromDB.LastUpdateOn = DateTime.Now;
+            cityFromDB.LastUpdatedBy = 8;
+            cityFromDB.LastUpdatedOn = DateTime.Now;
            
            cityToPatch.ApplyTo(cityFromDB, ModelState);
 
@@ -147,8 +149,8 @@ namespace BRHomeWebApi.Controllers
                 return BadRequest(apiError);
             }
 
-            cityFromDB.LastUpdatedBy = "Cp";
-            cityFromDB.LastUpdateOn = DateTime.Now;
+            cityFromDB.LastUpdatedBy = 8;
+            cityFromDB.LastUpdatedOn = DateTime.Now;
            
            _mapper.Map(cityUpdateDto,cityFromDB);
 
