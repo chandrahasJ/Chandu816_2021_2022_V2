@@ -13,7 +13,7 @@ namespace SimpleTraderConsoleTest
         {
             Console.WriteLine("Hello World!");
 
-            IDataService<User> dataService = new GenericDataService<User>(new SimpleTraderAppDbContextFactory());
+            IDataService<User> dataService = new GenericDataService<User>(new SimpleTraderAppDbContextFactory(""));
             Console.WriteLine(dataService.GetAll().Result.Count());
             dataService.Create(new User()
             {

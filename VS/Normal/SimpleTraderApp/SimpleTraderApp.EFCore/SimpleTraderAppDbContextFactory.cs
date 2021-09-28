@@ -6,12 +6,19 @@ using System.Text;
 
 namespace SimpleTraderApp.EFCore
 {
-    public class SimpleTraderAppDbContextFactory : IDesignTimeDbContextFactory<SimpleTraderAppDbContext>
+    public class SimpleTraderAppDbContextFactory 
     {
-        public SimpleTraderAppDbContext CreateDbContext(string[] args = null)
+        private readonly string connectionString;
+
+        public SimpleTraderAppDbContextFactory(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
+        public SimpleTraderAppDbContext CreateDbContext()
         {
             var options = new DbContextOptionsBuilder<SimpleTraderAppDbContext>();
-            options.UseSqlServer("Data Source=DESKTOP-OAI7BIC;Initial Catalog=SimpleTraderDB;Integrated Security=True;");
+            options.UseSqlServer(this.connectionString);
 
             return new SimpleTraderAppDbContext(options.Options);
         }

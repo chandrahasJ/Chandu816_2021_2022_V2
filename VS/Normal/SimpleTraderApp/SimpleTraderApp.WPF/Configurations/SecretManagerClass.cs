@@ -19,6 +19,7 @@ namespace SimpleTraderApp.WPF.Configurations
         }
 
         public static MySettingConfiguration mySettingConfiguration { get; set; }
+        public static MyConnectionStrings myConnectionStrings { get; set; }
 
         public static void Build()
         {
@@ -31,7 +32,8 @@ namespace SimpleTraderApp.WPF.Configurations
             IConfigurationRoot configuration = builder.Build();
             mySettingConfiguration = new MySettingConfiguration();
             configuration.GetSection("MySettings").Bind(mySettingConfiguration);
-
+            myConnectionStrings = new MyConnectionStrings();
+            configuration.GetSection("ConnectionStrings").Bind(myConnectionStrings);
         }
     }
 }
