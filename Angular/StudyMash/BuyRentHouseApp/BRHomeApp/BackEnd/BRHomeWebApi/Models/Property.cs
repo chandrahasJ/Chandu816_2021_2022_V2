@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace BRHomeWebApi.Models
     { 
         public string Name { get; set; }
         public int SellRent { get; set; }
+        public int BHK{get;set;}
         public int PropertyTypeId { get; set; }
         public PropertyType PropertyType { get; set; }
         public int FurnishingTypeId { get; set; }
@@ -29,8 +31,10 @@ namespace BRHomeWebApi.Models
         public int Security { get; set; }
         public bool Gated { get; set; }
         public int Maintenance { get; set; }
-        public DateTime EstPossesionOn { get; set; }
+        public DateTime EstPossessionOn { get; set; }
         public int Age { get; set; }
+        [StringLength(1000)]
+        public string Description { get; set; }
         public ICollection<Photo>  Photos { get; set; }
         public DateTime PostedOn { get; set; } = DateTime.Now;
         [ForeignKey("User")]
