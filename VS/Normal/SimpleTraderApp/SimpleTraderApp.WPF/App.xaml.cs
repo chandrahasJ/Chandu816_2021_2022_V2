@@ -44,8 +44,10 @@ namespace SimpleTraderApp.WPF
                      .ConfigureServices((context, services) => {
                          SecretManagerClass.Build();
 
-                         services.AddDbContext<SimpleTraderAppDbContext>(x => x.UseSqlServer(SecretManagerClass.myConnectionStrings.SqlConnectionString));
-                         services.AddSingleton<SimpleTraderAppDbContextFactory>(new SimpleTraderAppDbContextFactory(SecretManagerClass.myConnectionStrings.SqlConnectionString));
+                         Action<DbContextOptionsBuilder> configureDbContext = x => x.UseSqlServer(SecretManagerClass.myConnectionStrings.SqlConnectionString);
+
+                         services.AddDbContext<SimpleTraderAppDbContext>(configureDbContext);
+                         services.AddSingleton<SimpleTraderAppDbContextFactory>(new SimpleTraderAppDbContextFactory(configureDbContext));
                          services.AddSingleton<IDataService<Account>, AccountDataService>();
                          services.AddSingleton<IAccountService, AccountDataService>();
                          services.AddSingleton<IAuthenticationService, AuthenticationService>();
@@ -116,6 +118,12 @@ namespace SimpleTraderApp.WPF
            await  _host.StartAsync();
 
             IServiceProvider serviceProvider = _host.Services;
+
+            SimpleTraderAppDbContextFactory contextFactory = serviceProvider.GetRequiredService<SimpleTraderAppDbContextFactory>();
+            using (SimpleTraderAppDbContext traderAppDbContext = contextFactory.CreateDbContext())
+            {
+                traderAppDbContext.Database.Migrate();
+            }
 
 
             Window window  = serviceProvider.GetRequiredService<MainWindow>();

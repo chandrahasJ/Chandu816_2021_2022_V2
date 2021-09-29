@@ -7,18 +7,20 @@ using System.Text;
 namespace SimpleTraderApp.EFCore
 {
     public class SimpleTraderAppDbContextFactory 
-    {
-        private readonly string connectionString;
+    {        
+        
+        private readonly Action<DbContextOptionsBuilder> configureDbContext;
 
-        public SimpleTraderAppDbContextFactory(string connectionString)
+        public SimpleTraderAppDbContextFactory(Action<DbContextOptionsBuilder> configureDbContext)
         {
-            this.connectionString = connectionString;
+
+            this.configureDbContext = configureDbContext;
         }
 
         public SimpleTraderAppDbContext CreateDbContext()
         {
             var options = new DbContextOptionsBuilder<SimpleTraderAppDbContext>();
-            options.UseSqlServer(this.connectionString);
+            configureDbContext(options);
 
             return new SimpleTraderAppDbContext(options.Options);
         }
