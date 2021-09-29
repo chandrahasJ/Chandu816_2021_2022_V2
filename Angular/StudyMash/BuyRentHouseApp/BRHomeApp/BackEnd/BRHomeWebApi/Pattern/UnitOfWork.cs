@@ -19,6 +19,9 @@ namespace BRHomeWebApi.Pattern
         public IUserRepository userRepository =>
                 new UserRepository(_bRHomeDbContext);
 
+        public IPropertyRepository propertyRepository => 
+                new PropertyRepository(_bRHomeDbContext);
+
         public async Task<bool> SaveAsync()
         {
             return await _bRHomeDbContext.SaveChangesAsync() > 0;
