@@ -30,16 +30,16 @@ export class AddPropertyComponent implements OnInit {
   nextButtonClicked : boolean = false;
 
   propertyView : IPropertyBase = {
-    Id : 0,
-    Name : '',
-    Price : null,
-    SellRent : 0,
-    PType : '',
-    FType : '',
-    BHK : null,
-    BuiltArea : null,
-    City : '',
-    RTM : 0
+    id : 0,
+    name : '',
+    price : null,
+    sellRent : 0,
+    propertyType : '',
+    furnishingType : '',
+    bhk : null,
+    builtArea : null,
+    city : '',
+    readyToMove : 0
   };
 
   constructor(private formBuilder: FormBuilder,
@@ -122,16 +122,16 @@ export class AddPropertyComponent implements OnInit {
   }
 
   mapProperty() : void{
-    this.property.Id = this.houseService.generateNewPropertyId();
-    this.property.Name = this.Name.value;
-    this.property.Price = this.Price.value;
-    this.property.SellRent = +this.SellRent.value;
-    this.property.PType = this.PType.value;
-    this.property.FType = this.FType.value;
-    this.property.BuiltArea = this.BuiltArea.value;
-    this.property.BHK = this.BHK.value;
-    this.property.City = this.City.value;
-    this.property.RTM = this.RTM.value;
+    this.property.id = this.houseService.generateNewPropertyId();
+    this.property.name = this.Name.value;
+    this.property.price = this.Price.value;
+    this.property.sellRent = +this.SellRent.value;
+    this.property.propertyType = this.PType.value;
+    this.property.furnishingType = this.FType.value;
+    this.property.builtArea = this.BuiltArea.value;
+    this.property.bhk = this.BHK.value;
+    this.property.city = this.City.value;
+    this.property.readyToMove = this.RTM.value;
     this.property.Address = this.Address.value;
     this.property.CarpetArea = this.CarpetArea?.value;
     this.property.Address2 = this.Landmark?.value;

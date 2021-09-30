@@ -29,7 +29,12 @@ namespace BRHomeWebApi.Pattern.Repositories
 
         public async Task<IEnumerable<Property>> GetProperties(int sellRent)
         {
-            var properties = await bRHomeDbContext.Properties.ToListAsync();
+            var properties = await bRHomeDbContext.Properties
+                                            .Include(i => i.City)
+                                            .Include(i => i.PropertyType)
+                                            .Include(i => i.FurnishingType)
+                                            .Where(w => w.SellRent == sellRent)
+                                            .ToListAsync();
             return properties;
         }
     }

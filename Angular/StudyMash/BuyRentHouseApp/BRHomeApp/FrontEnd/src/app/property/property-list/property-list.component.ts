@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IProperty } from 'src/app/models/IProperty.interface';
+import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { HousingService } from 'src/app/services/housing.service';
 
@@ -29,14 +30,7 @@ export class PropertyListComponent implements OnInit {
       this.SellRent = (this.activatedRoute.snapshot.url.toString() == "" ? 1 : 2);
       this.housingServices.getAllProperties(this.SellRent).subscribe(data =>{
         this.propertyCollections = data;
-        const newPropertyData  = localStorage.getItem('newProperty');
-        if(newPropertyData){
-          const newProperty = JSON.parse(newPropertyData);
-          if(newProperty.SellRent === this.SellRent){
-            this.propertyCollections = [newProperty, ...this.propertyCollections];
-          }
-        }
-
+        console.log(this.propertyCollections);
       }, error =>{
         console.log(error);
       });
