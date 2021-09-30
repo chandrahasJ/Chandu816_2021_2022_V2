@@ -1,4 +1,5 @@
-﻿using SimpleTraderApp.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services;
 using SimpleTraderApp.EFCore;
 using SimpleTraderApp.EFCore.Services;
@@ -12,8 +13,9 @@ namespace SimpleTraderConsoleTest
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Action<DbContextOptionsBuilder> action = null; 
 
-            IDataService<User> dataService = new GenericDataService<User>(new SimpleTraderAppDbContextFactory(""));
+            IDataService<User> dataService = new GenericDataService<User>(new SimpleTraderAppDbContextFactory(action));
             Console.WriteLine(dataService.GetAll().Result.Count());
             dataService.Create(new User()
             {

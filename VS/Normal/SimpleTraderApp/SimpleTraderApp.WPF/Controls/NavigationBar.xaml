@@ -1,62 +1,74 @@
-﻿<UserControl x:Class="SimpleTraderApp.WPF.Controls.NavigationBar"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimpleTraderApp.WPF.Controls"
-             xmlns:nav ="clr-namespace:SimpleTraderApp.WPF.State.Navigators"
-             xmlns:vm ="clr-namespace:SimpleTraderApp.WPF.ViewModels"
-             xmlns:convetors ="clr-namespace:SimpleTraderApp.WPF.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="SimpleTraderApp.WPF.Controls.NavigationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convetors="[convetors ]clr-namespace:SimpleTraderApp.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimpleTraderApp.WPF.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nav="[nav ]clr-namespace:SimpleTraderApp.WPF.State.Navigators"
+    xmlns:vm="[vm ]clr-namespace:SimpleTraderApp.WPF.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <convetors:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="{StaticResource BrushPrimary1}">
-            <TextBlock MaxWidth="1000"  Text="Simple Investor" Padding="12" FontSize="28" Foreground="Black" />
+            <TextBlock
+                MaxWidth="1000"
+                Padding="12"
+                FontSize="28"
+                Foreground="Black"
+                Text="Simple Investor" />
         </Grid>
 
-        <Grid Grid.Row="1" Background="{StaticResource BrushPrimary2}" RenderOptions.EdgeMode="Aliased" >
+        <Grid
+            Grid.Row="1"
+            Background="{StaticResource BrushPrimary2}"
+            RenderOptions.EdgeMode="Aliased">
             <Grid MaxWidth="1000">
                 <Grid.Resources>
-                    <Style TargetType="RadioButton" BasedOn="{StaticResource NavButton}" />
+                    <Style BasedOn="{StaticResource NavButton}" TargetType="RadioButton" />
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <RadioButton Grid.Column="0" Content="Home" 
-                         IsChecked="{Binding CurrentViewModel, 
-                                     Mode=OneWay,
-                                     ConverterParameter={x:Type vm:HomeViewModel },
-                                     Converter={StaticResource EqualValueToParameterConverter}}"
-                         Command="{Binding UpdateCurrentViewModelCommand}" 
-                         CommandParameter="{x:Static nav:ViewType.Home}"/>
-                <RadioButton Grid.Column="1" Content="PortFolio" 
-                        IsChecked="{Binding CurrentViewModel, 
-                            Mode=OneWay,
-                            ConverterParameter={x:Type vm:PortfolioViewModel },
-                            Converter={StaticResource EqualValueToParameterConverter}}"
-                        Command="{Binding UpdateCurrentViewModelCommand}" 
-                         CommandParameter="{x:Static nav:ViewType.Portfolio}"/>
-                <RadioButton Grid.Column="2" Content="Buy Stocks" 
-                        IsChecked="{Binding CurrentViewModel, 
-                            Mode=OneWay,
-                            ConverterParameter={x:Type vm:BuyViewModel },
-                            Converter={StaticResource EqualValueToParameterConverter}}"
-                        Command="{Binding UpdateCurrentViewModelCommand}" 
-                         CommandParameter="{x:Static nav:ViewType.Buy}"/>
-                <RadioButton Grid.Column="3" Content="Sell"/>
+                <RadioButton
+                    Grid.Column="0"
+                    Command="{Binding UpdateCurrentViewModelCommand}"
+                    CommandParameter="{x:Static nav:ViewType.Home}"
+                    Content="Home"
+                    IsChecked="{Binding CurrentViewModel, Mode=OneWay, ConverterParameter={x:Type vm:HomeViewModel}, Converter={StaticResource EqualValueToParameterConverter}}" />
+                <RadioButton
+                    Grid.Column="1"
+                    Command="{Binding UpdateCurrentViewModelCommand}"
+                    CommandParameter="{x:Static nav:ViewType.Portfolio}"
+                    Content="PortFolio"
+                    IsChecked="{Binding CurrentViewModel, Mode=OneWay, ConverterParameter={x:Type vm:PortfolioViewModel}, Converter={StaticResource EqualValueToParameterConverter}}" />
+                <RadioButton
+                    Grid.Column="2"
+                    Command="{Binding UpdateCurrentViewModelCommand}"
+                    CommandParameter="{x:Static nav:ViewType.Buy}"
+                    Content="Buy Stocks"
+                    IsChecked="{Binding CurrentViewModel, Mode=OneWay, ConverterParameter={x:Type vm:BuyViewModel}, Converter={StaticResource EqualValueToParameterConverter}}" />
+                <RadioButton
+                    Grid.Column="3"
+                    Command="{Binding UpdateCurrentViewModelCommand}"
+                    CommandParameter="{x:Static nav:ViewType.Sell}"
+                    Content="Sell Stocks"
+                    IsChecked="{Binding CurrentViewModel, Mode=OneWay, ConverterParameter={x:Type vm:SellViewModel}, Converter={StaticResource EqualValueToParameterConverter}}" />
             </Grid>
         </Grid>
     </Grid>
