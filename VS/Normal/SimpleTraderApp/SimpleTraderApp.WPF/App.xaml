@@ -2,7 +2,6 @@
     x:Class="SimpleTraderApp.WPF.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:SimpleTraderApp.WPF"
     xmlns:viewmodels="clr-namespace:SimpleTraderApp.WPF.ViewModels"
     xmlns:views="clr-namespace:SimpleTraderApp.WPF.Views">
     <Application.Resources>
