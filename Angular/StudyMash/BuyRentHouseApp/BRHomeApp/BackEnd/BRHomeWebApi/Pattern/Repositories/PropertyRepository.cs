@@ -37,5 +37,16 @@ namespace BRHomeWebApi.Pattern.Repositories
                                             .ToListAsync();
             return properties;
         }
+
+        public async Task<Property> GetPropertyDetails(int id)
+        {
+            var property = await bRHomeDbContext.Properties
+                                            .Include(i => i.City)
+                                            .Include(i => i.PropertyType)
+                                            .Include(i => i.FurnishingType)
+                                            .Where(w => w.Id == id)
+                                            .SingleOrDefaultAsync();
+            return property;
+        }
     }
 }

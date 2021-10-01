@@ -38,11 +38,7 @@ export class HousingService {
   }
 
   getProperty(Id : number) : Observable<Property>{
-    return this.getAllProperties(1).pipe(
-      map( propertiesArray  => {
-        return propertiesArray.find(p => p.id == Id) as Property;
-      })
-    )
+    return this.httpClient.get<Property>(this.baseUrl+'/property/details/'+Id?.toString());
   }
 
   getAllCities() : Observable<string[]>{

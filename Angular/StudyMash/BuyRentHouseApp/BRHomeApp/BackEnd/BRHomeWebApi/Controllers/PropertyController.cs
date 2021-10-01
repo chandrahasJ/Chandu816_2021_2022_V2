@@ -31,5 +31,14 @@ namespace BRHomeWebApi.Controllers
             var propertiesDto = mapper.Map<IEnumerable<PropertyListDto>>(properties);
             return Ok(propertiesDto);
         }
+
+        [HttpGet("details/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> GetPropertyDetails(int id)
+        {
+            var property = await _uow.propertyRepository.GetPropertyDetails(id);
+            var propertyDetailsDto = mapper.Map<PropertyDetailsDto>(property);
+            return Ok(propertyDetailsDto);
+        }
     }
 }

@@ -33,6 +33,24 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
                                  option => option.MapFrom(
                                      source => source.FurnishingType.Name
                                  ));
+
+            CreateMap<Property,PropertyDetailsDto>()
+                 .ForMember(destination => destination.City,
+                                 option => option.MapFrom(
+                                     source => source.City.Name
+                                 ))
+                 .ForMember(destination => destination.CountryName,
+                                 option => option.MapFrom(
+                                     source => source.City.CountryName
+                                 ))
+                 .ForMember(destination => destination.PropertyType,
+                                 option => option.MapFrom(
+                                     source => source.PropertyType.Name
+                                 ))
+                 .ForMember(destination => destination.FurnishingType,
+                                 option => option.MapFrom(
+                                     source => source.FurnishingType.Name
+                                 ));
         }
     }
 }
