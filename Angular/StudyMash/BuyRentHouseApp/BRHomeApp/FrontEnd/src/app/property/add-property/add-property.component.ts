@@ -137,7 +137,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.address2 = this.Landmark?.value;
     this.property.floorNo = this.FloorNo?.value;
     this.property.totalFloors = this.TotalFloor?.value;
-    this.property.aop = this.AOP?.value;
+    this.property.age = this.AOP?.value;
     this.property.estPossessionOn = this.Possession?.value;
     this.property.mainEntrance = this.MainEntrance?.value;
     this.property.security = this.Security?.value;

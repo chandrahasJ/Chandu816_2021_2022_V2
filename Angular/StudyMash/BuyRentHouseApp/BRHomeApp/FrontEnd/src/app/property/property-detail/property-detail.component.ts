@@ -48,7 +48,11 @@ export class PropertyDetailComponent implements OnInit {
         this.property = data['propertyInformation'];
       }
     );
-
+    this.property.age = this.housingService
+                .getPropertyAge(this.property?.estPossessionOn === undefined ?
+                    new Date().toString():
+                    this.property?.estPossessionOn
+                  );
   }
 
   onSelectNextPage(){

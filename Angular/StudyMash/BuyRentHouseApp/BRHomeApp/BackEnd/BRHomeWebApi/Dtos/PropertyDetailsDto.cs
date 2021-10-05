@@ -14,6 +14,7 @@ namespace BRHomeWebApi.Dtos
         public int FloorNo { get; set; }
         public int TotalFloors { get; set; } 
         public string MainEntrance { get; set; }
+        public int Age { get; set; }
         public int Security { get; set; }
         public bool Gated { get; set; }
         public int Maintenance { get; set; }

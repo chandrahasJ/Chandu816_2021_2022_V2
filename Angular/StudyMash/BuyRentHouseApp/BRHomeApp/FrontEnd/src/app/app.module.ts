@@ -27,6 +27,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { HttperrorsInterceptor } from './services/httperrors.interceptor';
+import { SellrentPipe } from './pipes/sellrent.pipe';
+import { ConvertTrueFalseToYesNoPipe } from './pipes/convert-true-false-to-yes-no.pipe';
 
 
 const appRoutes : Routes = [
@@ -43,7 +45,9 @@ const appRoutes : Routes = [
     UserLoginComponent,
     UserRegisterComponent,
     FilterPipe,
-    SortPipe
+    SortPipe,
+    SellrentPipe,
+    ConvertTrueFalseToYesNoPipe
   ],
   imports: [
     BrowserModule,

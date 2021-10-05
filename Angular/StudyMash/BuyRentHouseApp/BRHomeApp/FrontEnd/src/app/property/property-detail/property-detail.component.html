@@ -32,6 +32,12 @@
           </strong>
           {{property.furnishingType}}
         </div>
+        <div>
+          <strong>
+            Available for
+          </strong>
+          {{property.sellRent | sellrent}}
+        </div>
       </div>
       <div class="footer">
         <div class="btn-group d-flex">
@@ -57,7 +63,7 @@
                 <div class="heading">
                   <strong>Floor Number</strong>
                   <p>
-                    {{property.floorNo}}
+                    {{property.floorNo}} of {{property.totalFloors}}
                   </p>
                 </div>
                 <div class="heading">
@@ -65,7 +71,7 @@
                     Age of Property
                   </strong>
                   <p>
-                    {{property.aop}}
+                    {{property.age}}
                   </p>
                 </div>
                 <div class="heading">
@@ -73,7 +79,7 @@
                     Possession
                   </strong>
                   <p>
-                    {{property.estPossessionOn}}
+                    {{property.estPossessionOn | date}}
                   </p>
                 </div>
               </div>
@@ -91,7 +97,7 @@
                     Gated Community
                   </strong>
                   <p>
-                    {{property.gated}}
+                    {{property.gated | convertTrueFalseToYesNo}}
                   </p>
                 </div>
                 <div class="heading">

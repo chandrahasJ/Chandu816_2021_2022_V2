@@ -17,7 +17,7 @@ export class Property implements IPropertyBase{
   address2! : string;
   floorNo?: string;
   totalFloors? : string;
-  aop?: string;
+  age?: string;
   estPossessionOn? : string;
   mainEntrance?:string;
   security? : boolean;
