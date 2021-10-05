@@ -63,6 +63,7 @@ namespace SimpleTraderApp.WPF
                          services.AddSingleton<ViewModelDelegateReNavigator<RegisterViewModel>>();
                          services.AddSingleton<ViewModelDelegateReNavigator<LoginViewModel>>();
                          services.AddSingleton<BuyViewModel>();
+                         services.AddSingleton<SellViewModel>();
                          services.AddSingleton<PortfolioViewModel>();
                          services.AddSingleton<AssetSummaryViewModel>();
                          services.AddSingleton<HomeViewModel>(services =>
@@ -100,6 +101,10 @@ namespace SimpleTraderApp.WPF
 
                          services.AddSingleton<CreateViewModel<BuyViewModel>>(services => {
                              return () => services.GetRequiredService<BuyViewModel>();
+                         });
+
+                         services.AddSingleton<CreateViewModel<SellViewModel>>(services => {
+                             return () => services.GetRequiredService<SellViewModel>();
                          });
 
                          services.AddSingleton<INavigator, Navigator>();

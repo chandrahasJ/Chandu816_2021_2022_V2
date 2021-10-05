@@ -12,32 +12,32 @@ namespace SimpleTraderApp.WPF.Commands
 {
     public class SearchSymbolCommand : AsyncCommandBase
     {
-        private  readonly BuyViewModel _buyViewModel;
+        private  readonly ISearchSymbolViewModel _searchSymbolViewModel ;
         private readonly IStockPriceService _stockPriceService;
 
-        public SearchSymbolCommand(BuyViewModel buyViewModel, IStockPriceService stockPriceService)
+        public SearchSymbolCommand(ISearchSymbolViewModel ViewModel, IStockPriceService stockPriceService)
         {
-            this._buyViewModel = buyViewModel;
+            this._searchSymbolViewModel = ViewModel;
             this._stockPriceService = stockPriceService;
         }
 
         public override async Task ExecuteAsync(object parameter)
         {
-            _buyViewModel.ErrorMessage = String.Empty;
-            _buyViewModel.StatusMessage = String.Empty;
+            _searchSymbolViewModel.ErrorMessage = String.Empty;
+            _searchSymbolViewModel.StatusMessage = String.Empty;
             try
             {
-                double stockPrice = await _stockPriceService.GetPrice(_buyViewModel.Symbol);
-                _buyViewModel.SearchResultSymbol = _buyViewModel.Symbol.ToUpper();
-                _buyViewModel.StockPrice = stockPrice;
+                double stockPrice = await _stockPriceService.GetPrice(_searchSymbolViewModel.Symbol);
+                _searchSymbolViewModel.SearchResultSymbol = _searchSymbolViewModel.Symbol.ToUpper();
+                _searchSymbolViewModel.StockPrice = stockPrice;
             }
             catch (InvalidSymbolException)
             {
-                _buyViewModel.ErrorMessage = "Symbol does not exists.";
+                _searchSymbolViewModel.ErrorMessage = "Symbol does not exists.";
             }
             catch (Exception)
             {
-                _buyViewModel.ErrorMessage = "Transaction Failed.";
+                _searchSymbolViewModel.ErrorMessage = "Transaction Failed.";
             }
         }
     }

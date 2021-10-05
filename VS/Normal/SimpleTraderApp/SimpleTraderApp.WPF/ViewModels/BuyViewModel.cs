@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.ViewModels
 {
-    public class BuyViewModel : ViewModelBase
+    public class BuyViewModel : ViewModelBase, ISearchSymbolViewModel
     {
         public BuyViewModel(IStockPriceService stockPriceService, IBuyStockService buyStockService, IAccountStore accountStore)
         {
@@ -17,7 +17,7 @@ namespace SimpleTraderApp.WPF.ViewModels
             this.StatusMessageViewModel = new MessageViewModel();
             this.SearchSymbolCommand = new SearchSymbolCommand(this, stockPriceService);
             this.BuyStockCommand = new BuyStockCommand(this, buyStockService, accountStore);
-            
+
         }
 
         private string _symbol;
@@ -81,13 +81,12 @@ namespace SimpleTraderApp.WPF.ViewModels
             }
         }
 
-
         public double TotalPrice
         {
             get
             {
                 return SharesToBuy * StockPrice;
-            }            
+            }
         }
 
         public ICommand SearchSymbolCommand { get; set; }
@@ -96,7 +95,7 @@ namespace SimpleTraderApp.WPF.ViewModels
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
-        public MessageViewModel StatusMessageViewModel { get;  }
+        public MessageViewModel StatusMessageViewModel { get; }
         public string StatusMessage { set => StatusMessageViewModel.Message = value; }
     }
 }
