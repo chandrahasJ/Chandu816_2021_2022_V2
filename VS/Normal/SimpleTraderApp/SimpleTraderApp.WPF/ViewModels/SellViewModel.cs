@@ -29,18 +29,7 @@ namespace SimpleTraderApp.WPF.ViewModels
         public ICommand SearchSymbolCommand { get; set; }
         public ICommand SellSymbolCommand { get; set; }
         private string _symbol;
-        public string Symbol
-        {
-            get
-            {
-                return _symbol;
-            }
-            set
-            {
-                _symbol = value;
-                OnPropertyChanged(nameof(Symbol));
-            }
-        }
+        public string Symbol => SelectedAsset?.Symbol;
 
         private string _searchResultSymbol = string.Empty;
         public string SearchResultSymbol
