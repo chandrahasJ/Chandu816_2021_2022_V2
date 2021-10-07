@@ -8,6 +8,7 @@ export interface IPropertyBase {
   builtArea :number | null;
   bhk: number | null;
   city :string;
-  readyToMove: number;
+  readyToMove? : boolean;
   image? : string;
+  estPossessionOn? : string;
 }

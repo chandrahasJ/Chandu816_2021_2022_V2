@@ -39,7 +39,7 @@ export class AddPropertyComponent implements OnInit {
     bhk : null,
     builtArea : null,
     city : '',
-    readyToMove : 0
+    readyToMove : false
   };
 
   constructor(private formBuilder: FormBuilder,

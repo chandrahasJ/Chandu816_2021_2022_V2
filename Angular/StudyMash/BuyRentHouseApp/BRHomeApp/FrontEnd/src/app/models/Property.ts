@@ -11,7 +11,7 @@ export class Property implements IPropertyBase{
   carpetArea? : number;
   bhk!: number | null;
   city!: string;
-  readyToMove!: number;
+  readyToMove! : boolean;
   image?: string | undefined;
   address! : string;
   address2! : string;
