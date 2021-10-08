@@ -64,10 +64,10 @@
                       class="btn btn-outline-primary m-1"
                       name="propertyType"
                       tabindex="0"
-                      btnRadio="{{ pType }}"
+                      btnRadio="{{ pType.id }}"
                       role="button"
                     >
-                      {{ pType }}
+                      {{ pType.name }}
                     </label>
                     <div class="error-block" *ngIf="PType.invalid && nextButtonClicked">
                       Please select the Property Type
@@ -85,10 +85,10 @@
                       class="btn btn-outline-primary m-1"
                       name="FurnishType"
                       tabindex="0"
-                      btnRadio="{{ fType }}"
+                      btnRadio="{{ fType.id }}"
                       role="button"
                     >
-                      {{ fType }}
+                      {{ fType.name }}
                     </label>
 
                     <div class="error-block" *ngIf="FType.invalid && nextButtonClicked">

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { IKeyValuePair } from 'src/app/models/IKeyValuePair';
 import { IPropertyBase } from 'src/app/models/IPropertyBase.interface';
 import { Property } from 'src/app/models/Property';
 import { AlertifyService } from 'src/app/services/alertify.service';
@@ -20,8 +21,8 @@ export class AddPropertyComponent implements OnInit {
 
   addPropertyForm! : FormGroup;
 
-  propertyType: Array<string> = ['House','Apartment','Duplex'];
-  furnishType: Array<string> = ['Fully Furnished','Semi Furnished','Un-Furnished'];
+  propertyType?: IKeyValuePair[];
+  furnishType?: IKeyValuePair[];
   yesNoType : Array<string> =['Yes','No'];
   mainEntranceArray : Array<string> = ['East', 'West', 'North', 'South'];
   BHKArray : Array<string> =['1','2','3','4','5'];
@@ -56,6 +57,20 @@ export class AddPropertyComponent implements OnInit {
     this.houseService.getAllCities().subscribe(
       data =>{
         this.cityArray = data;
+      }
+    );
+
+    this.houseService.getFurnishingType().subscribe(
+      data => {
+        this.furnishType = data;
+        console.log(data);
+      }
+    );
+
+    this.houseService.getPropertyTypes().subscribe(
+      data => {
+        this.propertyType = data;
+        console.log(data);
       }
     );
   }
