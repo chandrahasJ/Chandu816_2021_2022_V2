@@ -1,10 +1,9 @@
-﻿using SimpleTraderApp.Domain.Services;
-using SimpleTraderApp.FMPrepAPI.Services;
+﻿
+using SimpleTraderApp.Domain.Services;
+using SimpleTraderApp.Domain.Services.TransactionServices;
 using SimpleTraderApp.WPF.Commands;
+using SimpleTraderApp.WPF.State.Accounts;
 using SimpleTraderApp.WPF.State.Assets;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.ViewModels
@@ -26,9 +25,9 @@ namespace SimpleTraderApp.WPF.ViewModels
             }
         }
 
-        public ICommand SearchSymbolCommand { get; set; }
-        public ICommand SellSymbolCommand { get; set; }
-        private string _symbol;
+        public ICommand SearchSymbolCommand { get;  }
+        public ICommand SellStockCommand { get;  }
+        
         public string Symbol => SelectedAsset?.Symbol;
 
         private string _searchResultSymbol = string.Empty;
@@ -62,7 +61,7 @@ namespace SimpleTraderApp.WPF.ViewModels
         }
 
         private int _sharesToSell;
-        private IStockPriceService _stockPriceService;
+        private IStockPriceService _stockPriceService; 
 
         public int SharesToSell
         {
@@ -91,15 +90,19 @@ namespace SimpleTraderApp.WPF.ViewModels
         public MessageViewModel StatusMessageViewModel { get; }
         public string StatusMessage { set => StatusMessageViewModel.Message = value; }
 
-        public SellViewModel(AssetStore assetStore, IStockPriceService stockPriceService )
-        {
+        public SellViewModel(AssetStore assetStore, 
+            IStockPriceService stockPriceService,
+            ISellStockService sellStockService,
+            IAccountStore accountStore)
+        { 
             AssetListingViewModel = new AssetListingViewModel(assetStore);
 
             SearchSymbolCommand = new SearchSymbolCommand(this, stockPriceService);
+            SellStockCommand = new SellStockCommand(this, sellStockService, accountStore);
 
             ErrorMessageViewModel = new MessageViewModel();
             StatusMessageViewModel = new MessageViewModel();
-
+            
         }
     }
 }

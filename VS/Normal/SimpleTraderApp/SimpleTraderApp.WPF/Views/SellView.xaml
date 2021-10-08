@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <ComboBox
-            x:Name="btnSellStock"
+            x:Name="cbAssests"
             Grid.Row="0"
             Width="300"
             ItemsSource="{Binding AssetListingViewModel.TopAssets}"

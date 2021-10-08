@@ -37,7 +37,8 @@ namespace SimpleTraderApp.WPF.Views
 
         private void cbAssests_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedAssetsChangeCommand?.Execute(null);
+            if(cbAssests.SelectedItem != null)
+                SelectedAssetsChangeCommand?.Execute(null);
         }
     }
 }
