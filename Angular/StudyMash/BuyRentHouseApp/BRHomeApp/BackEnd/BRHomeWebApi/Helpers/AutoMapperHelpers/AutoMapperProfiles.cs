@@ -51,6 +51,10 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
                                  option => option.MapFrom(
                                      source => source.FurnishingType.Name
                                  ));
+
+                CreateMap<FurnishingType,KeyValuePairDto>().ReverseMap();
+
+                CreateMap<PropertyType,KeyValuePairDto>().ReverseMap();
         }
     }
 }

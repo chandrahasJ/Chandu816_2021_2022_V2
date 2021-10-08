@@ -22,6 +22,12 @@ namespace BRHomeWebApi.Pattern
         public IPropertyRepository propertyRepository => 
                 new PropertyRepository(_bRHomeDbContext);
 
+        public IPropertyTypeRepository propertyTypeRepository =>
+                new PropertyTypeRepository(_bRHomeDbContext);
+
+        public IFurnishTypeRepository furnishTypeRepository => 
+            new FurnishTypeRepository(_bRHomeDbContext);
+
         public async Task<bool> SaveAsync()
         {
             return await _bRHomeDbContext.SaveChangesAsync() > 0;
