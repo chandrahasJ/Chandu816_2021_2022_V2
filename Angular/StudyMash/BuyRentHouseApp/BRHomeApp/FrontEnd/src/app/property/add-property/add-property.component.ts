@@ -90,8 +90,8 @@ export class AddPropertyComponent implements OnInit {
           Price : ['', Validators.required],
           BuiltArea : ['', Validators.required],
           CarpetArea: [null],
-          Security: [null],
-          Maintenance : [null],
+          Security: [0],
+          Maintenance : [0],
         }),
         AddressInfoTab : this.formBuilder.group({
           FloorNo :[null],
@@ -101,7 +101,7 @@ export class AddPropertyComponent implements OnInit {
         }),
         OtherInfoTab : this.formBuilder.group({
           RTM : [null, Validators.required],
-          PossessionOn: [null],
+          PossessionOn: [null,Validators.required],
           AOP : [null],
           Gated : [null],
           MainEntrance : [null],
@@ -153,11 +153,11 @@ export class AddPropertyComponent implements OnInit {
     this.property.address2 = this.Landmark?.value;
     this.property.floorNo = this.FloorNo?.value;
     this.property.totalFloors = this.TotalFloor?.value;
-    this.property.age = this.AOP?.value;
+
     this.property.estPossessionOn = this.Possession?.value;
     this.property.mainEntrance = this.MainEntrance?.value;
-    this.property.security = this.Security?.value;
-    this.property.gated = this.Gated?.value;
+    this.property.security =  this.Security?.value;
+    this.property.gated = this.convertYesNoToBoolean(this.Gated?.value);
     this.property.maintenance = this.Maintenance?.value;
     this.property.description = this.Description?.value;
     this.property.postedOn = new Date().toString();
@@ -281,6 +281,10 @@ export class AddPropertyComponent implements OnInit {
 
     get RTM(){
       return this.OtherInfoTab.controls.RTM as FormControl;
+    }
+
+    get PossessionOnDate(){
+      return this.OtherInfoTab.controls.PossessionOn as FormControl;
     }
 
     get Gated(){

@@ -314,6 +314,10 @@
                       dateInputFormat: 'YYYY-MM-DD'
                     }"
                   />
+                  <div class="error-block" *ngIf="PossessionOnDate.invalid && (nextButtonClicked || PossessionOnDate.touched)">
+                    <label for="AvaialableDate" *ngIf="propertyView.readyToMove">Please select establisment Date</label>
+                    <label for="AvaialableDate" *ngIf="!propertyView.readyToMove">Please select  possession/Avaialable From</label>
+                  </div>
                 </div>
                 <div class="form-group col-12">
                   <p>Gated Community</p>

@@ -20,7 +20,7 @@ export class Property implements IPropertyBase{
   age?: string;
   estPossessionOn? : string;
   mainEntrance?:string;
-  security? : boolean;
+  security? : number;
   gated?: boolean;
   maintenance? : number;
   description? : string;
