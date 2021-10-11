@@ -18,14 +18,14 @@
         in {{property.name}}
 
         <span *ngIf="property.name">,</span>
-        {{property.City}}
+        {{property.city}}
 
         <h6 class="mt-2">{{property.furnishingType}}
           <span *ngIf="property.furnishingType !== 'Unfurnished'">
             Furnished
           </span>
           <span *ngIf="property.readyToMove">| Ready To Move</span>
-          <span *ngIf="!property.readyToMove">| Possession : {{property.estPossessionOn | date}}</span>
+          <span *ngIf="!property.readyToMove">| Possession : {{property.estPossessionOn | date :'yyyy-MM-dd'}}</span>
         </h6>
 
         <hr class="mt-0 mb-2"/>

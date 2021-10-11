@@ -25,7 +25,7 @@ export class AddPropertyComponent implements OnInit {
   furnishType?: IKeyValuePair[];
   yesNoType : Array<string> =['Yes','No'];
   mainEntranceArray : Array<string> = ['East', 'West', 'North', 'South'];
-  BHKArray : Array<string> =['1','2','3','4','5'];
+  BHKArray : Array<number> =[1,2,3,4,5];
   cityArray!: any[];
 
   nextButtonClicked : boolean = false;
@@ -57,6 +57,7 @@ export class AddPropertyComponent implements OnInit {
     this.houseService.getAllCities().subscribe(
       data =>{
         this.cityArray = data;
+        console.log(data);
       }
     );
 
@@ -83,7 +84,7 @@ export class AddPropertyComponent implements OnInit {
           Name : [null, [Validators.required, Validators.minLength]],
           BHK : [null, Validators.required],
           FType: [null, Validators.required],
-          City: [null, Validators.required]
+          City: ['', Validators.required]
         }),
         PriceInfoTab : this.formBuilder.group({
           Price : ['', Validators.required],
@@ -303,4 +304,12 @@ export class AddPropertyComponent implements OnInit {
     }
     //#endregion OtherInfoTab
   //#endregion Getter Method
+
+  convertStringToNumber(stringData:string) :number{
+    return parseInt(stringData);
+  }
+
+  convertYesNoToBoolean(stringData:string):boolean{
+    return stringData == "Yes" ? true : false;
+  }
 }
