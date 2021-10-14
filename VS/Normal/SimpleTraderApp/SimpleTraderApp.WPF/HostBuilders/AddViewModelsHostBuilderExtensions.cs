@@ -21,13 +21,14 @@ namespace SimpleTraderApp.WPF.HostBuilders
                 services.AddSingleton<ViewModelDelegateReNavigator<HomeViewModel>>();
                 services.AddSingleton<ViewModelDelegateReNavigator<RegisterViewModel>>();
                 services.AddSingleton<ViewModelDelegateReNavigator<LoginViewModel>>();
-                services.AddSingleton<BuyViewModel>();
-                services.AddSingleton<SellViewModel>();
-                services.AddSingleton<PortfolioViewModel>();
-                services.AddSingleton<AssetSummaryViewModel>();
-                services.AddSingleton<MainViewModel>();
 
-                services.AddSingleton<HomeViewModel>(CreateHomeViewModel);
+                services.AddTransient<BuyViewModel>();
+                services.AddTransient<SellViewModel>();
+                services.AddTransient<PortfolioViewModel>();
+                services.AddTransient<AssetSummaryViewModel>();
+                services.AddTransient<MainViewModel>();
+
+                services.AddTransient<HomeViewModel>(CreateHomeViewModel);
 
                 //Adding ViewModels to DI
                 services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => CreateLoginViewModel(services));

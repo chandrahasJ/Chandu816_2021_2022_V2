@@ -43,7 +43,7 @@ namespace SimpleTraderApp.WPF.ViewModels
                                                 .OrderByDescending(z => z.Shares);
 
             assetViewModels = filterAssests(assetViewModels);
-
+            DisposeAssetModels();
             _assets.Clear();
 
             foreach (AssetViewModel assetViewModel in assetViewModels)
@@ -52,5 +52,19 @@ namespace SimpleTraderApp.WPF.ViewModels
             }
         }
 
+        private void DisposeAssetModels()
+        {
+            foreach (AssetViewModel assetViewModel in _assets)
+            {
+                assetViewModel.Dispose();
+            }
+        }
+
+        public override void Dispose()
+        {
+            DisposeAssetModels();
+            _assetStore.StateChanged -= _assetStore_StateChanged;
+            base.Dispose();
+        }
     }
 }

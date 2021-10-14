@@ -15,6 +15,12 @@ namespace SimpleTraderApp.WPF.ViewModels
             this.MajorIndexListngViewModel = majorIndexListingViewModel;
         }
 
+        public override void Dispose()
+        {
+            AssetSummaryViewModel?.Dispose();
+            MajorIndexListngViewModel.Dispose();
 
+            base.Dispose();
+        }
     }
 }

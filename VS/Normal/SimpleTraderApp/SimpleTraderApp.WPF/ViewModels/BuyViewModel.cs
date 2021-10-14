@@ -20,6 +20,14 @@ namespace SimpleTraderApp.WPF.ViewModels
 
         }
 
+        public override void Dispose()
+        {
+            ErrorMessageViewModel?.Dispose();
+            StatusMessageViewModel?.Dispose();
+
+            base.Dispose();
+        }
+
         private string _symbol;
         public string Symbol
         {
