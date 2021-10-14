@@ -21,6 +21,16 @@ namespace SimpleTraderApp.WPF.Commands
             this._sellViewModel = sellViewModel;
             this._sellStockService = sellStockService;
             this._accountStore = accountStore;
+
+            _sellViewModel.PropertyChanged += _sellViewModel_PropertyChanged;
+        }
+
+        private void _sellViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SellViewModel.CanSellStock))
+            {
+                OnCanExecuteChanged();
+            }
         }
 
         public override  async Task ExecuteAsync(object parameter)
@@ -59,6 +69,11 @@ namespace SimpleTraderApp.WPF.Commands
             {
                 _sellViewModel.ErrorMessage = "Transaction Failed.";
             }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _sellViewModel.CanSellStock && base.CanExecute(parameter);
         }
     }
 }

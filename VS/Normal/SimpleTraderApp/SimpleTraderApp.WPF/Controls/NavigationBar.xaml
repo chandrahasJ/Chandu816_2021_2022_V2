@@ -28,7 +28,7 @@
                 Padding="12"
                 FontSize="28"
                 Foreground="Black"
-                Text="Simple Investor" />
+                Text="Simple Trader" />
         </Grid>
 
         <Grid

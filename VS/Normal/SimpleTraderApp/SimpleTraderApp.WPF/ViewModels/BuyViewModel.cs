@@ -39,6 +39,7 @@ namespace SimpleTraderApp.WPF.ViewModels
             {
                 _symbol = value;
                 OnPropertyChanged(nameof(Symbol));
+                OnPropertyChanged(nameof(CanSearchSymbol));
             }
         }
 
@@ -86,6 +87,7 @@ namespace SimpleTraderApp.WPF.ViewModels
                 _sharesToBuy = value;
                 OnPropertyChanged(nameof(SharesToBuy));
                 OnPropertyChanged(nameof(TotalPrice));
+                OnPropertyChanged(nameof(CanBuyStock));
             }
         }
 
@@ -96,6 +98,9 @@ namespace SimpleTraderApp.WPF.ViewModels
                 return SharesToBuy * StockPrice;
             }
         }
+
+        public bool CanSearchSymbol => !String.IsNullOrEmpty(Symbol);
+        public bool CanBuyStock => SharesToBuy > 0;
 
         public ICommand SearchSymbolCommand { get; set; }
 
