@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BRHomeWebApi.Dtos;
+using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,19 @@ namespace BRHomeWebApi.Controllers
             var property = await _uow.propertyRepository.GetPropertyDetails(id);
             var propertyDetailsDto = mapper.Map<PropertyDetailsDto>(property);
             return Ok(propertyDetailsDto);
+        }
+
+        [HttpPost("add/")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AddPropertyDetails(PropertyDto propertyDto)
+        {
+            Property property = mapper.Map<Property>(propertyDto);
+            property.PostedBy = 6;
+            property.PostedOn = DateTime.Now;
+            _uow.propertyRepository.AddProperty(property);
+            await _uow.SaveAsync();
+
+            return StatusCode(201);
         }
     }
 }

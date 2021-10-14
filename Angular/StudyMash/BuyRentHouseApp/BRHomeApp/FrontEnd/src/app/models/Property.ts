@@ -7,10 +7,13 @@ export class Property implements IPropertyBase{
   sellRent!: number;
   propertyType!: string;
   furnishingType!: string;
+  propertyTypeId!: number;
+  furnishingTypeId!: number;
   builtArea!: number | null;
   carpetArea? : number;
   bhk!: number | null;
   city!: string;
+  cityId!: string;
   readyToMove! : boolean;
   image?: string | undefined;
   address! : string;

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
@@ -46,7 +47,8 @@ export class AddPropertyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
              private router: Router,
              private alertifyService : AlertifyService,
-             private houseService: HousingService ) { }
+             private houseService: HousingService ,
+             private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.getDataFromAPI();
@@ -57,21 +59,21 @@ export class AddPropertyComponent implements OnInit {
     this.houseService.getAllCities().subscribe(
       data =>{
         this.cityArray = data;
-        console.log(data);
+        //console.log(data);
       }
     );
 
     this.houseService.getFurnishingType().subscribe(
       data => {
         this.furnishType = data;
-        console.log(data);
+        //console.log(data);
       }
     );
 
     this.houseService.getPropertyTypes().subscribe(
       data => {
         this.propertyType = data;
-        console.log(data);
+        //console.log(data);
       }
     );
   }
@@ -119,17 +121,21 @@ export class AddPropertyComponent implements OnInit {
     if( this.allTabsValid()){
       this.mapProperty();
       console.log(this.property);
-      this.houseService.addProperty(this.property);
-      console.log(this.addPropertyForm);
+      this.houseService.addProperty(this.property).subscribe(
+        () => {
+          console.log(this.addPropertyForm);
 
-      if(this.SellRent.value === '2'){
-        this.router.navigate(['/rent-property']);
-      }
-      else{
-        this.router.navigate(['/']);
-      }
-      this.alertifyService.success("Congrats, your property has been listed successfully");
-      this.nextButtonClicked = false;
+          if(this.SellRent.value === '2'){
+            this.router.navigate(['/rent-property']);
+          }
+          else{
+            this.router.navigate(['/']);
+          }
+          this.alertifyService.success("Congrats, your property has been listed successfully");
+          this.nextButtonClicked = false;
+        }
+      );
+
     }
     else{
       this.alertifyService.error("Please review the form and provide all the required data.");
@@ -142,26 +148,25 @@ export class AddPropertyComponent implements OnInit {
     this.property.name = this.Name.value;
     this.property.price = this.Price.value;
     this.property.sellRent = +this.SellRent.value;
-    this.property.propertyType = this.PType.value;
-    this.property.furnishingType = this.FType.value;
+    this.property.propertyTypeId = this.PType.value;
+    this.property.furnishingTypeId = this.FType.value;
     this.property.builtArea = this.BuiltArea.value;
     this.property.bhk = this.BHK.value;
-    this.property.city = this.City.value;
-    this.property.readyToMove = this.RTM.value;
+    this.property.cityId = this.City.value;
+    this.property.readyToMove =this.convertYesNoToBoolean(this.RTM?.value);
     this.property.address = this.Address.value;
     this.property.carpetArea = this.CarpetArea?.value;
     this.property.address2 = this.Landmark?.value;
     this.property.floorNo = this.FloorNo?.value;
     this.property.totalFloors = this.TotalFloor?.value;
 
-    this.property.estPossessionOn = this.Possession?.value;
+    this.property.estPossessionOn =
+        this.datePipe.transform(this.PossessionOnDate?.value, "dd-MM-YYYY")?.toString();
     this.property.mainEntrance = this.MainEntrance?.value;
     this.property.security =  this.Security?.value;
     this.property.gated = this.convertYesNoToBoolean(this.Gated?.value);
     this.property.maintenance = this.Maintenance?.value;
     this.property.description = this.Description?.value;
-    this.property.postedOn = new Date().toString();
-    this.property.postedBy = "CJ";
   }
 
   selectTab(tabId: number, isCurrentTabValid : boolean) {

@@ -29,6 +29,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { HttperrorsInterceptor } from './services/httperrors.interceptor';
 import { SellrentPipe } from './pipes/sellrent.pipe';
 import { ConvertTrueFalseToYesNoPipe } from './pipes/convert-true-false-to-yes-no.pipe';
+import { DatePipe } from '@angular/common';
 
 
 const appRoutes : Routes = [
@@ -70,6 +71,7 @@ const appRoutes : Routes = [
       useClass:HttperrorsInterceptor,
       multi:true
     },
+    DatePipe,
     HousingService,
     AlertifyService,
     AuthService

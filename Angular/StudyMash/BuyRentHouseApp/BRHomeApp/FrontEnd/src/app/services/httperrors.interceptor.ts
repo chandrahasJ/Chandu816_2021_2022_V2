@@ -53,13 +53,34 @@ export class HttperrorsInterceptor implements HttpInterceptor {
     {
       //Client Side
       errorMessage = error.error.message;
+      console.log("CS " +errorMessage);
     }
     else{
       //Server Side
-      if(error.status != 0){
-        errorMessage = error.error.errorMessage;
+      switch (error.status) {
+        case ErrorCode.BadRequest:
+          errorMessage = error.message;
+          break;
+        case ErrorCode.InternalError:
+          errorMessage = error.message;
+            break;
+        case ErrorCode.UnAuthorized:
+          errorMessage = error.message;
+              break;
+        case ErrorCode.serverDown:
+          errorMessage = error.message;
+                break;
+        case ErrorCode.BadRequest:
+          errorMessage = error.message;
+        break;
+
+        default:
+          errorMessage = error.error.message === undefined ? errorMessage : error.message;
+          break;
       }
     }
+    console.log(error.error)
+    console.log(error.status)
     return errorMessage;
   }
 

@@ -3,5 +3,6 @@ export enum ErrorCode{
   UnAuthorized = 401,
   BadRequest = 400,
   OkCreated = 201,
-  Success = 200
+  Success = 200,
+  InternalError = 500
 }

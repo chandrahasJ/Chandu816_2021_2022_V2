@@ -55,6 +55,8 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
                 CreateMap<FurnishingType,KeyValuePairDto>().ReverseMap();
 
                 CreateMap<PropertyType,KeyValuePairDto>().ReverseMap();
+
+                CreateMap<Property, PropertyDto>().ReverseMap();
         }
     }
 }

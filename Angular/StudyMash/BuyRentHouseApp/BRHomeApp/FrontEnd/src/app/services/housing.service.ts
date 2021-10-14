@@ -20,7 +20,7 @@ export class HousingService {
   }
 
   addProperty(property : Property){
-
+    return this.httpClient.post<Property>(this.baseUrl +"/property/add", property)
   }
 
 

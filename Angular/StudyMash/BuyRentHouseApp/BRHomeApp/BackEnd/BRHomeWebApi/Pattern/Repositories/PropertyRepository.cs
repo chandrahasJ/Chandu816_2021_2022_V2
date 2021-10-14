@@ -19,7 +19,7 @@ namespace BRHomeWebApi.Pattern.Repositories
         }
         public void AddProperty(Property property)
         {
-            throw new NotImplementedException();
+            bRHomeDbContext.Properties.Add(property);
         }
 
         public void DeleteProperty(int id)
