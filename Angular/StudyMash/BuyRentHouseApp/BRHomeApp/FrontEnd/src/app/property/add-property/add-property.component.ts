@@ -161,7 +161,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloors = this.TotalFloor?.value;
 
     this.property.estPossessionOn =
-        this.datePipe.transform(this.PossessionOnDate?.value, "dd-MM-YYYY")?.toString();
+        this.datePipe.transform(this.PossessionOnDate?.value, "YYYY-MM-dd")?.toString();
     this.property.mainEntrance = this.MainEntrance?.value;
     this.property.security =  this.Security?.value;
     this.property.gated = this.convertYesNoToBoolean(this.Gated?.value);

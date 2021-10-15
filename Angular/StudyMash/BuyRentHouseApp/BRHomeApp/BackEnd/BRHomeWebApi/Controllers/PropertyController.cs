@@ -43,12 +43,14 @@ namespace BRHomeWebApi.Controllers
         }
 
         [HttpPost("add/")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> AddPropertyDetails(PropertyDto propertyDto)
         {
             Property property = mapper.Map<Property>(propertyDto);
-            property.PostedBy = 6;
+            var userid = GetUserId();
+            property.PostedBy = userid;
             property.PostedOn = DateTime.Now;
+            property.LastUpdatedBy = userid;
             _uow.propertyRepository.AddProperty(property);
             await _uow.SaveAsync();
 

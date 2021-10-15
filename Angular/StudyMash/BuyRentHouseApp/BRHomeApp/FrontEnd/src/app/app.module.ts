@@ -30,6 +30,8 @@ import { HttperrorsInterceptor } from './services/httperrors.interceptor';
 import { SellrentPipe } from './pipes/sellrent.pipe';
 import { ConvertTrueFalseToYesNoPipe } from './pipes/convert-true-false-to-yes-no.pipe';
 import { DatePipe } from '@angular/common';
+import { HttptokenInterceptor } from './services/httptoken.interceptor';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 const appRoutes : Routes = [
@@ -66,15 +68,24 @@ const appRoutes : Routes = [
     NgxGalleryModule
   ],
   providers: [
-    {
-      provide:HTTP_INTERCEPTORS,
-      useClass:HttperrorsInterceptor,
-      multi:true
-    },
+    [
+      {
+        provide:HTTP_INTERCEPTORS,
+        useClass:HttptokenInterceptor,
+        multi:true
+      },
+      {
+        provide:HTTP_INTERCEPTORS,
+        useClass:HttperrorsInterceptor,
+        multi:true
+      },
+    ],
     DatePipe,
     HousingService,
     AlertifyService,
-    AuthService
+    AuthService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

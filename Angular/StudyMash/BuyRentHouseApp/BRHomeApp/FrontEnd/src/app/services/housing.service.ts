@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class HousingService {
   }
 
   addProperty(property : Property){
+
     return this.httpClient.post<Property>(this.baseUrl +"/property/add", property)
   }
 

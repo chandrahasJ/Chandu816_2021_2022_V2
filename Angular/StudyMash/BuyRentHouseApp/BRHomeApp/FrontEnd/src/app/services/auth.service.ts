@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {  IUserForLoginRequest, IUserForLoginResponse, IUserForRegister } from '../models/user';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   baseUrl = environment.baseUrl;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private jwtHelper: JwtHelperService ) { }
 
   authUser(user: IUserForLoginRequest){
     return this.http.post<IUserForLoginResponse>(this.baseUrl+'/account/login', user);
@@ -34,5 +35,10 @@ export class AuthService {
     //   users = [user];
     // }
     // localStorage.setItem('Users', JSON.stringify(users));
+  }
+
+  isAuthenticated() : Boolean{
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token!);
   }
 }

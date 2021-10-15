@@ -23,8 +23,6 @@ export class HttperrorsInterceptor implements HttpInterceptor {
           this.retryErrorRequest(error, 10)
       ),
       catchError((error : HttpErrorResponse) => {
-        console.log('Http interceptor detected.')
-        console.log(error)
         const errorMessage = this.setError(error);
         this.alertify.error (errorMessage);
         return throwError(errorMessage);
@@ -53,25 +51,24 @@ export class HttperrorsInterceptor implements HttpInterceptor {
     {
       //Client Side
       errorMessage = error.error.message;
-      console.log("CS " +errorMessage);
     }
     else{
       //Server Side
       switch (error.status) {
         case ErrorCode.BadRequest:
-          errorMessage = error.message;
+          errorMessage = error.statusText;
           break;
         case ErrorCode.InternalError:
-          errorMessage = error.message;
+          errorMessage = error.statusText;
             break;
         case ErrorCode.UnAuthorized:
-          errorMessage = error.message;
+          errorMessage = error.statusText;
               break;
         case ErrorCode.serverDown:
-          errorMessage = error.message;
+          errorMessage = error.statusText;
                 break;
         case ErrorCode.BadRequest:
-          errorMessage = error.message;
+          errorMessage = error.statusText;
         break;
 
         default:
@@ -79,7 +76,7 @@ export class HttperrorsInterceptor implements HttpInterceptor {
           break;
       }
     }
-    console.log(error.error)
+    console.log(error)
     console.log(error.status)
     return errorMessage;
   }
