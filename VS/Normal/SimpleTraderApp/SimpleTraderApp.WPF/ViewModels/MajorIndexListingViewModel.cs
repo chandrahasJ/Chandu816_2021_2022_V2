@@ -1,10 +1,12 @@
 ﻿using SimpleTraderApp.Domain.Models;
 using SimpleTraderApp.Domain.Services;
+using SimpleTraderApp.WPF.Commands;
 using SimpleTraderApp.WPF.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SimpleTraderApp.WPF.ViewModels
 {
@@ -14,6 +16,22 @@ namespace SimpleTraderApp.WPF.ViewModels
         public MajorIndexListingViewModel(IMajorIndexService majorIndexService)
         {
             this._majorIndexService = majorIndexService;
+            _majorIndexService.SetApiKey(SecretManagerClass.mySettingConfiguration.FMPApiKey);
+            LoadMajorIndexCommand = new LoadMajorInddexesCommand(this, majorIndexService);
+        }
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
         }
 
         private MajorIndex _dowJones;
@@ -58,40 +76,15 @@ namespace SimpleTraderApp.WPF.ViewModels
             }
         }
 
-        private void LoadMajorIndexes()
-        {
-            _majorIndexService.SetApiKey(SecretManagerClass.mySettingConfiguration.FMPApiKey);
-             
-            _majorIndexService.GetMajorIndex(MajorIndexType.DowJones).ContinueWith((task) =>
-            {
-                if (task.Exception == null)
-                {
-                    DowJones = task.Result;
-                }
-            });
-
-            _majorIndexService.GetMajorIndex(MajorIndexType.Nasdaq).ContinueWith((task) =>
-            {
-                if (task.Exception == null)
-                {
-                    Nasdaq = task.Result;
-                }
-            });
-
-            _majorIndexService.GetMajorIndex(MajorIndexType.SP500).ContinueWith((task) =>
-            {
-                if (task.Exception == null)
-                {
-                    SP500 = task.Result;
-                }
-            });
-
-        }
-
+         
+        public ICommand LoadMajorIndexCommand { get; }
+         
         public static MajorIndexListingViewModel LoadMajorIndexViewModel(IMajorIndexService majorIndexService)
         {
             MajorIndexListingViewModel majorIndexViewModel = new MajorIndexListingViewModel(majorIndexService);
-            majorIndexViewModel.LoadMajorIndexes();
+
+            majorIndexViewModel.LoadMajorIndexCommand.Execute(null);
+
             return majorIndexViewModel;
         }
 

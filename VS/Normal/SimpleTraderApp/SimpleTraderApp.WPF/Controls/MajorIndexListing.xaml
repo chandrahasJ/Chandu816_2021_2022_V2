@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:SimpleTraderApp.WPF.Controls"
+    xmlns:customspinner="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -20,6 +21,16 @@
             Text="Major Indexes" />
 
         <Grid Grid.Row="1" Margin="0,10">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -39,5 +50,36 @@
                 Margin="10,0,0,0"
                 DataContext="{Binding SP500}" />
         </Grid>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <customspinner:LoadingSpinner
+                Grid.Row="0"
+                IsLoading="{Binding IsLoading}"
+                Thickness="5"
+                Color="{StaticResource BrushPrimary2}" />
+
+            <TextBlock
+                Grid.Row="1"
+                Margin="10"
+                FontSize="14"
+                Text="Loading.."
+                TextAlignment="Center" />
+        </Grid>
+
     </Grid>
 </UserControl>
