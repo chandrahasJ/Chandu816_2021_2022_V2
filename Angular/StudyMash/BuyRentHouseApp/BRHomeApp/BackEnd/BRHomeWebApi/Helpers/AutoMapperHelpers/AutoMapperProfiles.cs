@@ -57,6 +57,8 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
                 CreateMap<PropertyType,KeyValuePairDto>().ReverseMap();
 
                 CreateMap<Property, PropertyDto>().ReverseMap();
+
+                CreateMap<Photo, PhotoDto>().ReverseMap();
         }
     }
 }

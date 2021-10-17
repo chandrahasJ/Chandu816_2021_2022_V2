@@ -1,5 +1,7 @@
+import { IPhoto } from "./IPhoto.interface";
 import { IProperty } from "./IProperty.interface";
 import { IPropertyBase } from "./IPropertyBase.interface";
+
 export class Property implements IPropertyBase{
   id!: number;
   name!: string;
@@ -29,4 +31,6 @@ export class Property implements IPropertyBase{
   description? : string;
   postedOn! : string;
   postedBy! : string;
+  photos?: IPhoto[];
+  primaryImage!: string;
 }

@@ -10,6 +10,7 @@ namespace BRHomeWebApi.Pattern.Interfaces
     {
         Task<IEnumerable<Property>> GetProperties(int sellRent);
         Task<Property> GetPropertyDetails(int id);
+        Task<Property> GetPropertyDetailsById(int id);
         void AddProperty(Property property);
         void DeleteProperty(int id);
     }

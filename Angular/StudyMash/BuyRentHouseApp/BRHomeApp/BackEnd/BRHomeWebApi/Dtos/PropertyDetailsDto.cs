@@ -19,5 +19,6 @@ namespace BRHomeWebApi.Dtos
         public bool Gated { get; set; }
         public int Maintenance { get; set; }  = 0;
         public string Description { get; set; }
+         public ICollection<PhotoDto>  Photos { get; set; }
     }
 }

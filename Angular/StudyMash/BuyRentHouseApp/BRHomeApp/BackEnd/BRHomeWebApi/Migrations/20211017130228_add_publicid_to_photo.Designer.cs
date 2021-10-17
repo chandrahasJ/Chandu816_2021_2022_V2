@@ -4,14 +4,16 @@ using BRHomeWebApi.DataC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BRHomeWebApi.Migrations
 {
     [DbContext(typeof(BRHomeDbContext))]
-    partial class BRHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211017130228_add_publicid_to_photo")]
+    partial class add_publicid_to_photo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

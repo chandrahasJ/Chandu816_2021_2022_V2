@@ -33,6 +33,7 @@ namespace BRHomeWebApi.Pattern.Repositories
                                             .Include(i => i.City)
                                             .Include(i => i.PropertyType)
                                             .Include(i => i.FurnishingType)
+                                             .Include(i => i.Photos)
                                             .Where(w => w.SellRent == sellRent)
                                             .ToListAsync();
             return properties;
@@ -44,6 +45,16 @@ namespace BRHomeWebApi.Pattern.Repositories
                                             .Include(i => i.City)
                                             .Include(i => i.PropertyType)
                                             .Include(i => i.FurnishingType)
+                                            .Include(i => i.Photos)
+                                            .Where(w => w.Id == id)
+                                            .SingleOrDefaultAsync();
+            return property;
+        }
+
+        public async Task<Property> GetPropertyDetailsById(int id)
+        {
+             var property = await bRHomeDbContext.Properties                                            
+                                            .Include(i => i.Photos)
                                             .Where(w => w.Id == id)
                                             .SingleOrDefaultAsync();
             return property;

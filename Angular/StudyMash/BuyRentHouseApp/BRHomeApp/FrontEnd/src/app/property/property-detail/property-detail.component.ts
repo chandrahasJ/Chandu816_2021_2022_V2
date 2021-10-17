@@ -6,6 +6,7 @@ import { HousingService } from 'src/app/services/housing.service';
 import {NgxGalleryOptions} from '@kolkov/ngx-gallery';
 import {NgxGalleryImage} from '@kolkov/ngx-gallery';
 import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
+import { IPhoto } from 'src/app/models/IPhoto.interface';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class PropertyDetailComponent implements OnInit {
 
   galleryOptions!: NgxGalleryOptions[];
   galleryImages!: NgxGalleryImage[];
+
+  primaryImage! : string;
 
   constructor(private activateddRoute : ActivatedRoute,
              private router :Router,
@@ -41,7 +44,6 @@ export class PropertyDetailComponent implements OnInit {
     //   );
     // });
 
-    this.ngrXGalleryLoad();
 
     this.activateddRoute.data.subscribe(
       (data ) => {
@@ -53,6 +55,9 @@ export class PropertyDetailComponent implements OnInit {
                     new Date().toString():
                     this.property?.estPossessionOn
                   );
+
+
+    this.ngrXGalleryLoad();
   }
 
   onSelectNextPage(){
@@ -81,32 +86,23 @@ export class PropertyDetailComponent implements OnInit {
       }
     ];
 
-    this.galleryImages = [
-      {
-        small: 'assets/images/prop-1.jpg',
-        medium: 'assets/images/prop-1.jpg',
-        big: 'assets/images/prop-1.jpg'
-      },
-      {
-        small: 'assets/images/prop-2.jpg',
-        medium: 'assets/images/prop-2.jpg',
-        big: 'assets/images/prop-2.jpg'
-      },
-      {
-        small: 'assets/images/prop-3.jpg',
-        medium: 'assets/images/prop-3.jpg',
-        big: 'assets/images/prop-3.jpg'
-      },{
-        small: 'assets/images/prop-4.jpg',
-        medium: 'assets/images/prop-4.jpg',
-        big: 'assets/images/prop-4.jpg'
-      },
-      {
-        small: 'assets/images/prop-5.jpg',
-        medium: 'assets/images/prop-5.jpg',
-        big: 'assets/images/prop-5.jpg'
-      }
-    ];
+    this.galleryImages =  this.populateGalleryImages();
   }
 
+  populateGalleryImages() : NgxGalleryImage[]{
+    const photoUrls : NgxGalleryImage[] = [];
+    for(const photo of this.property.photos!){
+        if(photo.isPrimary == true){
+            this.property.primaryImage = photo.imageUrl;
+        }
+        else{
+          photoUrls.push( {
+              small : photo.imageUrl,
+              medium : photo.imageUrl,
+              big : photo.imageUrl,
+          })
+        }
+    }
+    return photoUrls;
+  }
 }

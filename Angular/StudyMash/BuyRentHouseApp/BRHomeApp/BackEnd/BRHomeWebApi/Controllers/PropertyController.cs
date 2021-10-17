@@ -64,7 +64,23 @@ namespace BRHomeWebApi.Controllers
         [Authorize]
         public async Task<ActionResult> AddPropertyPhoto(IFormFile formFile, int id)
         {
-            await photoService.UploadPhotoAsync(formFile);
+            var result = await photoService.UploadPhotoAsync(formFile);
+            if(result.Error != null)
+                return BadRequest(result.Error.Message);
+
+            var property = await _uow.propertyRepository.GetPropertyDetailsById(id);
+
+            var photo = new Photo(){
+                ImageUrl = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+            if (property.Photos.Count == 0){
+                photo.IsPrimary = true;
+            }
+
+            property.Photos.Add(photo);
+            await _uow.SaveAsync();
+
             return StatusCode(201);
         }
     }
