@@ -7,6 +7,7 @@ using BRHomeWebApi.Helpers.AutoMapperHelpers;
 using BRHomeWebApi.MiddleWares;
 using BRHomeWebApi.Pattern;
 using BRHomeWebApi.Pattern.Interfaces;
+using BRHomeWebApi.Pattern.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -35,7 +36,6 @@ namespace BRHomeWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<BRHomeDbContext>(options =>{
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
@@ -55,7 +55,10 @@ namespace BRHomeWebApi
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             
             //Register Services for Repos
-            services.AddScoped<IUnitOfWork, UnitOfWork>();            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();    
+
+            //Register Services
+            services.AddScoped<IPhotoService, PhotoService>();            
 
             var secertKey = Configuration.GetSection("AppSettings:Key").Value;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secertKey));

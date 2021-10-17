@@ -7,6 +7,7 @@ using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
 using BRHomeWebApi.Pattern.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BRHomeWebApi.Controllers
@@ -17,9 +18,11 @@ namespace BRHomeWebApi.Controllers
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper mapper;
+        private readonly IPhotoService photoService;
 
-        public PropertyController(IUnitOfWork uow, IMapper mapper)
-         {
+        public PropertyController(IUnitOfWork uow, IMapper mapper, IPhotoService photoService)
+        {
+            this.photoService = photoService;
             this._uow = uow;
             this.mapper = mapper;
         }
@@ -54,6 +57,14 @@ namespace BRHomeWebApi.Controllers
             _uow.propertyRepository.AddProperty(property);
             await _uow.SaveAsync();
 
+            return StatusCode(201);
+        }
+
+        [HttpPost("add/photo/{id}")]
+        [Authorize]
+        public async Task<ActionResult> AddPropertyPhoto(IFormFile formFile, int id)
+        {
+            await photoService.UploadPhotoAsync(formFile);
             return StatusCode(201);
         }
     }

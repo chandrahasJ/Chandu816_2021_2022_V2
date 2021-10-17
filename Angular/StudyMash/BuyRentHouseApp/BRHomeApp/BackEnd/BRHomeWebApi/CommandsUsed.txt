@@ -11,7 +11,7 @@ dotnet tool install --global dotnet-ef
 User Secrets
 dotnet user-secrets init
 
-dotnet user-secrets "<Name>" "Value"
+dotnet user-secrets set "<Name>" "Value"
 
 dotnet user-secrets list
 
@@ -67,5 +67,6 @@ ng add @angular/fire
 
 ng deploy
 
-
+Extensions : 
+nuget gallery
 
