@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_shop/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,15 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Material(
-        child: Center(
-          // ignore: avoid_unnecessary_containers
-          child: Container(
-            child: const Text("Welcome to flutter"),
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      home: HomePage(),
     );
   }
 }
