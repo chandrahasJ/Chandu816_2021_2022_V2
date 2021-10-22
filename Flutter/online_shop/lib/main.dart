@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop/home_page.dart';
+import 'package:online_shop/routes/app_route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      initialRoute: "/home",
+      routes: Routes.buildRoutes(context: context),
     );
   }
 }
