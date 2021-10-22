@@ -8,6 +8,8 @@ bin-release/
 .vs/
 /.vs
 .vs
+flutter/
+/flutter
 
 # Other files and folders
 .settings/
