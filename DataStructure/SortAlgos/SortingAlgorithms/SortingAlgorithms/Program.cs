@@ -14,10 +14,15 @@ namespace SortingAlgorithms
             //selectionSort.StartSelectionSort(ArrayData, ArrayData.Length);
             //selectionSort.DisplayData(ArrayData, ArrayData.Length, false);
 
-            InsertionSort insertionSort = new InsertionSort();
-            insertionSort.DisplayData(ArrayData, ArrayData.Length, false);
-            insertionSort.StartInsertinSorting(ArrayData, ArrayData.Length);
-            insertionSort.DisplayData(ArrayData, ArrayData.Length, false);
+            //InsertionSort insertionSort = new InsertionSort();
+            //insertionSort.DisplayData(ArrayData, ArrayData.Length, false);
+            //insertionSort.StartInsertinSorting(ArrayData, ArrayData.Length);
+            //insertionSort.DisplayData(ArrayData, ArrayData.Length, false);
+
+            BubbleSort bubbleSort = new BubbleSort();
+            bubbleSort.DisplayData(ArrayData, ArrayData.Length, false);
+            bubbleSort.PerformBubbleSort(ArrayData, ArrayData.Length);
+            bubbleSort.DisplayData(ArrayData, ArrayData.Length, false);
 
             Console.ReadLine();
 
