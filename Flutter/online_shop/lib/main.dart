@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           fontFamily: GoogleFonts.latoTextTheme().toString()),
-      initialRoute: "/home",
-      routes: Routes.buildRoutes(context: context),
+      initialRoute: CustomRoutes.loginRoute,
+      routes: CustomRoutes.buildRoutes(context: context),
     );
   }
 }

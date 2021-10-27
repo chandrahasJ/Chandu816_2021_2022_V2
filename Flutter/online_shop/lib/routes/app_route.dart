@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:online_shop/pages/home_page.dart';
 import 'package:online_shop/pages/login_page.dart';
 
-class Routes {
+class CustomRoutes {
   static Map<String, WidgetBuilder> buildRoutes(
       {required BuildContext context}) {
     var routes = {
-      "/": (context) => const HomePage(),
-      "/login": (context) => const LoginPage(),
-      "/home": (context) => const HomePage()
+      "/": (context) => const LoginPage(),
+      loginRoute: (context) => const LoginPage(),
+      homeRoute: (context) => const HomePage()
     };
     return routes;
   }
+
+  static String homeRoute = "/home";
+  static String loginRoute = "/login";
 }
