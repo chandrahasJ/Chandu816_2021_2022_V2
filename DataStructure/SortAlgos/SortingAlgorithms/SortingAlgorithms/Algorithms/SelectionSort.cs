@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SortingAlgorithms.Algorithms
 {
+    /// <summary>
+    /// UnStable Sorting Algo
+    /// </summary>
     internal class SelectionSort : DisplayArray
     {
         public SelectionSort()

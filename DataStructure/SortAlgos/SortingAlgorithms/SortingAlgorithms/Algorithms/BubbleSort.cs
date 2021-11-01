@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SortingAlgorithms.Algorithms
 {
+    /// <summary>
+    /// Stable Sorting Algo
+    /// </summary>
     public class BubbleSort : DisplayArray
     {
         public int[] PerformBubbleSort(int[] unsortedArray, int lengthOfUnSortedArray)
