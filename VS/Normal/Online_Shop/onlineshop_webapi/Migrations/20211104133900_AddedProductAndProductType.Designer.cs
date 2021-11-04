@@ -10,7 +10,7 @@ using onlineshop_webapi.DataC;
 namespace onlineshop_webapi.Migrations
 {
     [DbContext(typeof(OS_DataContext))]
-    [Migration("20211104133129_AddedProductAndProductType")]
+    [Migration("20211104133900_AddedProductAndProductType")]
     partial class AddedProductAndProductType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
