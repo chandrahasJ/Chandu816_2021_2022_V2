@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using onlineshop_webapi.DataC;
 
 namespace onlineshop_webapi.Migrations
 {
     [DbContext(typeof(OS_DataContext))]
-    partial class OS_DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211104135827_CreatingConnectionBetweenTypeAndProduct")]
+    partial class CreatingConnectionBetweenTypeAndProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

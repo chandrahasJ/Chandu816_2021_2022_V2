@@ -11,5 +11,7 @@ namespace onlineshop_webapi.Models
         [ForeignKey(nameof(ProductType))]
         public int ProductTypeId { get; set; }
         public string ProductName { get; set; }
+
+        public ProductType ProductType { get; set; }
     }
 }
