@@ -1,0 +1,20 @@
+{
+    "Products" :[
+        {
+            "id" : "OS001",
+            "name" : "Product 01",
+            "desc" : "Product Data",
+            "price" :  999,
+            "color" : "#ffffff",
+            "image" : ""
+        },
+        {
+            "id" : "OS002",
+            "name" : "Product 02",
+            "desc" : "Product Data",
+            "price" :  999,
+            "color" : "#ffffff",
+            "image" : ""
+        }
+    ]
+}
