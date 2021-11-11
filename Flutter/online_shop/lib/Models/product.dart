@@ -10,4 +10,7 @@ class ProductDetail {
       this.id, this.name, this.desc, this.price, this.color, this.image);
 }
 
-final ProductDetails = [ProductDetail("", "", " ", 999, "", "")];
+final ProductDetails = [
+  ProductDetail("OS001", "Product 01", "Product Data", 999, "#ffffff",
+      "https://retailminded.com/wp-content/uploads/2016/03/EN_GreenOlive-1.jpg")
+];
