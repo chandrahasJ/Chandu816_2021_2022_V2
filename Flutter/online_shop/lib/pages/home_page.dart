@@ -33,12 +33,40 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: (ProductDetailModel.productDetails.isNotEmpty)
-              ? ListView.builder(
+              ? GridView.builder(
                   itemCount: ProductDetailModel.productDetails.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16),
                   itemBuilder: (context, index) {
-                    return ProductListView(
-                        productDetail:
-                            ProductDetailModel.productDetails[index]);
+                    final item = ProductDetailModel.productDetails[index];
+                    return Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: GridTile(
+                        header: Container(
+                          child: Text(
+                            item.name,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          decoration:
+                              const BoxDecoration(color: Colors.deepPurple),
+                        ),
+                        child: Image.network(item.image),
+                        footer: Container(
+                          child: Text(
+                            item.price.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          decoration: const BoxDecoration(color: Colors.black),
+                        ),
+                      ),
+                    );
                   })
               : const Center(
                   child: CircularProgressIndicator(),
