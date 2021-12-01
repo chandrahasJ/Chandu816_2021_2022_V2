@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop/routes/app_route.dart';
+import 'package:online_shop/routes/app_route.dart' show CustomRoutes;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
