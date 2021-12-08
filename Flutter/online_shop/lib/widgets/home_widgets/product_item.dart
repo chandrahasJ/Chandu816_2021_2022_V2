@@ -13,8 +13,11 @@ class ProductItem extends StatelessWidget {
     return VxBox(
         child: Row(
       children: [
-        ProductImage(
-          imageSrc: productDetail.image,
+        Hero(
+          tag: Key(productDetail.id.toString()),
+          child: ProductImage(
+            imageSrc: productDetail.image,
+          ),
         ),
         Expanded(
             child: Column(
