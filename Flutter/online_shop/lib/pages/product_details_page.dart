@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop/Models/product.dart';
 import 'package:online_shop/Themes/custom_themes.dart';
@@ -12,14 +13,16 @@ class ProductDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomThemes.creamColor,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       bottomNavigationBar: Container(
         color: Colors.white,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
           children: [
-            "\$${productDetail.price}".text.bold.xl4.red800.make(),
+            "\$${productDetail.price}".text.bold.xl4.red400.make(),
             ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
@@ -27,10 +30,10 @@ class ProductDetailsPage extends StatelessWidget {
                             MaterialStateProperty.all(CustomThemes.bluishColor),
                         shape:
                             MaterialStateProperty.all(const StadiumBorder())),
-                    child: "Buy".text.make())
-                .wh(100, 50)
+                    child: "Add to Cart".text.make())
+                .wh(130, 50)
           ],
-        ).p32(),
+        ).p16(),
       ),
       body: SafeArea(
         bottom: false,
@@ -47,7 +50,7 @@ class ProductDetailsPage extends StatelessWidget {
               arcType: VxArcType.CONVEY,
               child: Container(
                 width: context.screenWidth,
-                color: Colors.red,
+                color: Colors.white,
                 child: Column(
                   children: [
                     productDetail.name.text.xl4
@@ -56,7 +59,12 @@ class ProductDetailsPage extends StatelessWidget {
                     productDetail.desc.text.xl
                         .textStyle(context.captionStyle!)
                         .make(),
-                    10.heightBox,
+                    8.heightBox,
+                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. "
+                        .text
+                        .textStyle(context.captionStyle!)
+                        .make()
+                        .p12(),
                   ],
                 ).py64(),
               ),
