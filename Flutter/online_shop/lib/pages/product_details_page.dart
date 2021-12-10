@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop/Models/product.dart';
-import 'package:online_shop/Themes/custom_themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -12,12 +11,12 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomThemes.creamColor,
+      backgroundColor: context.canvasColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
@@ -27,7 +26,10 @@ class ProductDetailsPage extends StatelessWidget {
                     onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(CustomThemes.bluishColor),
+                            // ignore: deprecated_member_use
+                            MaterialStateProperty.all(
+                                // ignore: deprecated_member_use
+                                context.theme.buttonColor),
                         shape:
                             MaterialStateProperty.all(const StadiumBorder())),
                     child: "Add to Cart".text.make())
@@ -50,11 +52,11 @@ class ProductDetailsPage extends StatelessWidget {
               arcType: VxArcType.CONVEY,
               child: Container(
                 width: context.screenWidth,
-                color: Colors.white,
+                color: context.cardColor,
                 child: Column(
                   children: [
                     productDetail.name.text.xl4
-                        .color(CustomThemes.bluishColor)
+                        .color(context.accentColor)
                         .make(),
                     productDetail.desc.text.xl
                         .textStyle(context.captionStyle!)

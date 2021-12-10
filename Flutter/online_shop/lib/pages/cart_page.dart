@@ -11,7 +11,7 @@ class CartPage extends StatelessWidget {
       backgroundColor: CustomThemes.creamColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: "Cart".text.make(),
+        title: "Cart".text.color(CustomThemes.bluishColor).make(),
       ),
     );
   }

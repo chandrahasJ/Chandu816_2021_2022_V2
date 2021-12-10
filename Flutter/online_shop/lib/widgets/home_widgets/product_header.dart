@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop/Themes/custom_themes.dart';
 import "package:velocity_x/velocity_x.dart";
 
 class ProductHeader extends StatelessWidget {
@@ -10,7 +9,8 @@ class ProductHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Online Shop".text.xl5.bold.color(CustomThemes.bluishColor).make(),
+        // ignore: deprecated_member_use
+        "Online Shop".text.xl5.bold.color(context.theme.accentColor).make(),
         "Latest Products".text.xl2.make()
       ],
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop/Themes/custom_themes.dart';
 import "package:velocity_x/velocity_x.dart";
 
 class ProductImage extends StatelessWidget {
@@ -13,7 +12,7 @@ class ProductImage extends StatelessWidget {
         .box
         .p8
         .rounded
-        .color(CustomThemes.creamColor)
+        .color(context.canvasColor)
         .make()
         .p16()
         .w40(context);

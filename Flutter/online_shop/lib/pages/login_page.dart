@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shop/routes/app_route.dart' show CustomRoutes;
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
             Material(
-              color: Colors.deepPurple,
+              color: context.canvasColor,
               borderRadius: BorderRadius.circular(changeButton ? 50 : 10),
               child: InkWell(
                 onTap: () => loginButton(context),
