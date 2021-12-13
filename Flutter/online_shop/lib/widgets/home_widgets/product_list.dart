@@ -12,7 +12,7 @@ class ProductList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: ProductDetailModel.productDetails.length,
         itemBuilder: (context, index) {
-          final productDetail = ProductDetailModel.productDetails[index];
+          final productDetail = ProductDetailModel.getByPosition(index);
           return InkWell(
               onTap: () => Navigator.push(
                     context,

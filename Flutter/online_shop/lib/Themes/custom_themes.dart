@@ -30,8 +30,8 @@ class CustomThemes {
       appBarTheme: const AppBarTheme(
           color: Colors.white,
           elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.white),
-          toolbarTextStyle: TextStyle(color: Colors.white)),
+          iconTheme: IconThemeData(color: Colors.black),
+          toolbarTextStyle: TextStyle(color: Colors.black)),
       colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple)
           .copyWith(secondary: Colors.white));
 

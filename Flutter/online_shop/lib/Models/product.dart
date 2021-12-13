@@ -2,6 +2,12 @@ import 'dart:convert';
 
 class ProductDetailModel {
   static List<ProductDetail> productDetails = List.empty();
+  //Get productDetails vai ID
+  static ProductDetail getById(int id) =>
+      // ignore: null_closures
+      productDetails.firstWhere((element) => element.id == id, orElse: null);
+  //Get ProductDetail by Position
+  static ProductDetail getByPosition(int pos) => productDetails[pos];
 }
 
 class ProductDetail {
