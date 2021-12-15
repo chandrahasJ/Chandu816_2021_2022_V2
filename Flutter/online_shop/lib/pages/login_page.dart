@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_shop/Themes/custom_themes.dart';
 import 'package:online_shop/routes/app_route.dart' show CustomRoutes;
 import 'package:velocity_x/velocity_x.dart';
 
