@@ -42,7 +42,10 @@ class CartTotal extends StatelessWidget {
                   backgroundColor:
                       // ignore: deprecated_member_use
                       MaterialStateProperty.all(context.theme.buttonColor)),
-              onPressed: () => {},
+              onPressed: () => {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: "Buying not yet supported".text.white.make()))
+                  },
               child: "Buy".text.xl5.white.make())
         ],
       ).p20(),
