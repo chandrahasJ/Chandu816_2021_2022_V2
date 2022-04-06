@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityExampleV1
 {
@@ -24,8 +25,28 @@ namespace IdentityExampleV1
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationContext>(config => {
                 config.UseInMemoryDatabase("InMemDB");
+            });
+
+            // AddIdentity registers the services 
+            services
+                .AddIdentity<IdentityUser, IdentityRole>(config =>
+                    {
+                        config.Password.RequiredLength = 4;
+                        config.Password.RequireNonAlphanumeric = false;
+                        config.Password.RequireUppercase = false;
+                        config.Password.RequireLowercase = false;
+                        config.Password.RequireDigit = false;
+                    })
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config => {
+                config.Cookie.Name = "Identity.Cookies";
+                config.LoginPath = "/Account/Login";
+                config.AccessDeniedPath = "/Home/UnAuthorize";
             });
 
             //services.AddAuthentication("CookieSchema")
@@ -34,7 +55,6 @@ namespace IdentityExampleV1
             //            config.LoginPath = "/Home/Authentication";
             //            config.AccessDeniedPath = "/Home/UnAuthorize";
             //        });
-
 
             services.AddControllersWithViews();
         }
