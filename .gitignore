@@ -19,6 +19,7 @@ flutter/
 *.air
 *.ipa
 *.apk
+*.exe
 
 #visualprojectfiles
 *.suo
