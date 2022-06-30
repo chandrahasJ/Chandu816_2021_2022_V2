@@ -12,8 +12,8 @@ string makeTheWordCaptail(string inputStr) {
 }
 
 
-int main()
-{
+
+void GetStringInputAndProcessIt(){
     string inputSentence;
     getline(cin, inputSentence);
     string subStringSentence;
@@ -33,5 +33,28 @@ subStringSentence.clear();
             );
         }
     }
+}
+
+char upperCase(char c){
+    return c-32;
+}
+
+int main()
+{
+    while (true)
+    {
+        string s;
+        cin>> s;
+        if(s.size() == 0)
+            break;
+        
+        for (int i = 0; i < s.size(); i++)
+        {
+            s[i] = upperCase(s[i]);
+        }
+        
+        cout << s << endl;
+    }
+       
     return 0;
 }
