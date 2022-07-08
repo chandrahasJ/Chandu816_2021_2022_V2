@@ -3,6 +3,7 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
+packages/
 
 #VS Folders
 .vs/
@@ -20,6 +21,8 @@ flutter/
 *.ipa
 *.apk
 *.exe
+*.dll
+*.nuget
 
 #visualprojectfiles
 *.suo
