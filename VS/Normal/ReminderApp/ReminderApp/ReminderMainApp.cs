@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -134,7 +135,14 @@ namespace ReminderApp
             TimerNotifier.Icon = Properties.Resources.Reminder;            
             TimerNotifier.BalloonTipText = $"{reminder.ReminderMessage } \n Next Message will be shown in {reminder.ReminderTime} mins";
             TimerNotifier.BalloonTipTitle = "Reminder App";
-            TimerNotifier.ShowBalloonTip(5);
+            TimerNotifier.ShowBalloonTip(10);
+
+            // Play beep sound n times
+            for (int i = 1; i < 5; i++)
+            {
+                (System.Media.SystemSounds.Beep).Play();
+                Thread.Sleep(200);
+            }
         }
 
         private void reminderTimer_Tick(object sender, EventArgs e)
