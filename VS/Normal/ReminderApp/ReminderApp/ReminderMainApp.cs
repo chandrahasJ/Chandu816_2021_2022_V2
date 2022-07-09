@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace ReminderApp
 {
@@ -18,7 +9,18 @@ namespace ReminderApp
         public ReminderMainApp()
         {
             InitializeComponent();
-            helperFile = new HelperFile();           
+            helperFile = new HelperFile();
+            
+            Reminder reminder = GetReminderData();
+
+            if (reminder != null && reminder.Setting?.StartUp == true)
+            {
+                StartTheReminderApp(reminder);
+            }
+            else
+            {
+                this.Show();
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -44,8 +46,14 @@ namespace ReminderApp
                 {
                     Id = new Random().Next(),
                     ReminderTime = Convert.ToInt32(txtReminderInterval.Text),
-                    ReminderMessage = txtMessage.Text
+                    ReminderMessage = txtMessage.Text,
+                    Setting = new Setting()
+                    {
+                        StartUp = cbIsStartUp.Checked ,
+                        NotifcationSound = cmbReminderNotifcation.Checked
+                    }
                 };
+
 
                 if (!(reminder.ReminderTime >= 1 && reminder.ReminderTime <= 60))
                 {
@@ -53,12 +61,15 @@ namespace ReminderApp
                           this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                string jsonFileName = $"jsonFile_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.json";
+                
+                helperFile.SetStartup(cbIsStartUp.Checked, this.Text);
+                
+                string jsonFileName = $"Reminder_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.json";
                 string jsonFilePath = $"{helperFile.FolderPath}{jsonFileName}";
 
                 if (helperFile.SaveTheJsonFile(helperFile.CreateTheJsonFile(reminder), jsonFilePath))
                 {
-                    MessageBox.Show($"Json File has been Saved. Reminder in next {reminder.ReminderTime} mins",
+                    MessageBox.Show($"Json File has been Saved. \n Click on \"Start Reminder\" button to get notified every {reminder.ReminderTime} mins. ",
                         this.Text,MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
                 else
@@ -71,16 +82,15 @@ namespace ReminderApp
 
         private void btnStartTheReminder_Click(object sender, EventArgs e)
         {
-            reminderTimer.Stop();
-            reminderTimer.Enabled = true;
-
             Reminder reminder = GetReminderData();
-            reminderTimer.Interval = (int)ConvertMinutesToMilliseconds(reminder.ReminderTime);
-
-            reminderTimer.Start();
-
-            Use_Notify();
-            this.WindowState = FormWindowState.Minimized;
+            if (reminder != null)
+            {
+                StartTheReminderApp(reminder);
+            }
+            else
+            {
+                MessageBox.Show("Reminder Data not yet added.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void txtReminderInterval_KeyPress(object sender, KeyPressEventArgs e)
@@ -137,27 +147,40 @@ namespace ReminderApp
             TimerNotifier.BalloonTipTitle = "Reminder App";
             TimerNotifier.ShowBalloonTip(10);
 
-            // Play beep sound n times
-            for (int i = 1; i < 5; i++)
+            if (reminder.Setting?.NotifcationSound == true)
             {
-                (System.Media.SystemSounds.Beep).Play();
-                Thread.Sleep(200);
-            }
+                helperFile.PlayNotificationSound(Properties.Resources.LoudBeep);
+            }           
         }
 
         private void reminderTimer_Tick(object sender, EventArgs e)
         {
             Reminder reminder = GetReminderData();
-            Use_Notify_Timer(reminder);
-            TimerNotifier.Visible = false;
+            if (reminder != null)
+            {
+                Use_Notify_Timer(reminder);
+                TimerNotifier.Visible = false;
+            }
+            else
+            {
+                reminderTimer.Stop();
+                reminderTimer.Enabled = false;
+                MessageBox.Show("Reminder Data not yet added.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Show();
+            }
+            
         }
 
         private Reminder GetReminderData()
         {
             string latestJsonFile = helperFile.GetLatestFile();
-            string jsonString = helperFile.ReadTheJsonFile(latestJsonFile);
+            if (!String.IsNullOrEmpty(latestJsonFile))
+            {
+                string jsonString = helperFile.ReadTheJsonFile(latestJsonFile);
+                return helperFile.ConvertJsonStringToObject<Reminder>(jsonString);
+            }           
 
-            return helperFile.ConvertJsonStringToObject<Reminder>(jsonString);
+            return null;
         }
 
         private string GetMSToMinutes(double reminderTime)
@@ -173,6 +196,19 @@ namespace ReminderApp
         public static double ConvertMinutesToMilliseconds(double minutes)
         {
             return TimeSpan.FromMinutes(minutes).TotalMilliseconds;
+        }
+
+        public void StartTheReminderApp(Reminder reminder)
+        {
+            reminderTimer.Stop();
+            reminderTimer.Enabled = true;
+           
+            reminderTimer.Interval = (int)ConvertMinutesToMilliseconds(reminder.ReminderTime);
+
+            reminderTimer.Start();
+
+            Use_Notify();
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace ReminderApp
         public int Id { get; set; }
         public string ReminderMessage { get; set; }
         public int ReminderTime { get; set; }
+        public Setting Setting { get; set; }
     }
 }
