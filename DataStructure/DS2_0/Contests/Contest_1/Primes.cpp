@@ -43,13 +43,12 @@ int main()
         resultASCII = resultASCII * -1;
     }
 
-   // cout<< updatedSingleLine << " " << resultASCII << " " << endl;
+    cout<< updatedSingleLine << " " << resultASCII << " " << endl;
     // 0 and 1 are not prime numbers
     // change flag to 1 for non-prime number
-    if (resultASCII == 0 || resultASCII == 1)
-        primeFlag = 1;
-
-    for (int i = 2; i <= resultASCII/2; ++i)
+     
+    primeFlag = 0;
+    for (int i = 2; i < resultASCII; ++i)
     {
          if(resultASCII % i == 0){
                 primeFlag = 1;
