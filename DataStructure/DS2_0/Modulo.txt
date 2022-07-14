@@ -1,0 +1,15 @@
+https://www.purplemath.com/modules/mathtext3.htm
+M = 10^9+7 or 1000000007
+where M is Modulo & it is prime number.
+1) Formulae related to Modulo M
+    a. (a + b) % M = ((a % M) + (b % M)) % M;    
+    b. (a * b) % M = ((a % M) * (b % M)) % M;
+    c. (a - b) % M = ((a % M) - (b % M) + M) % M;
+    d. (a / b) % M = ((a % M) * (b^(-1)) % M) % M;
+2) Why do we use Module = 10^9+7
+    a) It is close to interger's maximum value 
+    b) Since it is a prime number this makes it possible to get the 
+        "Multiplicative Inverse" of all the number between 
+        1....to....10^9+7 
+3) Reason behind doing Module of the answer
+    a) to avoid overflow and restrict the number in integer data type.
