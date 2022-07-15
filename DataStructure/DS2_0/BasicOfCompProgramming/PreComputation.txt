@@ -1,0 +1,3 @@
+1) Pre-Computation helps to optimize the codes such that it perform within the time limit.
+2) There many Pre-Computation technicis
+    a) Hashing
