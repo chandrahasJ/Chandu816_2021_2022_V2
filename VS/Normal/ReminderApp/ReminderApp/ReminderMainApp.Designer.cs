@@ -41,7 +41,6 @@ namespace ReminderApp
             this.btnStartTheReminder = new System.Windows.Forms.Button();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.txtReminderInterval = new System.Windows.Forms.TextBox();
-            this.TimerNotifier = new System.Windows.Forms.NotifyIcon(this.components);
             this.reminderTimer = new System.Windows.Forms.Timer(this.components);
             this.cbIsStartUp = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -134,11 +133,6 @@ namespace ReminderApp
             this.txtReminderInterval.TabIndex = 5;
             this.txtReminderInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtReminderInterval_KeyPress);
             // 
-            // TimerNotifier
-            // 
-            this.TimerNotifier.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.TimerNotifier.Icon = ((System.Drawing.Icon)(resources.GetObject("TimerNotifier.Icon")));
-            // 
             // reminderTimer
             // 
             this.reminderTimer.Tick += new System.EventHandler(this.reminderTimer_Tick);
@@ -213,7 +207,6 @@ namespace ReminderApp
         private System.Windows.Forms.ContextMenuStrip cms_ReminderStrip;
         private System.Windows.Forms.ToolStripMenuItem restoreReminderAppToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.NotifyIcon TimerNotifier;
         private System.Windows.Forms.Timer reminderTimer;
         private System.Windows.Forms.CheckBox cbIsStartUp;
         private System.Windows.Forms.GroupBox groupBox1;

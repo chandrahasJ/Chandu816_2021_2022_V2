@@ -5,7 +5,9 @@ namespace ReminderApp
 {
     public partial class ReminderMainApp : Form
     {
-        private readonly HelperFile helperFile;
+        private readonly HelperFile helperFile; 
+        string AppName = "Reminder App";
+
         public ReminderMainApp()
         {
             InitializeComponent();
@@ -55,7 +57,7 @@ namespace ReminderApp
                 };
 
 
-                if (!(reminder.ReminderTime >= 1 && reminder.ReminderTime <= 60))
+                if (!(reminder.ReminderTime >= 0 && reminder.ReminderTime <= 60))
                 {
                     MessageBox.Show($"Reminder Interval should be greater than 1 minute & Less than 60 mintues.",
                           this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -118,7 +120,7 @@ namespace ReminderApp
         {
             // Will Close Your Application 
             reminderTimer.Stop();
-            TimerNotifier.Dispose();
+            
             MessageNotifier.Dispose();
             Application.Exit();
         }
@@ -135,18 +137,14 @@ namespace ReminderApp
             //MessageNotifier.Icon = Properties.Resources.Reminder;
             MessageNotifier.ContextMenuStrip = cms_ReminderStrip;
             MessageNotifier.BalloonTipText = "Reminder App has been Started";
-            MessageNotifier.BalloonTipTitle = "Reminder App";
+            MessageNotifier.BalloonTipTitle = AppName;
             MessageNotifier.ShowBalloonTip(5);
         }
 
         private void Use_Notify_Timer(Reminder reminder)
-        {            
-            TimerNotifier.Visible = true;
-            TimerNotifier.Icon = Properties.Resources.Reminder;            
-            TimerNotifier.BalloonTipText = $"{reminder.ReminderMessage } \n Next Message will be shown in {reminder.ReminderTime} mins";
-            TimerNotifier.BalloonTipTitle = "Reminder App";
-            TimerNotifier.ShowBalloonTip(10);
-
+        {                  
+            string Message = $"{reminder.ReminderMessage } \n Next Message will be shown in {reminder.ReminderTime} mins";             
+            helperFile.ShowNotifyBalloon(AppName, Message, Properties.Resources.Reminder);
             if (reminder.Setting?.NotifcationSound == true)
             {
                 helperFile.PlayNotificationSound(Properties.Resources.LoudBeep);
@@ -159,7 +157,7 @@ namespace ReminderApp
             if (reminder != null)
             {
                 Use_Notify_Timer(reminder);
-                TimerNotifier.Visible = false;
+                
             }
             else
             {

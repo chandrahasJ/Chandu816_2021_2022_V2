@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -9,6 +10,7 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ReminderApp
 {
@@ -75,12 +77,26 @@ namespace ReminderApp
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
                 ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-             
+
             if (setStartUp)
                 rk.SetValue(AppName, Assembly.GetEntryAssembly().Location);
             else
                 rk.DeleteValue(AppName, false);
 
+        }
+
+        public void ShowNotifyBalloon(string tipTitle, string Message, Icon icon)
+        {
+            NotifyIcon notifyIcon = new NotifyIcon()
+            {
+                Visible = true,               
+                Icon = icon
+            }; 
+
+            notifyIcon.ShowBalloonTip(5000, tipTitle, Message, ToolTipIcon.Info);
+       
+            // Dispose on event
+            notifyIcon.BalloonTipClosed += (sender, e) => notifyIcon.Dispose();
         }
     }
 }
