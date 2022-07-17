@@ -58,7 +58,7 @@ namespace ReminderApp
                 };
 
 
-                if (!(reminder.ReminderTime >= 1 && reminder.ReminderTime <= 60))
+                if (!(reminder.ReminderTime >= 2 && reminder.ReminderTime <= 60))
                 {
                     MessageBox.Show($"Reminder Interval should be greater than 1 minute & Less than 60 mintues.",
                           this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
