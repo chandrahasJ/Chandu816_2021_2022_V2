@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ReminderApp
@@ -52,22 +53,58 @@ namespace ReminderApp
                     Setting = new Setting()
                     {
                         StartUp = cbIsStartUp.Checked ,
-                        NotifcationSound = cmbReminderNotifcation.Checked
+                        NotifcationSound = cmbReminderNotifcationSound.Checked
                     }
                 };
 
 
-                if (!(reminder.ReminderTime >= 0 && reminder.ReminderTime <= 60))
+                if (!(reminder.ReminderTime >= 1 && reminder.ReminderTime <= 60))
                 {
                     MessageBox.Show($"Reminder Interval should be greater than 1 minute & Less than 60 mintues.",
                           this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+
+                if (cmbReminderNotifcationSound.Checked == true)
+                {
+                    if (File.Exists(lblSoundHide.Text))
+                    {
+                        if (!(helperFile.GetWavFileDurationInSeconds(lblSoundHide.Text) <= 5.0))
+                        {
+                            MessageBox.Show($"Wav file's duration should be less than or equal to 5 seconds.",
+                                this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                string filePath = helperFile.WavFolderPath + "\\" + Path.GetFileName(lblSoundHide.Text);
+                                if (File.Exists(filePath))
+                                {
+                                    File.Delete(filePath);
+                                }
+
+                                File.Copy(lblSoundHide.Text, filePath);
+                                reminder.Setting.SettingAudio = new SettingAudio()
+                                {
+                                    FilePath = filePath
+                                };
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Expection occured while saving the wav file. \n Error Message {ex.Message}",
+                                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                        }
+                    }                    
+                }
                 
                 helperFile.SetStartup(cbIsStartUp.Checked, this.Text);
                 
                 string jsonFileName = $"Reminder_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.json";
-                string jsonFilePath = $"{helperFile.FolderPath}{jsonFileName}";
+                string jsonFilePath = $"{helperFile.JsonFolderPath}{jsonFileName}";
 
                 if (helperFile.SaveTheJsonFile(helperFile.CreateTheJsonFile(reminder), jsonFilePath))
                 {
@@ -147,7 +184,14 @@ namespace ReminderApp
             helperFile.ShowNotifyBalloon(AppName, Message, Properties.Resources.Reminder);
             if (reminder.Setting?.NotifcationSound == true)
             {
-                helperFile.PlayNotificationSound(Properties.Resources.LoudBeep);
+                if (reminder.Setting?.SettingAudio != null)
+                {
+                    helperFile.PlayNotificationSound(reminder.Setting?.SettingAudio.FilePath);
+                }
+                else
+                {
+                    helperFile.PlayNotificationSound(Properties.Resources.LoudBeep);
+                }
             }           
         }
 
@@ -207,6 +251,55 @@ namespace ReminderApp
 
             Use_Notify();
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            // Create a new OpenFileDialog.
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            // Make sure the dialog checks for existence of the 
+            // selected file.
+            dlg.CheckFileExists = true;
+
+            // Allow selection of .wav files only.
+            dlg.Filter = "WAV files (*.wav)|*.wav";
+            dlg.DefaultExt = ".wav";
+
+            // Activate the file selection dialog.
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file's path from the dialog.                 
+                string fileName =  Path.GetFileName(dlg.FileName);
+                string wavSeconds = helperFile.GetWavFileDurationInSeconds(dlg.FileName).ToString();
+                this.lblSoundShow.Text = $"{fileName} ({wavSeconds} sec(s))";
+
+                this.lblSoundHide.Text = dlg.FileName;
+            }
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(this.lblSoundHide.Text))
+            {
+                helperFile.PlayNotificationSound(this.lblSoundHide.Text);
+            }            
+        }
+
+        private void cmbReminderNotifcation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cmbReminderNotifcationSound.Checked == true)
+            {
+                btnBrowse.Enabled = true;
+                btnPlay.Enabled = true;                
+            }
+            else
+            {
+                btnBrowse.Enabled = false;
+                btnPlay.Enabled = false;
+            }
+            this.lblSoundShow.Text = "";
+            this.lblSoundHide.Text = "";
         }
     }
 }

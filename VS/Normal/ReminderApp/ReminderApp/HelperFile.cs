@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,23 @@ namespace ReminderApp
 {
     public class HelperFile
     {
-        public readonly string FolderName = "JsonFiles";
-        public readonly string FolderPath;
+        public readonly string WavFolderName = "WavFiles";
+        public readonly string JsonFolderName = "JsonFiles";
+        public readonly string WavFolderPath;
+        public readonly string JsonFolderPath;
 
         public HelperFile()
         {
-            FolderPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + FolderName + "\\";
-            if (!Directory.Exists(FolderPath))
+            JsonFolderPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + JsonFolderName + "\\";
+            if (!Directory.Exists(JsonFolderPath))
             {
-                Directory.CreateDirectory(FolderPath);
+                Directory.CreateDirectory(JsonFolderPath);
+            }
+
+            WavFolderPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + WavFolderName + "\\";
+            if (!Directory.Exists(WavFolderPath))
+            {
+                Directory.CreateDirectory(WavFolderPath);
             }
         }
 
@@ -57,7 +66,7 @@ namespace ReminderApp
 
         public string GetLatestFile()
         {
-            var directory = new DirectoryInfo(FolderPath);
+            var directory = new DirectoryInfo(JsonFolderPath);
             return directory.GetFiles()
                              .OrderByDescending(f => f.LastWriteTime)
                              .FirstOrDefault()?.FullName.ToString();
@@ -68,6 +77,16 @@ namespace ReminderApp
             SoundPlayer player = new SoundPlayer();
             //Add TestSound.wav file to the built-in resource file Project>Properties>Resources.resx
             player.Stream = stream;
+            //Add TestSound.wav file to a new resource file Resource1.resx
+            //player.Stream = Resource1.TestSound;
+            player.Play();            
+        }
+
+        public void PlayNotificationSound(string filePath)
+        {
+            SoundPlayer player = new SoundPlayer();
+            //Add TestSound.wav file to the built-in resource file Project>Properties>Resources.resx
+            player.SoundLocation = filePath;
             //Add TestSound.wav file to a new resource file Resource1.resx
             //player.Stream = Resource1.TestSound;
             player.Play();
@@ -97,6 +116,12 @@ namespace ReminderApp
        
             // Dispose on event
             notifyIcon.BalloonTipClosed += (sender, e) => notifyIcon.Dispose();
+        }
+
+        public double GetWavFileDurationInSeconds(string fileName)
+        {
+            WaveFileReader wf = new WaveFileReader(fileName);
+            return wf.TotalTime.TotalSeconds;
         }
     }
 }

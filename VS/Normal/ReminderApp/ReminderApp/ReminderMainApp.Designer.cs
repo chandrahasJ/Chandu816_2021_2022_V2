@@ -44,9 +44,16 @@ namespace ReminderApp
             this.reminderTimer = new System.Windows.Forms.Timer(this.components);
             this.cbIsStartUp = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbReminderNotifcation = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblSoundShow = new System.Windows.Forms.Label();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.cmbReminderNotifcationSound = new System.Windows.Forms.CheckBox();
+            this.lblSoundHide = new System.Windows.Forms.Label();
             this.cms_ReminderStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MessageNotifier
@@ -100,9 +107,9 @@ namespace ReminderApp
             // 
             // btnAddTheReminder
             // 
-            this.btnAddTheReminder.Location = new System.Drawing.Point(59, 156);
+            this.btnAddTheReminder.Location = new System.Drawing.Point(52, 239);
             this.btnAddTheReminder.Name = "btnAddTheReminder";
-            this.btnAddTheReminder.Size = new System.Drawing.Size(143, 23);
+            this.btnAddTheReminder.Size = new System.Drawing.Size(143, 42);
             this.btnAddTheReminder.TabIndex = 2;
             this.btnAddTheReminder.Text = "Add The Timer";
             this.btnAddTheReminder.UseVisualStyleBackColor = true;
@@ -110,9 +117,9 @@ namespace ReminderApp
             // 
             // btnStartTheReminder
             // 
-            this.btnStartTheReminder.Location = new System.Drawing.Point(231, 156);
+            this.btnStartTheReminder.Location = new System.Drawing.Point(224, 239);
             this.btnStartTheReminder.Name = "btnStartTheReminder";
-            this.btnStartTheReminder.Size = new System.Drawing.Size(143, 23);
+            this.btnStartTheReminder.Size = new System.Drawing.Size(143, 42);
             this.btnStartTheReminder.TabIndex = 3;
             this.btnStartTheReminder.Text = "Start Reminder";
             this.btnStartTheReminder.UseVisualStyleBackColor = true;
@@ -150,7 +157,7 @@ namespace ReminderApp
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmbReminderNotifcation);
+            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.txtReminderInterval);
             this.groupBox1.Controls.Add(this.cbIsStartUp);
             this.groupBox1.Controls.Add(this.label1);
@@ -160,27 +167,89 @@ namespace ReminderApp
             this.groupBox1.Controls.Add(this.btnStartTheReminder);
             this.groupBox1.Location = new System.Drawing.Point(21, 22);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 195);
+            this.groupBox1.Size = new System.Drawing.Size(420, 295);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Reminder Settings Data";
             // 
-            // cmbReminderNotifcation
+            // panel1
             // 
-            this.cmbReminderNotifcation.AutoSize = true;
-            this.cmbReminderNotifcation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmbReminderNotifcation.Location = new System.Drawing.Point(13, 119);
-            this.cmbReminderNotifcation.Name = "cmbReminderNotifcation";
-            this.cmbReminderNotifcation.Size = new System.Drawing.Size(184, 21);
-            this.cmbReminderNotifcation.TabIndex = 7;
-            this.cmbReminderNotifcation.Text = "Play Notification Sound :";
-            this.cmbReminderNotifcation.UseVisualStyleBackColor = true;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.lblSoundShow);
+            this.panel1.Controls.Add(this.btnPlay);
+            this.panel1.Controls.Add(this.btnBrowse);
+            this.panel1.Controls.Add(this.cmbReminderNotifcationSound);
+            this.panel1.Location = new System.Drawing.Point(7, 115);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(407, 112);
+            this.panel1.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(47, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 17);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Sound Filename :";
+            // 
+            // lblSoundShow
+            // 
+            this.lblSoundShow.AutoSize = true;
+            this.lblSoundShow.Location = new System.Drawing.Point(177, 74);
+            this.lblSoundShow.Name = "lblSoundShow";
+            this.lblSoundShow.Size = new System.Drawing.Size(0, 17);
+            this.lblSoundShow.TabIndex = 10;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Enabled = false;
+            this.btnPlay.Image = global::ReminderApp.Properties.Resources.Play_Png;
+            this.btnPlay.Location = new System.Drawing.Point(307, 11);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(79, 52);
+            this.btnPlay.TabIndex = 9;
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Enabled = false;
+            this.btnBrowse.Image = global::ReminderApp.Properties.Resources.Browse_Png;
+            this.btnBrowse.Location = new System.Drawing.Point(208, 12);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(81, 51);
+            this.btnBrowse.TabIndex = 8;
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // cmbReminderNotifcationSound
+            // 
+            this.cmbReminderNotifcationSound.AutoSize = true;
+            this.cmbReminderNotifcationSound.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmbReminderNotifcationSound.Location = new System.Drawing.Point(7, 11);
+            this.cmbReminderNotifcationSound.Name = "cmbReminderNotifcationSound";
+            this.cmbReminderNotifcationSound.Size = new System.Drawing.Size(184, 21);
+            this.cmbReminderNotifcationSound.TabIndex = 7;
+            this.cmbReminderNotifcationSound.Text = "Play Notification Sound :";
+            this.cmbReminderNotifcationSound.UseVisualStyleBackColor = true;
+            this.cmbReminderNotifcationSound.CheckedChanged += new System.EventHandler(this.cmbReminderNotifcation_CheckedChanged);
+            // 
+            // lblSoundHide
+            // 
+            this.lblSoundHide.AutoSize = true;
+            this.lblSoundHide.Location = new System.Drawing.Point(373, 306);
+            this.lblSoundHide.Name = "lblSoundHide";
+            this.lblSoundHide.Size = new System.Drawing.Size(0, 17);
+            this.lblSoundHide.TabIndex = 11;
+            this.lblSoundHide.Visible = false;
             // 
             // ReminderMainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 229);
+            this.ClientSize = new System.Drawing.Size(456, 326);
+            this.Controls.Add(this.lblSoundHide);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -191,7 +260,10 @@ namespace ReminderApp
             this.cms_ReminderStrip.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -210,7 +282,13 @@ namespace ReminderApp
         private System.Windows.Forms.Timer reminderTimer;
         private System.Windows.Forms.CheckBox cbIsStartUp;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox cmbReminderNotifcation;
+        private System.Windows.Forms.CheckBox cmbReminderNotifcationSound;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Label lblSoundShow;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblSoundHide;
     }
 }
 
