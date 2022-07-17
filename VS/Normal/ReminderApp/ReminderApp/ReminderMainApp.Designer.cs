@@ -240,6 +240,7 @@ namespace ReminderApp
             this.groupBox2.Controls.Add(this.lblSoundShow);
             this.groupBox2.Controls.Add(this.cmbReminderNotifcationSound);
             this.groupBox2.Controls.Add(this.btnPlay);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox2.Location = new System.Drawing.Point(7, 107);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(397, 111);
