@@ -20,10 +20,11 @@ void normal(){
     int arraySize = 0;
     cin>>arraySize;
     int array[arraySize];
-    
+    array[0] = 0;
     for(int i = 1;i <= arraySize;++i){
-        cin>>array[i];
+        cin>>array[i];        
     }
+    
     int q = 0;
     cin>>q;
     while (q--)
@@ -36,11 +37,36 @@ void normal(){
             sum += array[i];
         }
         cout<< sum << endl;        
+    }    
+}
+
+void PreFix_Sum(){
+int arraySize = 0;
+    cin>>arraySize;
+    int array[arraySize];
+    array[0] = 0;
+    for(int i = 1;i <= arraySize;++i){
+        cin>>array[i];
+        prefix[i] = prefix[i-1] + array[i];
     }
-    
+    for (int i = 0; i < arraySize; i++)
+    {
+        cout<<prefix[i]<<endl;
+    }
+     
+    int q = 0;
+    cin>>q;
+    while (q--)
+    {
+        int L,R;
+        cin>> L>>R;
+        long long sum= (prefix[R] - prefix[L-1]);
+        cout<< sum << endl;        
+    }    
 }
 
 int main(){
-    normal();
+    //normal();
+    PreFix_Sum();
     return 0;
 }
