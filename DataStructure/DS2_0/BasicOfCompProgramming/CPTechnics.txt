@@ -1,6 +1,7 @@
 1) Pre-Computation helps to optimize the codes such that it perform within the time limit.
 2) There many Pre-Computation technicis
     a) Hashing
-3) Pre-Fix Sum 
-    save the addition of zeroth and first index in the second index.
+3) Pre-Fix Sum = PreComputation
+    a) save the addition of zeroth and first index in the second index.
+    b) Always initialize the loop with 1 when doing Pre-Fix Sum.
 4)
