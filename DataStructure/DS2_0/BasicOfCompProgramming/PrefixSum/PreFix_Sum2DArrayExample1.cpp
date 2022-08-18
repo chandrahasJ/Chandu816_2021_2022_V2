@@ -13,9 +13,9 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-const long long M = 10010;
-const long long N = 10010;
-long long prefix[M][M];
+const long long M = 10e9;
+const long long N = 10e3+10;
+long long prefix[N][N];
 long long ar[N][N];
 
 void Normal(){
@@ -46,11 +46,44 @@ void Normal(){
         }
         cout<<sum<<endl;
     }
+    // O(1N^2) + O(Q * N^2)   
     
+}
+
+void preFixSum_2DArray(){
+        int n;
+    cin>>n;
+    
+    for (int i = 1; i <=n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            cin>>ar[i][j];
+            prefix[i][j] = ar[i][j]   +
+                           prefix[i-1][j] +  
+                           prefix[i][j-1] -
+                           prefix[i-1][j-1];
+        }         
+    }
+
+    int Q;
+    cin>>Q;
+    while (Q--)
+    {
+        int a,b,c,d;
+        cin>> a>>b>>c>>d;
+        long long sum = prefix[c][d] -
+                        prefix[a-1][d] -
+                        prefix[c][b-1] +
+                        prefix[a-1][b-1];         
+        cout<<sum<<endl;
+    }
+    // O(N^2) + O(Q)   
     
 }
 
 int main(){ 
-    Normal();
+    //Normal();
+    preFixSum_2DArray();
     return 0;
 }

@@ -4,4 +4,17 @@
 3) Pre-Fix Sum = PreComputation
     a) save the addition of zeroth and first index in the second index.
     b) Always initialize the loop with 1 when doing Pre-Fix Sum.
+    c) To populate prefix sum array
+            prefix[i][j] = currentArray[i][j]   +
+                           prefix[i-1][j] +  
+                           prefix[i][j-1] -
+                           prefix[i-1][j-1];
+    d) To Extract Value from prefix sum array 
+            if top left points is (a,b) &
+               bottom right points is (c,d)
+            then
+                long long sum = prefix[c][d] -
+                            prefix[a-1][d] -
+                            prefix[c][b-1] +
+                            prefix[a-1][b-1];
 4)
