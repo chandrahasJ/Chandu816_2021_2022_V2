@@ -4,6 +4,7 @@
         "memory": "cpp",
         "system_error": "cpp",
         "type_traits": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "ostream": "cpp"
     }
 }
