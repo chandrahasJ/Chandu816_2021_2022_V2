@@ -5,6 +5,7 @@
         "system_error": "cpp",
         "type_traits": "cpp",
         "xstring": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp"
     }
 }
