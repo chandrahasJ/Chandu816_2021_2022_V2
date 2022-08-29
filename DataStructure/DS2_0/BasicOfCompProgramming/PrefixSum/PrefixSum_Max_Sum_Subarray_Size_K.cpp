@@ -37,41 +37,52 @@ long long prefixSum[N];
  int getMaxSubArray(int k, int array[], int n){
         
         long long counter = 0, currentPos = 0;
-        long long sum, maxSum = 0;
+        long long sum=0, maxSum = 0;
         long long i = 0;
+        for (int j = 0; j <= n; j++)
+        {
+            prefixSum[j] = 0;
+        }
         
         while ( i <= n ){
-            if(currentPos > 0 && prefixSum[currentPos] > prefixSum[currentPos-1]){
-                maxSum = prefixSum[currentPos];
-            }
+            
             if(counter == k){
                 counter=0;                
-                //maxSum = prefixSum[currentPos];
+                maxSum = prefixSum[currentPos];
                 currentPos++;
                 i = currentPos;
                 //cout<<" "<<i<<" "<<endl;  
                 continue;           
             }     
             prefixSum[currentPos] += array[i];
-            //cout<<maxSum<<" "<<prefixSum[currentPos]<<" "<<prefixSum[currentPos-1]<<" - ";
+           // cout<<maxSum<<" "<<prefixSum[currentPos]<<" "<<prefixSum[currentPos-1]<<" - ";
             i++;             
             counter++;
            
         }
-        cout<<maxSum;
-        return maxSum;
-        
+        if(counter == k){
+            if(maxSum >= prefixSum[currentPos-1]){
+                    maxSum = prefixSum[currentPos-1];
+            }
+        }
+        else{
+            if(maxSum >= prefixSum[currentPos]){ //>= prefixSum[currentPos-1]){
+                    maxSum = prefixSum[currentPos];
+            }
+        }
+        cout<<maxSum<<endl;
+        return maxSum;        
     }
 
 
 int main(){ 
     int array[4] = {100, 200, 300, 400};
     getMaxSubArray(2, array, 4);
-    cout<<endl;
+    //cout<<endl<<"END"<<endl;
     int array3[4] = {100, 200, 300, 400};
     getMaxSubArray(4, array3, 4);
     int array2[7] = {4,5,3,1,10,1,5};
-    cout<<endl;
+    //cout<<endl<<"END"<<endl;
     getMaxSubArray(3, array2, 7);
     return 0;
 }
