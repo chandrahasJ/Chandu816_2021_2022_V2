@@ -1,0 +1,3 @@
+configure terminal
+
+vlan 112
