@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -18,6 +18,16 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="MonkeyCache.FileStore" Version="2.0.0-beta" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Converters\" />
+	  <Folder Include="Excepttions\" />
+	  <Folder Include="Extensions\" />
+	  <Folder Include="Helpers\" />
+	  <Folder Include="MVVM\" />
+	  <Folder Include="UI\" />
+	  <Folder Include="Services\" />
 	</ItemGroup>
 
 </Project>

@@ -30,7 +30,8 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#262626" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" 
+              Color="#262626" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#262626" BaseSize="128,128" />
@@ -49,6 +50,17 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="MonkeyCache.FileStore" Version="2.0.0-beta" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="IViews\" />
+	  <Folder Include="ViewControls\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Helpers\" />
+	  <Folder Include="IServices\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="ViewModels\Base\" />
+	  <Folder Include="Views\Base\" />
 	</ItemGroup>
 
 </Project>
