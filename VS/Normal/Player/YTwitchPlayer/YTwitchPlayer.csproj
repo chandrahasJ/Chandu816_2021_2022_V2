@@ -2,9 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>		
 		<OutputType>Exe</OutputType>
 		<RootNamespace>YTwitchPlayer</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -12,10 +10,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>YTwitchPlayer</ApplicationTitle>
+		<ApplicationTitle>Twitchy Player</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.ytwitchplayer</ApplicationId>
+		<ApplicationId>com.cjsoftwares.ytwitchplayer</ApplicationId>
 		<ApplicationIdGuid>5C028275-1B66-4662-B9FA-7B97EE74C7D0</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -32,10 +30,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#262626" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#262626" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
