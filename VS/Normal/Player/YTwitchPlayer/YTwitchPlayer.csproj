@@ -30,8 +30,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" 
-              Color="#262626" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#262626" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#262626" BaseSize="128,128" />
@@ -54,6 +53,7 @@
 
 	<ItemGroup>
 	  <Folder Include="IViews\" />
+	  <Folder Include="Resources\Styles\" />
 	  <Folder Include="ViewControls\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Helpers\" />
