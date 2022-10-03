@@ -1,0 +1,71 @@
+ReLearn - 
+https://www.youtube.com/watch?v=M0tgJaQAo60&list=PLauivoElc3ggagradg8MfOZreCMmXMmJ-&index=15 
+0) Time complexity is calculated by number of iteration 
+    a) if code is like 
+            int i = 0;
+            int b = 1; 
+        then 
+            Time complexity would be 0(1)
+1) O(N)
+    for(int i =0; i <= N; i++) 
+    {
+        int a = i;
+    }
+    for(int i =0; i <= N; i++) 
+    {
+        int a = i;
+    }
+    for(int i =0; i <= N; i++) 
+    {
+        int a = i;
+    }
+    All the above statements time complexity would be O(N)
+    Why ?? 
+    a) First for Loop will run for N times = O(N)
+    b) Second for loop will run for N times = O(N)
+    c) Thrid for loop will run for N times = O(N)
+    d) so now add all the big O notation 
+        i.e. Time = O(N) + O(N) + O(N)
+                  = 3 * O(N); // you can ignore the 3 
+                  = O(N);
+    e) Basically if you have signle for loop than big O notation would be O(N)
+
+2) O(N^2)
+    for(int i =0; i <= N; i++) 
+    {
+        int a = i;
+        for(int j =0; j <= N; j++) 
+        {
+            int b = j;
+        }
+    }
+    Time complexity of above code would be O(N^2)
+    a) So if you have nested loops then the number of loops ^  N.
+        i.e. O(Number of iteration ^ Nested Loops)
+        so if 
+                the N = 100 and we have 4 nestes Loops 
+            than 
+                Time complexity = O(100 ^ 4)
+3) O(Log (N)) - Best Time complexity
+    for(int i =0; i <= N/2; i++) 
+    {
+        int a = i;
+    }
+    Time complexity of above code would be O(Log (N))
+    a) So if there is a case in the loop where 
+        number of iterations getting divided by any number greater than one.
+        then    
+            Time complexity will be O(log (N)) 
+4) Programmer should always try to convert you code into time complexity of  O(Log (N)).
+5) Time complexity which doesn't looks like O(N^2) but is O(N^2) 
+    int iteration;
+    for(int i =0; i <= N; i++) 
+    {
+        int a = i;
+        for(int j =0; j <= i; j++) 
+        {
+            int b = j;
+            iteration++;
+        }
+    }
+    Time complexity of above code would be O(N^2). check the video.
