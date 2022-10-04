@@ -13,7 +13,7 @@
 		<ApplicationTitle>Twitchy Player</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.cjsoftwares.ytwitchplayer</ApplicationId>
+		<ApplicationId>eos.cjsoftwares.ytwitchplayer</ApplicationId>
 		<ApplicationIdGuid>5C028275-1B66-4662-B9FA-7B97EE74C7D0</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -54,7 +54,6 @@
 	<ItemGroup>
 	  <Folder Include="IViews\" />
 	  <Folder Include="ViewControls\" />
-	  <Folder Include="Models\" />
 	  <Folder Include="IServices\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="ViewModels\Base\" />
