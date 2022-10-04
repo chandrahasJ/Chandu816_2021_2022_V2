@@ -53,7 +53,6 @@
 
 	<ItemGroup>
 	  <Folder Include="IViews\" />
-	  <Folder Include="Resources\Styles\" />
 	  <Folder Include="ViewControls\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Helpers\" />
@@ -61,6 +60,15 @@
 	  <Folder Include="Services\" />
 	  <Folder Include="ViewModels\Base\" />
 	  <Folder Include="Views\Base\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Colors.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\Styles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
