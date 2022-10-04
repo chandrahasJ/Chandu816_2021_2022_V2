@@ -55,7 +55,6 @@
 	  <Folder Include="IViews\" />
 	  <Folder Include="ViewControls\" />
 	  <Folder Include="Models\" />
-	  <Folder Include="Helpers\" />
 	  <Folder Include="IServices\" />
 	  <Folder Include="Services\" />
 	  <Folder Include="ViewModels\Base\" />
