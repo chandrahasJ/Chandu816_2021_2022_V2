@@ -1,39 +1,56 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
-packages/
+#Junk Files
+*.DS_Store
+[Tt]humbs.db
 
-#VS Folders
-.vs/
-/.vs
-.vs
-flutter/
-/flutter
-
-# Other files and folders
-.settings/
-
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
-*.exe
-*.dll
-*.nuget
-
-#visualprojectfiles
+#Visual Studio Files
+[Oo]bj
+[Bb]in
+[Dd]ebug
+[Bb]uild/
+*.user
 *.suo
-db.lock
-storage.ide
-.dtbcache.v2
+*.exe
+*.pdb
+*.aps
+*_i.c
+*_p.c
+*.ncb
+*.tlb
+*.tlh
+*.[Cc]ache
+*.bak
+*.ncb
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+ipch/ 
+*.dbmdl
 *.csproj.user
-.csproj.user
+*.cache
+*.swp
+*.vspscc
+*.vssscc
+*.bak.*
+*.bak
 
+#Tools
+_ReSharper.*
+_ReSharper*/
+*.resharper
+*.resharper.user
+[Nn][Dd]epend[Oo]ut*/
+Ankh.NoLoad
 
-ces
+#Other
+.svn
+
+# Include DLLs if they're in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+
+#ces
 cj_data.txt
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
