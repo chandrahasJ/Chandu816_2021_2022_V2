@@ -2,11 +2,15 @@
 *.DS_Store
 [Tt]humbs.db
 
+#VS Folders
+.vs/
+
 #Visual Studio Files
 [Oo]bj
 [Bb]in
 [Dd]ebug
 [Bb]uild/
+packages/
 *.user
 *.suo
 *.exe
@@ -42,6 +46,12 @@ _ReSharper*/
 *.resharper.user
 [Nn][Dd]epend[Oo]ut*/
 Ankh.NoLoad
+
+*.ipa
+*.apk
+*.exe
+*.dll
+*.nuget
 
 #Other
 .svn
