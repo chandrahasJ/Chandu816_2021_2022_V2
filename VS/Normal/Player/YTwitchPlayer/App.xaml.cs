@@ -3,6 +3,8 @@ using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Windows.Graphics;
 #endif
+using Microsoft.Maui.Controls;
+
 namespace YTwitchPlayer;
 
 public partial class App : Application
@@ -30,6 +32,6 @@ public partial class App : Application
 #endif
         });
 
-		MainPage = new AppShell();
+		MainPage = new NavigationPage(new StartPage());
 	}
 }
