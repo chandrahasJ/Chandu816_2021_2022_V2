@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MAUI.Framework
-{
-    public class GlobalUsings
-    {
-        public GlobalUsings()
-        {
-
-        }
-    }
-}
+﻿global using MonkeyCache;
+global using MAUI.Framework.Exceptions;
+global using MAUI.Framework.Extensions;
+global using System.Net.Http.Headers;
+global using System.Text.Json;
+global using System.Text;
