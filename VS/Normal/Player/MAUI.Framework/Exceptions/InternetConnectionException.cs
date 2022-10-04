@@ -1,4 +1,4 @@
-﻿namespace MAUI.Framework.Exceptions
+﻿namespace MAUIApp.Framework.Exceptions
 {
     public class InternetConnectionException : Exception
     {

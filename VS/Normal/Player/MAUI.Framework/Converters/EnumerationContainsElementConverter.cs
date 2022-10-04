@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MAUI.Framework.Converters
+namespace MAUIApp.Framework.Converters
 {
     public class EnumerationContainsElementConverter : IValueConverter
     {

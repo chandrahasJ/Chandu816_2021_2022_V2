@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MAUI.Framework.Extensions
+namespace MAUIApp.Framework.Extensions
 {
     public static class ListExtensions
     {

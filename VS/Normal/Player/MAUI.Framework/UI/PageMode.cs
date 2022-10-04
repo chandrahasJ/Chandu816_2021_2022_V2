@@ -1,4 +1,4 @@
-﻿namespace MAUI.Framework.UI
+﻿namespace MAUIApp.Framework.UI
 {
     public enum PageMode
     {

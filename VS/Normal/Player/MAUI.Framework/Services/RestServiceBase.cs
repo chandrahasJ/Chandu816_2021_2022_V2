@@ -1,4 +1,4 @@
-﻿namespace MAUI.Framework.Services
+﻿namespace MAUIApp.Framework.Services
 {
     public class RestServiceBase 
     {

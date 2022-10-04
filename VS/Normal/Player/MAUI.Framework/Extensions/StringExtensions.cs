@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MAUI.Framework.Extensions
+namespace MAUIApp.Framework.Extensions
 {
     public static class StringExtensions
     {
