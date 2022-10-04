@@ -1,1 +1,1 @@
-﻿using YTwitchPlayer.Views;
+﻿global  using YTwitchPlayer.Views;
