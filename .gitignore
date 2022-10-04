@@ -29,6 +29,7 @@ flutter/
 db.lock
 storage.ide
 .dtbcache.v2
+*.csproj.user
 
 ces
 cj_data.txt
