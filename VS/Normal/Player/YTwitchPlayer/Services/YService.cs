@@ -5,7 +5,7 @@ using MAUIApp.Framework.Services;
 
 namespace YTwitchPlayer.Services
 {
-    public class YService : RestServiceBase, IApiServices
+    public class YService : RestServiceBase, IApiService
     {
         protected YService(IConnectivity connectivity, IBarrel barrel) : base(connectivity, barrel)
         {
