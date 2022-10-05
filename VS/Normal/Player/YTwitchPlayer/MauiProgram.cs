@@ -1,10 +1,4 @@
-﻿using Microsoft.Maui.LifecycleEvents;
-using MonkeyCache;
-using MonkeyCache.FileStore;
-using YTwitchPlayer.Helpers;
-using YTwitchPlayer.Services;
-
-namespace YTwitchPlayer;
+﻿namespace YTwitchPlayer;
 
 public static class MauiProgram
 {
@@ -34,5 +28,8 @@ public static class MauiProgram
 
 		//Register API services
 		services.AddSingleton<IApiService, YService>();
+
+		//Register ViewModel
+		services.AddSingleton<StartPageViewModel>();
 	}
 }
