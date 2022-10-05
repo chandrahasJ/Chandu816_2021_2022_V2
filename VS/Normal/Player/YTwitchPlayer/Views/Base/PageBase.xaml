@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.PrefersHomeIndicatorAutoHidden="True"
+             xmlns:baseControls="clr-namespace:YTwitchPlayer.ViewControls.Common"
+             x:Class="YTwitchPlayer.Views.Base.PageBase">
+    <Grid IgnoreSafeArea="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{OnPlatform Android=16, iOS=36, Default=0}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Error Indicator-->
+        <baseControls:ErrorIndicator
+            Grid.Row="2"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            IsError="{Binding IsErrorState,Mode=OneWay}"
+            ErrorImage="{Binding ErrorImage, Mode=OneWay}"
+            ErrorText="{Binding ErrorMessage, Mode=OneWay}"/>
+
+        <!-- Loading Indicator-->
+        <baseControls:LoadingIndicator
+            Grid.Row="2"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            IsBusy="{Binding IsBusy,Mode=OneWay}"
+            LoadingText="{Binding LoadingText, Mode=OneWay}"/>
+        
+        <!--Page Content-->
+        <Grid x:Name="PageContentGrid" 
+              IgnoreSafeArea="True"/>
+        
+        <!--Page Header-->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="56,*,56"
+              Margin="{OnPlatform iOS='0,4', Android='0,4'}"
+              IgnoreSafeArea="True">
+            
+            <!-- Left Icon -->
+            <ImageButton 
+                x:Name="HamburgerButton"
+                Source="icnhamburger.png"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Style="{StaticResource IconButtonStyle}"
+                Grid.Column="0"/>
+
+            <ImageButton 
+                x:Name="NavigateBackButton"
+                Source="icnback.png"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Style="{StaticResource IconButtonStyle}"
+                Grid.Column="0"
+                Command="{Binding NavigateBackCommand, Mode=OneWay}"/>
+
+            <ImageButton 
+                x:Name="CloseButton"
+                Source="icnclose.png"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Style="{StaticResource IconButtonStyle}"
+                Grid.Column="0"
+                Command="{Binding CloseModalCommand, Mode=OneWay}"/>
+
+            <!--Page Header Label-->
+            <Label
+                Grid.Column="1"
+                x:Name="TitleLabel"
+                IsVisible="False"
+                VerticalOptions="Center"
+                HorizontalOptions="Fill"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                Margin="6,0,6,-1"
+                Style="{StaticResource PageHeaderTextStyle}"/>
+
+            <!-- Right Icon -->
+            <Grid x:Name="PageIconsGrid" 
+                   VerticalOptions="Center"
+                  HorizontalOptions="End"
+                  Margin="{OnPlatform iOS='0,4', Android='0,4'}"
+                  Grid.Column="2"
+                  IgnoreSafeArea="True"/>
+        </Grid>
+    </Grid>
+</ContentPage>

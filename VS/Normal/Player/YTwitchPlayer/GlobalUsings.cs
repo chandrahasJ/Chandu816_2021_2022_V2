@@ -6,3 +6,5 @@ global using MAUIApp.Framework.MVVM;
 global using YTwitchPlayer.IServices;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
+global using MAUIApp.Framework.UI;
+global using YTwitchPlayer.ViewControls.Common;

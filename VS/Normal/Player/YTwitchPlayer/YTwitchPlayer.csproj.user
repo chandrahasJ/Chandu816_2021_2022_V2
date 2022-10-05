@@ -23,5 +23,8 @@
     <MauiXaml Update="ViewControls\Common\LoadingIndicator.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\Base\PageBase.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
   </ItemGroup>
 </Project>
