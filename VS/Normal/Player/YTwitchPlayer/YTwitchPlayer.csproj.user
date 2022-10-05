@@ -20,5 +20,8 @@
     <MauiXaml Update="ViewControls\Common\ErrorIndicator.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="ViewControls\Common\LoadingIndicator.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
   </ItemGroup>
 </Project>
