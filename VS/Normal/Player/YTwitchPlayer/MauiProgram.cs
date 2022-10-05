@@ -1,5 +1,8 @@
 ﻿using Microsoft.Maui.LifecycleEvents;
+using MonkeyCache;
+using MonkeyCache.FileStore;
 using YTwitchPlayer.Helpers;
+using YTwitchPlayer.Services;
 
 namespace YTwitchPlayer;
 
@@ -18,5 +21,18 @@ public static class MauiProgram
 			.ConfigureLifecycleEvents(events => LifeCycleEventHelper.LifeCycleBuilder(events));
 
 		return builder.Build();
+	}
+
+	public static void RegisterServices(IServiceCollection services)
+	{
+        // Add Platform spefic Dependencies
+        services.AddSingleton<IConnectivity>(Connectivity.Current);
+
+		// Register Barrel Cache
+		Barrel.ApplicationId = Constants.ApplicationId;
+		services.AddSingleton<IBarrel>(Barrel.Current);
+
+		//Register API services
+		services.AddSingleton<IApiService, YService>();
 	}
 }
