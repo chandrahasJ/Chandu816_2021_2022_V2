@@ -14,7 +14,10 @@ public static class MauiProgram
 			})
 			.ConfigureLifecycleEvents(events => LifeCycleEventHelper.LifeCycleBuilder(events));
 
-		return builder.Build();
+		RegisterServices(builder.Services);
+
+
+        return builder.Build();
 	}
 
 	public static void RegisterServices(IServiceCollection services)

@@ -1,13 +1,10 @@
-﻿using YTwitchPlayer.IServices;
-using MonkeyCache;
-using System.Net;
-using MAUIApp.Framework.Services;
+﻿
 
 namespace YTwitchPlayer.Services
 {
     public class YService : RestServiceBase, IApiService
     {
-        protected YService(IConnectivity connectivity, IBarrel barrel) : base(connectivity, barrel)
+        public YService(IConnectivity connectivity, IBarrel barrel) : base(connectivity, barrel)
         {
             SetBaseURL(Constants.ApiServiceURL);
         }

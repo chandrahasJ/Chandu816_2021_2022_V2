@@ -80,4 +80,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionYTwitchPlayerHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>

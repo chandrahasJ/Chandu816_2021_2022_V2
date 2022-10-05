@@ -1,4 +1,4 @@
-﻿global  using YTwitchPlayer.Views;
+﻿global using YTwitchPlayer.Views;
 global using System.Text.Json.Serialization;
 global using YTwitchPlayer.Models.YModels;
 global using YTwitchPlayer.Models;
@@ -16,3 +16,5 @@ global using YTwitchPlayer.Helpers;
 global using YTwitchPlayer.Services;
 global using YTwitchPlayer.ViewModels;
 global using MAUIApp.Framework.Exceptions;
+global using System.Net;
+global using MAUIApp.Framework.Services;
