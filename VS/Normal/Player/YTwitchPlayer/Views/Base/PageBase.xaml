@@ -4,7 +4,8 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.PrefersHomeIndicatorAutoHidden="True"
              xmlns:baseControls="clr-namespace:YTwitchPlayer.ViewControls.Common"
-             x:Class="YTwitchPlayer.Views.Base.PageBase">
+             x:Class="YTwitchPlayer.Views.Base.PageBase"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
     <Grid IgnoreSafeArea="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="{OnPlatform Android=16, iOS=36, Default=0}"/>
@@ -21,6 +22,10 @@
             ErrorImage="{Binding ErrorImage, Mode=OneWay}"
             ErrorText="{Binding ErrorMessage, Mode=OneWay}"/>
 
+        <!--Page Content-->
+        <Grid x:Name="PageContentGrid" 
+              IgnoreSafeArea="True"/>
+
         <!-- Loading Indicator-->
         <baseControls:LoadingIndicator
             Grid.Row="2"
@@ -29,9 +34,7 @@
             IsBusy="{Binding IsBusy,Mode=OneWay}"
             LoadingText="{Binding LoadingText, Mode=OneWay}"/>
         
-        <!--Page Content-->
-        <Grid x:Name="PageContentGrid" 
-              IgnoreSafeArea="True"/>
+ 
         
         <!--Page Header-->
         <Grid Grid.Row="1"

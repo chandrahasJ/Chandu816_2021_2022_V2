@@ -19,5 +19,8 @@
 
         [JsonPropertyName("channelTitle")]
         public string ChannelTitle { get; set; }
+
+        [JsonPropertyName("channelImageUrl")]
+        public string ChannelImageUrl { get; set; }
     }
 }

@@ -5,6 +5,9 @@
              x:Class="YTwitchPlayer.Views.StartPage"
              xmlns:viewbases="clr-namespace:YTwitchPlayer.ViewModels.Base" 
              xmlns:viewmodels="clr-namespace:YTwitchPlayer.ViewModels"
+             xmlns:models="clr-namespace:YTwitchPlayer.Models"
+             xmlns:ymodels="clr-namespace:YTwitchPlayer.Models.YModels"
+             xmlns:controls="clr-namespace:YTwitchPlayer.ViewControls"
              x:TypeArguments="viewmodels:StartPageViewModel"
              x:DataType="viewmodels:StartPageViewModel"
              PageTitle="{Binding Title, Mode=OneWay}"
@@ -14,14 +17,105 @@
     <viewbases:ViewBase.PageIcons>
         <ImageButton 
             Style="{StaticResource IconButtonStyle}"
-            Source="icnsettings.png"/>
+            Source="icnsettings.png"
+            Command="{Binding OpenSettingCommand, Mode=OneWay}"/>
     </viewbases:ViewBase.PageIcons>
 
     <viewbases:ViewBase.PageContent>
-        <Label 
-            Style="{StaticResource MediumLightText20}"
-            IsVisible="{Binding DataLoaded,Mode=OneWay}"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"/>
+        <CollectionView 
+             x:Name="lstOfVideo"
+             Margin="16,4,16,0"   ItemSizingStrategy="MeasureFirstItem"           
+             ItemsSource="{Binding YVideos,Mode=OneWay}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"   ItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+                <ContentView>
+                    <Label Text="Search" Style="{StaticResource RegularLightText16}"/>
+                </ContentView>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ymodels:YVideo">
+                    <!--Not working in android-->
+                    <!--<controls:VideoCell HeightRequest="{OnPlatform Android=270, Default={Binding ItemsHeight, Source={x:Reference RootPage}}}" />-->
+                    <Border BackgroundColor="{StaticResource DarkColor}"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="6">
+                        <Grid
+                            RowSpacing="2"
+                            RowDefinitions="*,Auto">
+                            <Grid Grid.Row="0"  RowDefinitions="*" HeightRequest="{OnPlatform Android=270, Default={Binding ItemsHeight, Source={x:Reference RootPage}}}" >
+                                <Image  Grid.Row="0"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    Aspect="AspectFill">
+                                    <Image.Source>
+                                        <UriImageSource
+                                            Uri="{Binding Snippet.Thumbnails.High.Url, Mode=OneWay}" />
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+                            <Grid Grid.Row="1" 
+                                RowDefinitions="*,Auto"
+                                  ColumnDefinitions="Auto, Auto">
+                                <Grid Grid.Column="0" Grid.RowSpan="2" Padding="5">
+                                    <!-- Channel Pic -->
+                                    <Border
+                                        WidthRequest="36"
+                                        HeightRequest="36"
+                                        VerticalOptions="Center"
+                                        Stroke="{StaticResource LightBorderColor}"
+                                        StrokeThickness="2"
+                                        StrokeShape="RoundRectangle 18"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0">
+
+                                        <Image
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            WidthRequest="32"
+                                            HeightRequest="32">
+
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                                    Center="16,16"
+                                                    RadiusX="16"
+                                                    RadiusY="16"/>
+                                            </Image.Clip>
+
+                                            <Image.Source>
+                                                <UriImageSource
+                                                    Uri="{Binding Snippet.ChannelImageUrl, Mode=OneWay}"
+                                                    CacheValidity="1:00:00.0" />
+                                            </Image.Source>
+                                        </Image>
+
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Column="1" Padding="5"
+                                      RowDefinitions="Auto,Auto">
+                                    <!--Channel Name-->
+                                    <Label
+                                    Style="{StaticResource MediumLightText18}"
+                                    Grid.Row="0" 
+                                    Text="{Binding Snippet.ChannelTitle, Mode=OneWay}" />
+                                    <!--Channel Name-->
+                                    <Label
+                                        Style="{StaticResource MediumLightText14}"
+                                        Grid.Row="1" 
+                                        Text="{Binding Snippet.Title, Mode=OneWay}" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

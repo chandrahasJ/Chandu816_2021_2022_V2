@@ -95,7 +95,7 @@ public partial class PageBase : ContentPage
         SetPageMode(PageMode.None);
 
         //Set Content Display Mode
-        SetContentDisplayMode(ContentDisplayMode.NoNavigationBar);
+        SetContentDisplayMode(ContentDisplayMode.NavigationBar);
 	}
 
     #region Private Method
@@ -130,16 +130,16 @@ public partial class PageBase : ContentPage
     {
         switch (contentDisplayMode)
         {
+            case ContentDisplayMode.NavigationBar:
+                Grid.SetRow(PageContentGrid, 2);
+                Grid.SetRowSpan(PageContentGrid, 2);
+                break;
             case ContentDisplayMode.NoNavigationBar:
                 Grid.SetRow(PageContentGrid, 0);
                 Grid.SetRowSpan(PageContentGrid, 3);
                 break;
-            case ContentDisplayMode.NavigationBar:
-                Grid.SetRow(PageContentGrid, 2);
-                Grid.SetRowSpan(PageContentGrid, 1);
-                break;       
             default:
-                // Nothing needs to be done...
+                //Do Nothing
                 break;
         }
     }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ymodels="clr-namespace:YTwitchPlayer.Models.YModels"
+             x:DataType="ymodels:YVideo"
+             x:Name="VideoCellRoot"
+             x:Class="YTwitchPlayer.ViewControls.VideoCell">
+
+    <Border BackgroundColor="{StaticResource DarkColor}"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="6">
+        <Grid
+                            RowSpacing="2"
+                            RowDefinitions="*,Auto">
+            <Grid Grid.Row="0"  RowDefinitions="*" >
+                <Image  Grid.Row="0"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    Aspect="AspectFill">
+                    <Image.Source>
+                        <UriImageSource
+                                            Uri="{Binding Snippet.Thumbnails.High.Url, Mode=OneWay}" />
+                    </Image.Source>
+                </Image>
+            </Grid>
+            <Grid Grid.Row="1" 
+                                RowDefinitions="*,Auto"
+                                  ColumnDefinitions="Auto, Auto">
+                <Grid Grid.Column="0" Grid.RowSpan="2" Padding="5">
+                    <Image  Grid.Row="0"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill"
+                                        WidthRequest="30"
+                                        HeightRequest="30"
+                                        Aspect="AspectFill">
+                        <Image.Source>
+                            <UriImageSource
+                                            Uri="{Binding Snippet.ChannelImageUrl, Mode=OneWay}" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                <Grid Grid.Column="1" Padding="5"
+                                      RowDefinitions="Auto,Auto">
+                    <!--Channel Name-->
+                    <Label
+                                    Style="{StaticResource MediumLightText18}"
+                                    Grid.Row="0" 
+                                    Text="{Binding Snippet.ChannelTitle, Mode=OneWay}" />
+                    <!--Channel Name-->
+                    <Label
+                                        Style="{StaticResource MediumLightText14}"
+                                        Grid.Row="1" 
+                                        Text="{Binding Snippet.Title, Mode=OneWay}" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>
