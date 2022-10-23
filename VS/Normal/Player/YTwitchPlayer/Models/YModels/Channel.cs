@@ -1,5 +1,4 @@
-﻿using Android.Media.TV;
-
+﻿
 namespace YTwitchPlayer.Models.YModels
 {
     public class Channel
