@@ -1,6 +1,5 @@
 ﻿namespace YTwitchPlayer.Models.YModels
 {
-
     public class Snippet
     {
         [JsonPropertyName("publishedAt")]
@@ -21,7 +20,7 @@
         [JsonPropertyName("channelTitle")]
         public string ChannelTitle { get; set; }
 
-        public string ChannelImageURL { get; set; }
+        public string ChannelImageUrl { get; set; }
 
         //For Details
         [JsonPropertyName("tags")]
