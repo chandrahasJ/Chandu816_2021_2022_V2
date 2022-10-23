@@ -26,7 +26,7 @@
         public ViewModelBase() => IsErrorState = false;
 
         //Called on Page Appearing
-        public virtual async void OnNavigatedTo(object parameters) =>
+        public virtual async Task OnNavigatedTo(object parameters) =>
             await Task.CompletedTask;
 
         //Set Loading Indicator for Page

@@ -23,7 +23,7 @@ public class ViewBase<TViewModel> : PageBase where TViewModel : AppViewModelBase
     #endregion Constructors
 
     #region Methods
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         if (!_isLoaded)
         {
@@ -38,7 +38,7 @@ public class ViewBase<TViewModel> : PageBase where TViewModel : AppViewModelBase
             ViewModelInitialized?.Invoke(this, new EventArgs());
 
             // If OnNavigatedTo is Implemented in Child Class it will be called.
-            ViewModel.OnNavigatedTo(ViewModelParameters);
+            await ViewModel.OnNavigatedTo(ViewModelParameters);
 
             _isLoaded = true;
         }

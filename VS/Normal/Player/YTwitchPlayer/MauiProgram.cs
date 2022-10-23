@@ -1,4 +1,6 @@
-﻿namespace YTwitchPlayer;
+﻿using CommunityToolkit.Maui;
+
+namespace YTwitchPlayer;
 
 public static class MauiProgram
 {
@@ -12,7 +14,8 @@ public static class MauiProgram
 				fonts.AddFont("FiraSans-Light.ttf", "RegularFont");
 				fonts.AddFont("FiraSans-Medium.ttf", "MediumFont");
 			})
-			.ConfigureLifecycleEvents(events => LifeCycleEventHelper.LifeCycleBuilder(events));
+			.ConfigureLifecycleEvents(events => LifeCycleEventHelper.LifeCycleBuilder(events))
+			.UseMauiCommunityToolkit();
 
 		RegisterServices(builder.Services);
 

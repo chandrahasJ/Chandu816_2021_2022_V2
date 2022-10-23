@@ -32,4 +32,15 @@ public partial class StartPage : ViewBase<StartPageViewModel>
 
         ItemsHeight = 60d + (width - lstOfVideo.Margin.Right - lstOfVideo.Margin.Left) / 1.8d;
     }
+
+    /// <summary>
+    /// Not able to use CommunityToolkit.Maui.Behavior 
+    /// Hence using this approach
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void TxtSearchQuery_Completed(object sender, EventArgs e)
+    {
+        ViewModel.SearchYVideosCommand.Execute(txtSearchQuery.Text);
+    }
 }

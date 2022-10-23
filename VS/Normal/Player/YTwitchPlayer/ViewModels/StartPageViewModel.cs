@@ -8,7 +8,7 @@ namespace YTwitchPlayer.ViewModels;
 public partial class StartPageViewModel : AppViewModelBase
 {
     private string nextToken = string.Empty;
-    private string searchTerm = "Azure";
+    private string searchTerm = "One Piece";
 
     [ObservableProperty]
     private ObservableCollection<YVideo> yVideos;
@@ -21,13 +21,12 @@ public partial class StartPageViewModel : AppViewModelBase
         this.Title = Constants.ApplicationName;
     }
 
-    public override async void OnNavigatedTo(object parameters)
+    public override async Task OnNavigatedTo(object parameters)
     {
-         Search();
-        await Task.CompletedTask;
+        await Search();        
     }
 
-    private async void Search()
+    private async Task Search()
     {
         SetLoadingIndicator(true);
 
@@ -79,8 +78,6 @@ public partial class StartPageViewModel : AppViewModelBase
                              channnel.Id == video.Snippet.ChannelId).First().Snippet.Thumbnails.High.Url
         );
 
-
-
         //Add the video for display.
         YVideos.AddRange(videoSearchResult.YVideos);
     }
@@ -102,6 +99,15 @@ public partial class StartPageViewModel : AppViewModelBase
         isLoadingMore = true;
         await GetTVideo();
         isLoadingMore = false;
+    }
+
+    [RelayCommand]
+    private async Task SearchYVideos(string searchQuery)
+    {
+        nextToken = String.Empty;
+        searchTerm = searchQuery.Trim(); ;
+
+        await Search();         
     }
 
 }

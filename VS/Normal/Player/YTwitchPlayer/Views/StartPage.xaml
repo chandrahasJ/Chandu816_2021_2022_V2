@@ -9,7 +9,7 @@
              xmlns:ymodels="clr-namespace:YTwitchPlayer.Models.YModels"
              xmlns:controls="clr-namespace:YTwitchPlayer.ViewControls"
              x:TypeArguments="viewmodels:StartPageViewModel"
-             x:DataType="viewmodels:StartPageViewModel"
+             x:DataType="viewmodels:StartPageViewModel"  
              PageTitle="{Binding Title, Mode=OneWay}"
              PageMode="Menu"
             ContentDisplayMode="NavigationBar"
@@ -34,7 +34,47 @@
             </CollectionView.ItemsLayout>
             <CollectionView.Header>
                 <ContentView>
-                    <Label Text="Search" Style="{StaticResource RegularLightText16}"/>
+                    <Border BackgroundColor="{StaticResource DarkColor}"
+                        StrokeShape="RoundRectangle 8"
+                        Stroke="Transparent"
+                        Margin="0,0,0,12"
+                        HeightRequest="40"
+                        Padding="12,4">
+                        <Grid
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Center"
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="16">
+                            <Image 
+                                WidthRequest="18"
+                                HeightRequest="18"
+                                Source="icnsearch.png"
+                                Grid.Column="1"
+                                VerticalOptions="Center">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding SearchYVideosCommand, Mode=OneWay}"
+                                        CommandParameter="{Binding Path=Text, Source={x:Reference txtSearchQuery}, Mode=OneWay}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                            <Entry 
+                                x:Name="txtSearchQuery"
+                                Placeholder="Search your fav videos.."
+                                PlaceholderColor="{StaticResource LightColor}"
+                                Grid.Column="0"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Fill"
+                                BackgroundColor="Transparent"
+                                FontFamily="RegularFont"
+                                FontSize="16"
+                                TextColor="{StaticResource LightTextColor}"
+                                VerticalTextAlignment="Center"
+                                Completed="TxtSearchQuery_Completed">
+                            </Entry>
+
+                        </Grid>
+                    </Border>
                 </ContentView>
             </CollectionView.Header>
 
