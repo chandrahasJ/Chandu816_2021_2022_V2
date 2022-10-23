@@ -37,5 +37,7 @@ public static class MauiProgram
 
 		//Register ViewModel
 		services.AddSingleton<StartPageViewModel>();
+		services.AddTransient<VideoDetailsPageViewModel>();
+
 	}
 }
