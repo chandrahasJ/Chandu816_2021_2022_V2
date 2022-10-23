@@ -85,6 +85,13 @@
                     <Border BackgroundColor="{StaticResource DarkColor}"
                         StrokeShape="RoundRectangle 12"
                         Padding="6">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Path=NavigateToVideoDetailsPageCommand,
+                                         Source={RelativeSource AncestorType={x:Type viewmodels:StartPageViewModel}},
+                                         Mode=OneWay}"
+                                CommandParameter="{Binding Id.VideoId}"/>
+                        </Border.GestureRecognizers>
                         <Grid
                             RowSpacing="2"
                             RowDefinitions="*,Auto">

@@ -29,5 +29,8 @@
     <MauiXaml Update="Views\Base\PageBase.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\VideoDetailsPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
   </ItemGroup>
 </Project>
