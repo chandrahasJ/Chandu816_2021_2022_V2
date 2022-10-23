@@ -25,7 +25,9 @@
         <CollectionView 
              x:Name="lstOfVideo"
              Margin="16,4,16,0"   ItemSizingStrategy="MeasureFirstItem"           
-             ItemsSource="{Binding YVideos,Mode=OneWay}">
+             ItemsSource="{Binding YVideos,Mode=OneWay}"
+             RemainingItemsThreshold="3"
+             RemainingItemsThresholdReachedCommand="{Binding LoadMoreYVideosCommand, Mode=OneWay}">
 
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"   ItemSpacing="20"/>

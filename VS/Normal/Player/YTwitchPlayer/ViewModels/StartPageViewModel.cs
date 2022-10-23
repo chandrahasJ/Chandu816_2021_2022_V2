@@ -13,6 +13,9 @@ public partial class StartPageViewModel : AppViewModelBase
     [ObservableProperty]
     private ObservableCollection<YVideo> yVideos;
 
+    [ObservableProperty]
+    private bool isLoadingMore;
+
     public StartPageViewModel(IApiService apiService) : base(apiService)
     {
         this.Title = Constants.ApplicationName;
@@ -87,4 +90,18 @@ public partial class StartPageViewModel : AppViewModelBase
     {
         await PageService.DisplayAlert("Setting", "Not Implemented!", "Got it.");
     }
+
+    [RelayCommand]
+    private async Task LoadMoreYVideos()
+    {
+        if (isLoadingMore || String.IsNullOrEmpty(nextToken))
+        {
+            return;
+        }
+
+        isLoadingMore = true;
+        await GetTVideo();
+        isLoadingMore = false;
+    }
+
 }
