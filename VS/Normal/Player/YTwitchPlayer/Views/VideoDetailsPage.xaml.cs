@@ -1,8 +1,8 @@
 namespace YTwitchPlayer.Views;
 
-public partial class VideoDetailsPage : ContentPage
+public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
 {
-	public VideoDetailsPage(string videoId)
+	public VideoDetailsPage(object initParams) : base(initParams)
 	{
 		InitializeComponent();
 	}

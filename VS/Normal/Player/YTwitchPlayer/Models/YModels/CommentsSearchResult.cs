@@ -7,6 +7,6 @@
         public string NextPageToken { get; set; }
 
         [JsonPropertyName("items")]
-        public List<Comment> Items { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

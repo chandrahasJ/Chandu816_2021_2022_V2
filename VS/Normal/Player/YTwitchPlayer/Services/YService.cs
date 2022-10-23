@@ -30,7 +30,7 @@ namespace YTwitchPlayer.Services
 
         public async Task<CommentsSearchResult> GetComments(string videoId)
         {
-            var resourceURI = $"commentThreads?part=snippet&maxResults=100&id={WebUtility.UrlEncode(videoId)}&key={Constants.ApiKey}";
+            var resourceURI = $"commentThreads?part=snippet&maxResults=100&videoId={WebUtility.UrlEncode(videoId)}&key={Constants.ApiKey}";
 
             var result = await GetAsync<CommentsSearchResult>(resourceURI, 4);
 
