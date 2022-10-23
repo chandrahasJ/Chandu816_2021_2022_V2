@@ -1,5 +1,6 @@
 ﻿namespace YTwitchPlayer.Models.YModels
 {
+
     public class Snippet
     {
         [JsonPropertyName("publishedAt")]
@@ -20,7 +21,26 @@
         [JsonPropertyName("channelTitle")]
         public string ChannelTitle { get; set; }
 
-        [JsonPropertyName("channelImageUrl")]
-        public string ChannelImageUrl { get; set; }
+        public string ChannelImageURL { get; set; }
+
+        //For Details
+        [JsonPropertyName("tags")]
+        public List<string> Tags { get; set; }
+
+        //For Comments
+        [JsonPropertyName("topLevelComment")]
+        public TopLevelComment TopLevelComment { get; set; }
+
+        [JsonPropertyName("textDisplay")]
+        public string TextDisplay { get; set; }
+
+        [JsonPropertyName("authorDisplayName")]
+        public string AuthorDisplayName { get; set; }
+
+        [JsonPropertyName("authorProfileImageUrl")]
+        public string AuthorProfileImageUrl { get; set; }
+
+        [JsonPropertyName("likeCount")]
+        public int LikeCount { get; set; }
     }
 }

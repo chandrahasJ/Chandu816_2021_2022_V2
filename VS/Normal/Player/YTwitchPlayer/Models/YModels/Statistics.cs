@@ -5,13 +5,13 @@
         [JsonPropertyName("viewCount")]
         public string ViewCount { get; set; }
 
-        [JsonPropertyName("subscriberCount")]
-        public string SubscriberCount { get; set; }
+        [JsonPropertyName("likeCount")]
+        public string LikeCount { get; set; }
 
-        [JsonPropertyName("hiddenSubscriberCount")]
-        public bool HiddenSubscriberCount { get; set; }
+        [JsonPropertyName("favoriteCount")]
+        public string FavoriteCount { get; set; }
 
-        [JsonPropertyName("videoCount")]
-        public string VideoCount { get; set; }
+        [JsonPropertyName("commentCount")]
+        public string CommentCount { get; set; }
     }
 }
