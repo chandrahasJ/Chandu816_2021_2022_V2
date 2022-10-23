@@ -116,6 +116,18 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
+            <CollectionView.Footer>
+                <ContentView HeightRequest="56">
+                    <ActivityIndicator
+                        x:Name="actFooterIndicator"
+                        IsRunning="{Binding IsLoadingMore, Mode=OneWay}"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        HorizontalOptions="Center"
+                        Color="{StaticResource LightColor}"
+                        Scale="{OnPlatform Android=1.0, iOS=1.3}"/>
+                </ContentView>
+            </CollectionView.Footer>
         </CollectionView>
 
 
