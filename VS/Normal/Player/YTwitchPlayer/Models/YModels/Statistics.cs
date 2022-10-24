@@ -13,5 +13,8 @@
 
         [JsonPropertyName("commentCount")]
         public string CommentCount { get; set; }
+
+        [JsonPropertyName("subscriberCount")]
+        public string SubscriberCount { get; set; }
     }
 }

@@ -18,3 +18,4 @@ global using YTwitchPlayer.ViewModels;
 global using MAUIApp.Framework.Exceptions;
 global using System.Net;
 global using MAUIApp.Framework.Services;
+global using MAUIApp.Framework.Extensions;

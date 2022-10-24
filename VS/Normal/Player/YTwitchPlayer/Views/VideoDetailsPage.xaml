@@ -19,7 +19,7 @@
     </viewbases:ViewBase.PageIcons>
 
     <viewbases:ViewBase.PageContent>
-        <Label Text="The total comment counts:>"/>
-        <Label Text="{Binding Comments.Count}" />
+        
+        <Label Text="{Binding TheVideo.VideoSubtitle, Mode=OneWay}" />
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

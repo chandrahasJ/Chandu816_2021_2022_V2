@@ -1,5 +1,4 @@
-﻿
-namespace YTwitchPlayer.Models.YModels
+﻿namespace YTwitchPlayer.Models.YModels
 {
     public class Channel
     {
@@ -9,5 +8,10 @@ namespace YTwitchPlayer.Models.YModels
         public Snippet Snippet { get; set; }
         [JsonPropertyName("statistics")]
         public Statistics Statistics { get; set; }
+
+        public string SubsribersCount
+        {
+            get => $"{Statistics.SubscriberCount.FormattedNumber()}  subscribers";
+        }
     }
 }
