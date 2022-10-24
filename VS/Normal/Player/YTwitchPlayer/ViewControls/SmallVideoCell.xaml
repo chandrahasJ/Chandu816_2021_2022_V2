@@ -39,7 +39,7 @@
                         Aspect="AspectFill">
                     <Image.Source>
                         <UriImageSource
-                                Uri="{Binding Snippet.Thumbnails.High.Url, Mode=OneWay}"
+                                Uri="{Binding Snippet.Thumbnails.Medium.Url, Mode=OneWay}"
                                 CacheValidity="1:00:00.0"/>
                     </Image.Source>
                 </Image>
