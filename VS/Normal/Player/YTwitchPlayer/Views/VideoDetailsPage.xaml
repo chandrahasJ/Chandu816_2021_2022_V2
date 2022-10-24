@@ -324,6 +324,36 @@
                 
             </CollectionView>
 
+
+            <!--Description -->
+            <ScrollView
+                Grid.Row="6"
+                x:Name="DescriptionView"
+                Opacity="0">
+                <Label                                      
+                        Style="{StaticResource RegularLightText14}"
+                        Text="{Binding TheVideo.Snippet.Description, Mode=OneWay}"
+                        LineBreakMode="NoWrap"
+                        HorizontalOptions="Fill"
+                        VerticalTextAlignment="Center"/>
+            </ScrollView>
+
+            <!--Comment Button-->
+            <Button
+                    x:Name="Comments"
+                    Grid.Row="7"
+                    Opacity="0"
+                    Margin="0,0,0,16"
+                    Padding="0"
+                    CornerRadius="8"                    
+                    Text="Comments"
+                    TextColor="White"
+                    FontSize="12"
+                    FontFamily="MediumFont"
+                    Background="{StaticResource DarkColor}}"
+                    BorderColor="{StaticResource LightBorderColor}"
+                    BorderWidth="0.5"
+                    Command="{Binding VideoCommentCommand, Mode=OneWay}"/>
         </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

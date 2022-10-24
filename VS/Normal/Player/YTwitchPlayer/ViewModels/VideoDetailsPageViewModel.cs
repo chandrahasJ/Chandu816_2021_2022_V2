@@ -123,5 +123,11 @@
         {
             await NavigationService.PushAsync(new VideoDetailsPage(videoId));
         }
+
+        [RelayCommand]
+        private async Task VideoComment()
+        {
+            await PageService.DisplayAlert("Comments", "Not Implemented!", "OK");
+        }
     }
 }

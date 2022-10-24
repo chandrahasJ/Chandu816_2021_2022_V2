@@ -46,10 +46,16 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
         parentAnimation.Add(0.5, 0.8, new Animation(v => ChannelDetails.Opacity = v, 0, 1, Easing.CubicIn));
 
         //Similar Videos
-        parentAnimation.Add(0.6, 0.8, new Animation(v => SimilarVideos.Opacity = v, 0, 1, Easing.CubicIn));
+        parentAnimation.Add(0.7, 0.8, new Animation(v => SimilarVideos.Opacity = v, 0, 1, Easing.CubicIn));
 
         //Similar Videos
-        parentAnimation.Add(0.7, 0.9, new Animation(v => TagsViews.Opacity = v, 0, 1, Easing.CubicIn));
+        parentAnimation.Add(0.6, 0.7, new Animation(v => TagsViews.Opacity = v, 0, 1, Easing.CubicIn));
+
+        // Description
+        parentAnimation.Add(0.8, 0.9, new Animation(v => DescriptionView.Opacity = v, 0, 1, Easing.CubicIn));
+
+        //Similar Videos
+        parentAnimation.Add(0.9, 1.0, new Animation(v => Comments.Opacity = v, 0, 1, Easing.CubicIn));
 
         parentAnimation.Commit(this, AnimationConstants.TransitionAnimation, 16, Constants.ExtraLongDuration, null, (v, c) => { 
 			// Perform some activity after animation is completed.
