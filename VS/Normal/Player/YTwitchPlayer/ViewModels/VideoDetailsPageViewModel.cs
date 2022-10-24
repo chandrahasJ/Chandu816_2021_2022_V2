@@ -117,5 +117,11 @@
         {
             await PageService.DisplayAlert("Subscriber Channel", "Not Implemented!", "OK");
         }
+
+        [RelayCommand]
+        private async Task NavigateToVideoDetailsPage(string videoId)
+        {
+            await NavigationService.PushAsync(new VideoDetailsPage(videoId));
+        }
     }
 }

@@ -253,6 +253,33 @@
                     Command="{Binding SubscriberChannelVideoCommand, Mode=OneWay}"/>
 
             </Grid>
+
+            <!--Similar Videos-->
+            <CollectionView
+                x:Name="SimilarVideos"
+                Grid.Row="5"
+                Opacity="0"
+                IsVisible="{Binding SimilarVideosAvailable, Mode=OneWay}"
+                HeightRequest="140"
+                ItemsSource="{Binding SimilarVideos, Mode=OneWay}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout 
+                        Orientation="Horizontal"
+                        ItemSpacing="8"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <controls:SmallVideoCell 
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
         </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>
