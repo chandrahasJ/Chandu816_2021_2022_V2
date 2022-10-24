@@ -19,7 +19,73 @@
     </viewbases:ViewBase.PageIcons>
 
     <viewbases:ViewBase.PageContent>
-        
-        <Label Text="{Binding TheVideo.VideoSubtitle, Mode=OneWay}" />
+        <Grid 
+            RowDefinitions="160,Auto,Auto,Auto,Auto,Auto,*,56"
+            RowSpacing="12"
+            Margin="16,0"
+            IsVisible="{Binding DataLoaded, Mode=OneWay}"
+            IgnoreSafeArea="True">
+            <Frame
+                HasShadow="True"
+                CornerRadius="8"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                IsClippedToBounds="True"
+                Padding="0"
+                Grid.Row="0"
+                x:Name="HeaderView">
+                <Grid
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    IsClippedToBounds="True">
+                    <Image  
+                        Margin="0"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Aspect="AspectFill">
+                        <Image.Source>
+                            <UriImageSource
+                                            Uri="{Binding TheVideo.Snippet.Thumbnails.High.Url, Mode=OneWay}"
+                                            CacheValidity="1:00:00.0"/>
+                        </Image.Source>
+                    </Image>
+                    
+                    <!--Duration-->
+                    <Border
+                        Padding="8"
+                        VerticalOptions="End"
+                        HorizontalOptions="End"
+                        Margin="8"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 4"
+                        BackgroundColor="{StaticResource DarkColor}">
+
+                        <Label 
+                            Style="{StaticResource MediumLightText10}"
+                            Text="{Binding TheVideo.VideoDuration, Mode=OneWay}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center"/>
+
+                    </Border>
+                </Grid>
+            </Frame>
+            <!--Video Titles-->
+            <VerticalStackLayout
+                Grid.Row="1"
+                x:Name="VideoTitle"
+                HorizontalOptions="Fill"
+                Spacing="2">
+
+                <Label 
+                    Style="{StaticResource MediumLightText20}"
+                    Text="{Binding TheVideo.Snippet.Title, Mode=OneWay}" />
+
+                <Label 
+                    Style="{StaticResource MediumLightText14}"
+                    Text="{Binding TheVideo.VideoSubtitle, Mode=OneWay}" />
+
+            </VerticalStackLayout>
+        </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>
