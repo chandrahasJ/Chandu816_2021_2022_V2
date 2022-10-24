@@ -111,5 +111,11 @@
         {
             await PageService.DisplayAlert("Download Video", "Not Implemented!", "OK");
         }
+
+        [RelayCommand]
+        private async Task SubscriberChannelVideo()
+        {
+            await PageService.DisplayAlert("Subscriber Channel", "Not Implemented!", "OK");
+        }
     }
 }

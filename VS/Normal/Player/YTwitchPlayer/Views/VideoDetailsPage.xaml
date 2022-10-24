@@ -91,14 +91,13 @@
 
             </VerticalStackLayout>
 
-            <!--Icons-->
-            
+            <!--Icons-->           
             <HorizontalStackLayout
                 x:Name="VideoIcons"
                 Grid.Row="2"
                 HorizontalOptions="Fill"
                 Opacity="0"                
-                Margin="0,2">
+                Margin="0,-16">
 
                 <!--Likes-->
                 <HorizontalStackLayout
@@ -185,7 +184,75 @@
 
             </HorizontalStackLayout>
             
+            <!--Channel List-->
+            <Grid
+                x:Name="ChannelDetails"
+                Opacity="0"
+                Grid.Row="3"
+                ColumnSpacing="12"
+                ColumnDefinitions="Auto,*,Auto"
+                RowDefinitions="Auto,Auto">
+                <Border 
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    VerticalOptions="Center"
+                    Stroke="{StaticResource LightBorderColor}"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 22">
+                    <!--Channel Pic-->
+                    <Image  
+                        WidthRequest="40"
+                        HeightRequest="40"                        
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Aspect="AspectFill">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="20,20"
+                                RadiusX="20"
+                                RadiusY="20"/>
+                        </Image.Clip>
+                        <Image.Source>
+                            <UriImageSource
+                                            Uri="{Binding TheChannel.Snippet.Thumbnails.High.Url, Mode=OneWay}"
+                                            CacheValidity="1:00:00.0"/>
+                        </Image.Source>
+                    </Image>
+                </Border>
+                
+                <!--Channel Name-->
+                <Label 
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource MediumLightText18}"
+                        Text="{Binding TheChannel.Snippet.Title, Mode=OneWay}" />
+                
+                <!--Channel Total Subscriber-->
+                <Label 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource RegularLightText14}"
+                        Text="{Binding TheChannel.SubsribersCount, Mode=OneWay}" />
+                
+                <!--Subscriber Button-->
+                <Button
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Padding="12,0"
+                    CornerRadius="6"
+                    HeightRequest="32"
+                    Text="Subscriber"
+                    TextColor="White"
+                    FontSize="12"
+                    FontFamily="MediumFont"
+                    Background="#FF0000"
+                    Command="{Binding SubscriberChannelVideoCommand, Mode=OneWay}"/>
 
+            </Grid>
         </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

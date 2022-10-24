@@ -42,6 +42,9 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
         //Video Icons 
         parentAnimation.Add(0.4, 0.7, new Animation(v => VideoIcons.Opacity = v, 0, 1, Easing.CubicIn));
 
+        //Video Icons 
+        parentAnimation.Add(0.5, 0.8, new Animation(v => ChannelDetails.Opacity = v, 0, 1, Easing.CubicIn));
+
         parentAnimation.Commit(this, AnimationConstants.TransitionAnimation, 16, Constants.ExtraLongDuration, null, (v, c) => { 
 			// Perform some activity after animation is completed.
 		});
