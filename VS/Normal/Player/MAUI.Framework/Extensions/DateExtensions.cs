@@ -29,7 +29,7 @@ namespace MAUIApp.Framework.Extensions
                 return $"{Convert.ToInt32(_timeSpan.TotalDays)} day ago";
 
             if (_timeSpan.TotalDays < 365)
-                return $"{Convert.ToInt32(_timeSpan.TotalDays)} days(s) ago";
+                return $"{Convert.ToInt32(_timeSpan.TotalDays)} day(s) ago";
 
             double totalYears = (Convert.ToDouble(_timeSpan.TotalHours) / 365);
             if (totalYears < 2)
