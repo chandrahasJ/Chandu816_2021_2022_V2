@@ -25,6 +25,7 @@
             Margin="16,0"
             IsVisible="{Binding DataLoaded, Mode=OneWay}"
             IgnoreSafeArea="True">
+            <!--Top Player Area-->
             <Frame
                 HasShadow="True"
                 CornerRadius="8"
@@ -33,6 +34,7 @@
                 IsClippedToBounds="True"
                 Padding="0"
                 Grid.Row="0"
+                Opacity="0"
                 x:Name="HeaderView">
                 <Grid
                     HorizontalOptions="Fill"
@@ -70,9 +72,11 @@
                     </Border>
                 </Grid>
             </Frame>
+            
             <!--Video Titles-->
             <VerticalStackLayout
                 Grid.Row="1"
+                Opacity="0"
                 x:Name="VideoTitle"
                 HorizontalOptions="Fill"
                 Spacing="2">
