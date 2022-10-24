@@ -9,11 +9,18 @@
              xmlns:ymodels="clr-namespace:YTwitchPlayer.Models.YModels"
              xmlns:controls="clr-namespace:YTwitchPlayer.ViewControls"
              x:TypeArguments="viewmodels:VideoDetailsPageViewModel"
-             x:DataType="viewmodels:VideoDetailsPageViewModel"  
+             x:DataType="viewmodels:VideoDetailsPageViewModel"          
+             xmlns:convertors="clr-namespace:MAUIApp.Framework.Converters;assembly=MAUIApp.Framework"
              PageTitle="{Binding Title, Mode=OneWay}"
              PageMode="Navigate"
             ContentDisplayMode="NavigationBar"
             x:Name="RootPage">
+
+    <viewbases:ViewBase.Resources>
+        <!-- In Android convertor doesn't work hence not implementing it.-->
+        <convertors:EnumerationContainsElementConverter x:Key="cvtVisibleItemCount" />
+    </viewbases:ViewBase.Resources>
+    
     <viewbases:ViewBase.PageIcons>
  
     </viewbases:ViewBase.PageIcons>
@@ -257,7 +264,7 @@
             <!--Similar Videos-->
             <CollectionView
                 x:Name="SimilarVideos"
-                Grid.Row="5"
+                Grid.Row="5"              
                 Opacity="0"
                 IsVisible="{Binding SimilarVideosAvailable, Mode=OneWay}"
                 HeightRequest="140"
@@ -270,16 +277,53 @@
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="ymodels:YVideo">
                         <Grid>
                             <controls:SmallVideoCell 
                                 HorizontalOptions="Fill"
-                                VerticalOptions="Fill"/>
+                                VerticalOptions="Fill"/>                             
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 
             </CollectionView>
+            
+            <!--Tags -->
+            <CollectionView
+                x:Name="TagsViews"
+                Grid.Row="4"
+                Opacity="0"
+                IsVisible="{Binding SimilarVideosAvailable, Mode=OneWay}"
+                HeightRequest="28"
+                ItemsSource="{Binding TheVideo.Snippet.Tags, Mode=OneWay}"
+                ItemSizingStrategy="MeasureAllItems">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout 
+                        Orientation="Horizontal"
+                        ItemSpacing="16"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border 
+                            BackgroundColor="{StaticResource DarkColor}"
+                            VerticalOptions="Fill"
+                            Stroke="{StaticResource LightBorderColor}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="16,0">
+                            <Label                                      
+                                    Style="{StaticResource RegularLightText16}"
+                                    Text="{Binding .}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
+
         </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

@@ -48,6 +48,9 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
         //Similar Videos
         parentAnimation.Add(0.6, 0.8, new Animation(v => SimilarVideos.Opacity = v, 0, 1, Easing.CubicIn));
 
+        //Similar Videos
+        parentAnimation.Add(0.7, 0.9, new Animation(v => TagsViews.Opacity = v, 0, 1, Easing.CubicIn));
+
         parentAnimation.Commit(this, AnimationConstants.TransitionAnimation, 16, Constants.ExtraLongDuration, null, (v, c) => { 
 			// Perform some activity after animation is completed.
 		});
