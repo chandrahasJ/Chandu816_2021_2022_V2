@@ -84,5 +84,32 @@
                 SetLoadingIndicator(false);
             }
         }
+
+
+        [RelayCommand]
+        private async Task DislikeVideo()
+        {
+            await PageService.DisplayAlert("Dislike", "Not Implemented!", "OK");
+        }
+
+        [RelayCommand]
+        private async Task ShareVideo()
+        { 
+            string textToShare = $"Hey, I  am sure you will love watching this amazing video. check it out: " +
+                                 $"https://www.youtube.com/watch?v={WebUtility.UrlEncode(TheVideo.Id)}";
+
+            //Sharing Logic
+            await Share.RequestAsync(new ShareTextRequest()
+            {
+                Text = textToShare,
+                Title = Constants.ApplicationName
+            });
+        }
+
+        [RelayCommand]
+        private async Task DownloadVideo()
+        {
+            await PageService.DisplayAlert("Download Video", "Not Implemented!", "OK");
+        }
     }
 }

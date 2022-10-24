@@ -37,9 +37,12 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
 		parentAnimation.Add(0.0, 0.7, new Animation(v => HeaderView.Opacity = v, 0, 1, Easing.CubicIn));
 
 		//Video Title 
-        parentAnimation.Add(0.0, 0.7, new Animation(v => VideoTitle.Opacity = v, 0, 1, Easing.CubicIn));
+        parentAnimation.Add(0.3, 0.7, new Animation(v => VideoTitle.Opacity = v, 0, 1, Easing.CubicIn));
 
-		parentAnimation.Commit(this, AnimationConstants.TransitionAnimation, 16, Constants.ExtraLongDuration, null, (v, c) => { 
+        //Video Icons 
+        parentAnimation.Add(0.4, 0.7, new Animation(v => VideoIcons.Opacity = v, 0, 1, Easing.CubicIn));
+
+        parentAnimation.Commit(this, AnimationConstants.TransitionAnimation, 16, Constants.ExtraLongDuration, null, (v, c) => { 
 			// Perform some activity after animation is completed.
 		});
     }
