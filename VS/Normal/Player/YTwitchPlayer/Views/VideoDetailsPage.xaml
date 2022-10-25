@@ -12,6 +12,7 @@
              x:TypeArguments="viewmodels:VideoDetailsPageViewModel"
              x:DataType="viewmodels:VideoDetailsPageViewModel"          
              xmlns:convertors="clr-namespace:MAUIApp.Framework.Converters;assembly=MAUIApp.Framework"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              PageTitle="{Binding Title, Mode=OneWay}"
              PageMode="Navigate"
             ContentDisplayMode="NavigationBar"
@@ -62,6 +63,15 @@
                     </Image.Source>
                 </Image>
 
+                <!--Play Button-->
+                <ImageButton                      
+                    WidthRequest="64"
+                    HeightRequest="64"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Source="imgplay.png"
+                    Clicked="VideoPlayButton_Clicked" />
+
                 <!--Duration-->
                 <Border
                         Padding="8"
@@ -80,8 +90,18 @@
                             VerticalTextAlignment="Center"/>
 
                 </Border>
-            </Grid>
 
+                <!-- Media Player -->
+                <xct:MediaElement 
+                    x:Name="VideoPlayer"
+                    IsVisible="False"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    ShowsPlaybackControls="True"
+                    AutoPlay="False"
+                    Source="{Binding VideoSource, Mode=OneWay}"/>
+
+            </Grid>
 
             <!--Video Titles-->
             <VerticalStackLayout
@@ -388,8 +408,8 @@
                         <VerticalStackLayout>
 
                             <CollectionView                                                                                            
-                        ItemsSource="{Binding Comments, Mode=OneWay}"
-                        ItemSizingStrategy="MeasureAllItems">
+                                ItemsSource="{Binding Comments, Mode=OneWay}"
+                                ItemSizingStrategy="MeasureAllItems">   
 
                                 <CollectionView.ItemsLayout>
                                     <LinearItemsLayout 
@@ -406,34 +426,34 @@
                                     HorizontalOptions="Fill"
                                     VerticalOptions="FillAndExpand">
                                             <Grid
-                                        RowDefinitions="Auto,*"
-                                        ColumnDefinitions="32,*,Auto"
-                                        VerticalOptions="FillAndExpand"
-                                        RowSpacing="6"
-                                        ColumnSpacing="12">
+                                                RowDefinitions="Auto,*"
+                                                ColumnDefinitions="32,*,Auto"
+                                                VerticalOptions="FillAndExpand"
+                                                RowSpacing="6"
+                                                ColumnSpacing="12">
 
                                                 <Border
-                                            WidthRequest="32"
-                                            HeightRequest="32"
-                                            VerticalOptions="Start"
-                                            Stroke="{StaticResource LightBorderColor}"
-                                            StrokeThickness="1"
-                                            StrokeShape="RoundRectangle 16"
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            Grid.Column="0">
+                                                    WidthRequest="32"
+                                                    HeightRequest="32"
+                                                    VerticalOptions="Start"
+                                                    Stroke="{StaticResource LightBorderColor}"
+                                                    StrokeThickness="1"
+                                                    StrokeShape="RoundRectangle 16"
+                                                    Grid.Row="0"
+                                                    Grid.RowSpan="2"
+                                                    Grid.Column="0">
 
                                                     <Image  
-                                                WidthRequest="30"
-                                                HeightRequest="30"                        
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Center"
-                                                Aspect="AspectFill">
+                                                        WidthRequest="30"
+                                                        HeightRequest="30"                        
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        Aspect="AspectFill">
                                                         <Image.Clip>
                                                             <EllipseGeometry
-                                                    Center="15,15"
-                                                    RadiusX="15"
-                                                    RadiusY="15"/>
+                                                                Center="15,15"
+                                                                RadiusX="15"
+                                                                RadiusY="15"/>
                                                         </Image.Clip>
                                                         <Image.Source>
                                                             <UriImageSource

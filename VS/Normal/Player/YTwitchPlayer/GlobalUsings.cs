@@ -21,3 +21,5 @@ global using MAUIApp.Framework.Services;
 global using MAUIApp.Framework.Extensions;
 global using CommunityToolkit.Maui;
 global using Microsoft.Maui.Controls.Compatibility.Hosting;
+global using YoutubeExplode;
+global using YoutubeExplode.Videos;

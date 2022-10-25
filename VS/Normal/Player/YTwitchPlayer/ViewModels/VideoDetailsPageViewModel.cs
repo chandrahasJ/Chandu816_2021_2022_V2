@@ -1,4 +1,6 @@
-﻿ namespace YTwitchPlayer.ViewModels
+﻿using YoutubeExplode.Videos.Streams;
+
+namespace YTwitchPlayer.ViewModels
 {
     public partial class VideoDetailsPageViewModel : AppViewModelBase
     {
@@ -20,7 +22,12 @@
         [ObservableProperty]
         private bool commentsAvailable;
 
+        [ObservableProperty]
+        private string videoSource;
+
         public event EventHandler DownloadCompleted;
+
+        private IEnumerable<MuxedStreamInfo> streamInfo;
 
         private readonly IApiService apiService;
 
@@ -66,6 +73,8 @@
                 Comments = commentSearchResult.Comments;
                 commentsAvailable = (Comments?.Count > 0);
 
+                await GetVideoUrl();
+
                 this.DataLoaded = true;
 
                 //All required apis calls has been completed.
@@ -89,6 +98,21 @@
             }
         }
 
+        private async Task GetVideoUrl()
+        {
+            var youtube = new YoutubeClient();
+
+            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(
+                $"https://youtube.com/watch?v={TheVideo.Id}"
+            );
+
+            // Get highest quality muxed stream
+            streamInfo = streamManifest.GetMuxedStreams();
+
+            var videoPlayerStream = streamInfo.First(video => video.VideoQuality.Label is "240p" or "360p" or "480p");
+
+            VideoSource = videoPlayerStream.Url;
+        }
 
         [RelayCommand]
         private async Task DislikeVideo()

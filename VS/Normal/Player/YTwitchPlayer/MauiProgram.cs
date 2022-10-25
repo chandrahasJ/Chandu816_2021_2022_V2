@@ -1,6 +1,4 @@
-﻿
-
-namespace YTwitchPlayer;
+﻿namespace YTwitchPlayer;
 
 public static class MauiProgram
 {
