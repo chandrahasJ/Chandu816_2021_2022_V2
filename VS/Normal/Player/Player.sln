@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YTwitchPlayer", "YTwitchPla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAUIApp.Framework", "MAUI.Framework\MAUIApp.Framework.csproj", "{CCF0843C-10F4-4F85-8F44-97387A15366A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maui.Controls.BottomSheet", "Maui.Controls.BottomSheet\Maui.Controls.BottomSheet.csproj", "{C65E7BDC-0F53-41D5-AAE3-9158EC80FE54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{CCF0843C-10F4-4F85-8F44-97387A15366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCF0843C-10F4-4F85-8F44-97387A15366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCF0843C-10F4-4F85-8F44-97387A15366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65E7BDC-0F53-41D5-AAE3-9158EC80FE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65E7BDC-0F53-41D5-AAE3-9158EC80FE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65E7BDC-0F53-41D5-AAE3-9158EC80FE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65E7BDC-0F53-41D5-AAE3-9158EC80FE54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

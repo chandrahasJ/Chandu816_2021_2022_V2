@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Maui.Controls.BottomSheet\Maui.Controls.BottomSheet.csproj" />
 	  <ProjectReference Include="..\MAUI.Framework\MAUIApp.Framework.csproj" />
 	</ItemGroup>
 
