@@ -1,5 +1,4 @@
-﻿using Android.Views;
-using Microsoft.Maui.LifecycleEvents;
+﻿using Microsoft.Maui.LifecycleEvents;
 
 namespace YTwitchPlayer.Helpers
 {
@@ -29,9 +28,11 @@ namespace YTwitchPlayer.Helpers
 
         private static void MakeThreeButtonHide(Android.App.Activity activity)
         {
-            activity.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
-                    (SystemUiFlags.ImmersiveSticky | SystemUiFlags.HideNavigation |
-                     SystemUiFlags.Fullscreen | SystemUiFlags.Immersive);
+#pragma warning disable CS0618 // Type or member is obsolete
+            activity.Window.DecorView.SystemUiVisibility = (Android.Views.StatusBarVisibility)
+                    (Android.Views.SystemUiFlags.ImmersiveSticky | Android.Views.SystemUiFlags.HideNavigation |
+                     Android.Views.SystemUiFlags.Fullscreen | Android.Views.SystemUiFlags.Immersive);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 #endif
     }
