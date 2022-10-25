@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.LifecycleEvents;
+﻿using Android.Views;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace YTwitchPlayer.Helpers
 {
@@ -7,7 +8,10 @@ namespace YTwitchPlayer.Helpers
         public static void LifeCycleBuilder(ILifecycleBuilder lifecycleBuilder)
         {
 #if ANDROID
-            lifecycleBuilder.AddAndroid(android => android.OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
+            lifecycleBuilder.AddAndroid(android => android.OnCreate((activity, bundle) => { 
+                MakeStatusBarTranslucent(activity);
+                MakeThreeButtonHide(activity);
+            }));
 #endif
         }
 
@@ -21,6 +25,13 @@ namespace YTwitchPlayer.Helpers
             activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
 
             activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+        }
+
+        private static void MakeThreeButtonHide(Android.App.Activity activity)
+        {
+            activity.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
+                    (SystemUiFlags.ImmersiveSticky | SystemUiFlags.HideNavigation |
+                     SystemUiFlags.Fullscreen | SystemUiFlags.Immersive);
         }
 #endif
     }
