@@ -19,3 +19,5 @@ global using MAUIApp.Framework.Exceptions;
 global using System.Net;
 global using MAUIApp.Framework.Services;
 global using MAUIApp.Framework.Extensions;
+global using CommunityToolkit.Maui;
+global using Microsoft.Maui.Controls.Compatibility.Hosting;

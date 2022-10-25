@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui;
+﻿
 
 namespace YTwitchPlayer;
 
@@ -9,13 +9,20 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCompatibility()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("FiraSans-Light.ttf", "RegularFont");
 				fonts.AddFont("FiraSans-Medium.ttf", "MediumFont");
 			})
 			.ConfigureLifecycleEvents(events => LifeCycleEventHelper.LifeCycleBuilder(events))
-			.UseMauiCommunityToolkit();
+			.UseMauiCommunityToolkit()
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddCompatibilityRenderer(
+					typeof(Xamarin.CommunityToolkit.UI.Views.MediaElement),
+					typeof(Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer));
+			});
 
 		RegisterServices(builder.Services);
 
