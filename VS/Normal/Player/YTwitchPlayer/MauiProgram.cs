@@ -40,8 +40,11 @@ public static class MauiProgram
 		//Register API services
 		services.AddSingleton<IApiService, YService>();
 
-		//Register ViewModel
-		services.AddSingleton<StartPageViewModel>();
+        //Register FileDownloadService
+        services.AddSingleton<IDownloadFileService, FileDownloadService>();
+
+        //Register ViewModel
+        services.AddSingleton<StartPageViewModel>();
 		services.AddTransient<VideoDetailsPageViewModel>();
 
 	}

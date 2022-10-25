@@ -1,4 +1,5 @@
 ﻿using YoutubeExplode.Videos.Streams;
+using YTwitchPlayer.Services;
 
 namespace YTwitchPlayer.ViewModels
 {
@@ -25,15 +26,24 @@ namespace YTwitchPlayer.ViewModels
         [ObservableProperty]
         private string videoSource;
 
+        [ObservableProperty]
+        private double progressValue;
+
+        [ObservableProperty]
+        private bool isDownloading = false;
+
+
         public event EventHandler DownloadCompleted;
 
         private IEnumerable<MuxedStreamInfo> streamInfo;
 
         private readonly IApiService apiService;
+        private readonly IDownloadFileService fileDownloadService;
 
-        public VideoDetailsPageViewModel(IApiService apiService) : base(apiService)
+        public VideoDetailsPageViewModel(IApiService apiService, IDownloadFileService fileDownloadService) : base(apiService)
         {
             this.apiService = apiService;
+            this.fileDownloadService = fileDownloadService;
             this.Title = Constants.ApplicationName;
         }
 
@@ -109,7 +119,7 @@ namespace YTwitchPlayer.ViewModels
             // Get highest quality muxed stream
             streamInfo = streamManifest.GetMuxedStreams();
 
-            var videoPlayerStream = streamInfo.First(video => video.VideoQuality.Label is "240p" or "360p" or "480p");
+            var videoPlayerStream = streamInfo.First(video => video.VideoQuality.Label is "240p" or "360p");
 
             VideoSource = videoPlayerStream.Url;
         }
@@ -137,7 +147,40 @@ namespace YTwitchPlayer.ViewModels
         [RelayCommand]
         private async Task DownloadVideo()
         {
-            await PageService.DisplayAlert("Download Video", "Not Implemented!", "OK");
+            if (IsDownloading)
+                return;
+
+            var progressIndicator = new Progress<double>((value) => ProgressValue = value);
+            var cts = new CancellationTokenSource();
+
+            try
+            {
+                IsDownloading = true;
+
+                var urlToDownload = streamInfo.OrderByDescending(video => video.VideoResolution.Area).First().Url;
+
+                //Download the file
+                var downloadedFilePath = await fileDownloadService.DownloadFileAsync(
+                    urlToDownload,
+                    TheVideo.Snippet.Title.CleanCacheKey() + ".mp4",
+                    progressIndicator,
+                    cts.Token);
+
+                //Save the File
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    File = new ShareFile(downloadedFilePath),
+                    Title = TheVideo.Snippet.Title
+                });
+            }
+            catch (OperationCanceledException ex)
+            {
+                //Handle Exception and Cancellation Token here
+            }
+            finally
+            {
+                IsDownloading = false;
+            }
         }
 
         [RelayCommand]
