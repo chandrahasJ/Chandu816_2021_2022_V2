@@ -34,23 +34,17 @@
                 <RowDefinition x:Name="BottomSheetRowDefinition" Height="{Binding Source={x:Reference BottomSheetControlRoot}, Path=SheetHeight, Mode=OneWay}" />
             </Grid.RowDefinitions>
 
-            <!-- Close Button -->
-            <Image
-                x:Name="CloseBottomSheetButton"
-                Grid.Row="0"
-                HeightRequest="40"
-                WidthRequest="40"
-                IsVisible="False"
-                Opacity="0"
-                HorizontalOptions="Center"
-                VerticalOptions="End"
-                Margin="0,0,0,16">
-
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CloseBottomSheetButton_Tapped" />
-                </Image.GestureRecognizers>
-
-            </Image>
+            <ImageButton
+                    x:Name="CloseBottomSheetButton"
+                    Grid.Row="0"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    IsVisible="False"
+                    Opacity="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Margin="0,0,0,16"
+                    Clicked="CloseBottomSheetButton_Tapped" />
 
             <!-- Enclosing Border Control for Content -->
             <Border
@@ -71,16 +65,47 @@
                     RowDefinitions="Auto,*"
                     RowSpacing="16">
 
-                    <!-- Header Content -->
-                    <Label
-                        x:Name="HeaderLabel"
-                        Style="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderStyle, Mode=OneWay}"
-                        Text="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderText, Mode=OneWay}"
-                        Grid.Row="0"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        VerticalTextAlignment="Center" />
+                    <HorizontalStackLayout
+                        HorizontalOptions="Fill"
+                        Grid.Row="0">
 
+                        <HorizontalStackLayout HorizontalOptions="Start">
+                            <!-- Header Content -->
+                            <Label
+                                x:Name="HeaderLabel"
+                                Style="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderStyle, Mode=OneWay}"
+                                Text="{Binding Source={x:Reference BottomSheetControlRoot}, Path=HeaderText, Mode=OneWay}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            HorizontalOptions="End">
+                            <!-- Close Button -->
+                            <Button
+                                x:Name="CloseBottomSheetButton0"
+                                HorizontalOptions="End"
+                                HeightRequest="40"
+                                WidthRequest="40"
+                                Opacity="0"
+                                Margin="0,0,0,16"
+                                Padding="0"
+                                CornerRadius="8"                    
+                                Text="X"
+                                TextColor="White"
+                                IsVisible="False"
+                                FontSize="12"
+                                FontFamily="MediumFont"
+                                Background="{StaticResource DarkColor}"
+                                BorderColor="{StaticResource LightBorderColor}"
+                                BorderWidth="0.5"
+                                Clicked="CloseBottomSheetButton_Tapped"/>
+
+                        </HorizontalStackLayout>
+                        
+                    </HorizontalStackLayout>
+                                                         
                     <!-- Main Content -->
                     <Grid
                         x:Name="BottomSheetContentGrid"

@@ -107,20 +107,24 @@ public partial class BottomSheet : ContentView
         this.InputTransparent = false;
         BackgroundFader.IsVisible = true;
         CloseBottomSheetButton.IsVisible = true;
+        CloseBottomSheetButton0.IsVisible = true;
 
         _ = BackgroundFader.FadeTo(1, shortDuration, Easing.SinInOut);
         await MainContent.TranslateTo(0, 0, regularDuration, Easing.SinInOut);
         _ = CloseBottomSheetButton.FadeTo(1, regularDuration, Easing.SinInOut);
+        _ = CloseBottomSheetButton0.FadeTo(1, regularDuration, Easing.SinInOut);
     }
 
     public async Task CloseBottomSheet()
     {
+        await CloseBottomSheetButton0.FadeTo(0, shortDuration, Easing.SinInOut);
         await CloseBottomSheetButton.FadeTo(0, shortDuration, Easing.SinInOut);
         _ = MainContent.TranslateTo(0, SheetHeight, shortDuration, Easing.SinInOut);
         await BackgroundFader.FadeTo(0, shortDuration, Easing.SinInOut);
 
         BackgroundFader.IsVisible = true;
         CloseBottomSheetButton.IsVisible = true;
+        CloseBottomSheetButton0.IsVisible = true;
         this.InputTransparent = true;
     }
 
