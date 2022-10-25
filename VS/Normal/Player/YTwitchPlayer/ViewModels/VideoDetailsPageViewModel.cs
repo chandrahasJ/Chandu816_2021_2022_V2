@@ -17,6 +17,9 @@
         [ObservableProperty]
         private List<Comment> comments;
 
+        [ObservableProperty]
+        private bool commentsAvailable;
+
         public event EventHandler DownloadCompleted;
 
         private readonly IApiService apiService;
@@ -61,6 +64,7 @@
 
                 var commentSearchResult = await apiService.GetComments(videoId);
                 Comments = commentSearchResult.Comments;
+                commentsAvailable = (Comments?.Count > 0);
 
                 this.DataLoaded = true;
 

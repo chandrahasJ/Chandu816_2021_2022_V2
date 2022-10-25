@@ -8,6 +8,7 @@
              xmlns:models="clr-namespace:YTwitchPlayer.Models"
              xmlns:ymodels="clr-namespace:YTwitchPlayer.Models.YModels"
              xmlns:controls="clr-namespace:YTwitchPlayer.ViewControls"
+             xmlns:bottomsheets="clr-namespace:XGENO.Maui.Controls;assembly=Maui.Controls.BottomSheet"
              x:TypeArguments="viewmodels:VideoDetailsPageViewModel"
              x:DataType="viewmodels:VideoDetailsPageViewModel"          
              xmlns:convertors="clr-namespace:MAUIApp.Framework.Converters;assembly=MAUIApp.Framework"
@@ -33,34 +34,36 @@
             IsVisible="{Binding DataLoaded, Mode=OneWay}"
             IgnoreSafeArea="True">
             <!--Top Player Area-->
-            <Frame
+            <!--<Frame
                 HasShadow="True"
                 CornerRadius="8"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 IsClippedToBounds="True"
-                Padding="0"
+                Padding="0">
+              
+            </Frame>-->
+            <Grid 
+                x:Name="HeaderView"
                 Grid.Row="0"
                 Opacity="0"
-                x:Name="HeaderView">
-                <Grid
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill"
-                    IsClippedToBounds="True">
-                    <Image  
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                IsClippedToBounds="True">
+                <Image  
                         Margin="0"
                         HorizontalOptions="Fill"
                         VerticalOptions="Fill"
                         Aspect="AspectFill">
-                        <Image.Source>
-                            <UriImageSource
+                    <Image.Source>
+                        <UriImageSource
                                             Uri="{Binding TheVideo.Snippet.Thumbnails.High.Url, Mode=OneWay}"
                                             CacheValidity="1:00:00.0"/>
-                        </Image.Source>
-                    </Image>
-                    
-                    <!--Duration-->
-                    <Border
+                    </Image.Source>
+                </Image>
+
+                <!--Duration-->
+                <Border
                         Padding="8"
                         VerticalOptions="End"
                         HorizontalOptions="End"
@@ -70,16 +73,16 @@
                         StrokeShape="RoundRectangle 4"
                         BackgroundColor="{StaticResource DarkColor}">
 
-                        <Label 
+                    <Label 
                             Style="{StaticResource MediumLightText10}"
                             Text="{Binding TheVideo.VideoDuration, Mode=OneWay}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center"/>
 
-                    </Border>
-                </Grid>
-            </Frame>
-            
+                </Border>
+            </Grid>
+
+
             <!--Video Titles-->
             <VerticalStackLayout
                 Grid.Row="1"
@@ -350,10 +353,122 @@
                     TextColor="White"
                     FontSize="12"
                     FontFamily="MediumFont"
-                    Background="{StaticResource DarkColor}}"
+                    Background="{StaticResource DarkColor}"
                     BorderColor="{StaticResource LightBorderColor}"
                     BorderWidth="0.5"
-                    Command="{Binding VideoCommentCommand, Mode=OneWay}"/>
+                    Clicked="Comments_Clicked"/>
+            
+            <!--Bottom Sheet-->
+            <bottomsheets:BottomSheet
+                Margin="-16,0"
+                x:Name="CommentsSheet"
+                Grid.Row="7"                                
+                HeaderText="{Binding TheVideo.CommentsCount, Mode=OneWay, StringFormat='Comments ({0})'}"
+                HeaderStyle="{StaticResource PageHeaderTextSytle}"
+                SheetHeight="550"
+                Theme="Dark">
+                <bottomsheets:BottomSheet.BottomSheetContent>
+                    <CollectionView                                                                                            
+                        ItemsSource="{Binding Comments, Mode=OneWay}"
+                        ItemSizingStrategy="MeasureAllItems">
+                        
+                        <CollectionView.ItemsLayout>
+                        <LinearItemsLayout 
+                                        Orientation="Vertical"
+                                        ItemSpacing="12"/>
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="ymodels:Comment">
+                                <Border
+                                    BackgroundColor="{StaticResource DarkColor}"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="16"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid
+                                        RowDefinitions="Auto,*"
+                                        ColumnDefinitions="32,*,Auto"
+                                        VerticalOptions="FillAndExpand"
+                                        RowSpacing="6"
+                                        ColumnSpacing="12">
+
+                                        <Border
+                                            WidthRequest="32"
+                                            HeightRequest="32"
+                                            VerticalOptions="Start"
+                                            Stroke="{StaticResource LightBorderColor}"
+                                            StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 16"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0">
+
+                                            <Image  
+                                                WidthRequest="30"
+                                                HeightRequest="30"                        
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Aspect="AspectFill">
+                                                <Image.Clip>
+                                                    <EllipseGeometry
+                                                    Center="15,15"
+                                                    RadiusX="15"
+                                                    RadiusY="15"/>
+                                                </Image.Clip>
+                                                <Image.Source>
+                                                    <UriImageSource
+                                                                Uri="{Binding Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl, Mode=OneWay}"
+                                                                CacheValidity="1:00:00.0"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </Border>
+
+                                        <Label 
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Style="{StaticResource MediumLightText14}"
+                                            Text="{Binding Snippet.TopLevelComment.Snippet.AuthorDisplayName, Mode=OneWay}" />
+
+                                        <Label 
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Style="{StaticResource RegularLightText12}"
+                                            Text="{Binding Snippet.TopLevelComment.Snippet.PublishedAt, Mode=OneWay, StringFormat='{0:dd-MMM-yyyy}'}" />
+
+                                        <Label 
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            LineBreakMode="WordWrap"
+                                            VerticalOptions="Start"
+                                            Style="{StaticResource RegularLightText12}"
+                                            Text="{Binding Snippet.TopLevelComment.Snippet.TextDisplay, Mode=OneWay}" />
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.Footer>
+                            <Button
+                                x:Name="CloseComment"
+                                Grid.Row="7"
+                                Opacity="0"
+                                Margin="0,0,0,16"
+                                Padding="0"
+                                CornerRadius="8"                    
+                                Text="Comments"
+                                TextColor="White"
+                                FontSize="12"
+                                FontFamily="MediumFont"
+                                Background="{StaticResource DarkColor}"
+                                BorderColor="{StaticResource LightBorderColor}"
+                                BorderWidth="0.5"/>
+                        </CollectionView.Footer>
+                    </CollectionView>
+                </bottomsheets:BottomSheet.BottomSheetContent>
+            </bottomsheets:BottomSheet>
         </Grid>
     </viewbases:ViewBase.PageContent>
 </viewbases:ViewBase>

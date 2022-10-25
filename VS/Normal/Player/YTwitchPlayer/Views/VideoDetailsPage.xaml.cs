@@ -2,6 +2,8 @@ namespace YTwitchPlayer.Views;
 
 public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
 {
+	public bool IsCommentSheetOpen { get; set; } = true;
+
 	public VideoDetailsPage(object initParams) : base(initParams)
 	{
 		InitializeComponent();
@@ -61,4 +63,7 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
 			// Perform some activity after animation is completed.
 		});
     }
+
+	private async void Comments_Clicked(object sender, EventArgs e) =>
+         await CommentsSheet.OpenBottomSheet();
 }
