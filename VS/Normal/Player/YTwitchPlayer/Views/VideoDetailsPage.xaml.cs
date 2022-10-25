@@ -66,4 +66,7 @@ public partial class VideoDetailsPage : ViewBase<VideoDetailsPageViewModel>
 
 	private async void Comments_Clicked(object sender, EventArgs e) =>
          await CommentsSheet.OpenBottomSheet();
+
+	private async void CloseComment_Clicked(object sender, EventArgs e) => 
+		await CommentsSheet.CloseBottomSheet();
 }

@@ -368,32 +368,51 @@
                 SheetHeight="550"
                 Theme="Dark">
                 <bottomsheets:BottomSheet.BottomSheetContent>
-                    <CollectionView                                                                                            
+                    <VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <!--<Button
+                                x:Name="CloseComment"                                
+                                Margin="0,0,0,16"
+                                Padding="0"
+                                CornerRadius="8"                    
+                                Text="Comments"
+                                TextColor="White"
+                                FontSize="12"
+                                FontFamily="MediumFont"
+                                Background="{StaticResource DarkColor}"
+                                BorderColor="{StaticResource LightBorderColor}"
+                                BorderWidth="0.5"
+                                Clicked="CloseComment_Clicked"/>-->
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+
+                            <CollectionView                                                                                            
                         ItemsSource="{Binding Comments, Mode=OneWay}"
                         ItemSizingStrategy="MeasureAllItems">
-                        
-                        <CollectionView.ItemsLayout>
-                        <LinearItemsLayout 
+
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout 
                                         Orientation="Vertical"
                                         ItemSpacing="12"/>
-                        </CollectionView.ItemsLayout>
+                                </CollectionView.ItemsLayout>
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="ymodels:Comment">
-                                <Border
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="ymodels:Comment">
+                                        <Border
                                     BackgroundColor="{StaticResource DarkColor}"
                                     StrokeShape="RoundRectangle 8"
                                     Padding="16"
                                     HorizontalOptions="Fill"
                                     VerticalOptions="FillAndExpand">
-                                    <Grid
+                                            <Grid
                                         RowDefinitions="Auto,*"
                                         ColumnDefinitions="32,*,Auto"
                                         VerticalOptions="FillAndExpand"
                                         RowSpacing="6"
                                         ColumnSpacing="12">
 
-                                        <Border
+                                                <Border
                                             WidthRequest="32"
                                             HeightRequest="32"
                                             VerticalOptions="Start"
@@ -404,39 +423,39 @@
                                             Grid.RowSpan="2"
                                             Grid.Column="0">
 
-                                            <Image  
+                                                    <Image  
                                                 WidthRequest="30"
                                                 HeightRequest="30"                        
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Center"
                                                 Aspect="AspectFill">
-                                                <Image.Clip>
-                                                    <EllipseGeometry
+                                                        <Image.Clip>
+                                                            <EllipseGeometry
                                                     Center="15,15"
                                                     RadiusX="15"
                                                     RadiusY="15"/>
-                                                </Image.Clip>
-                                                <Image.Source>
-                                                    <UriImageSource
+                                                        </Image.Clip>
+                                                        <Image.Source>
+                                                            <UriImageSource
                                                                 Uri="{Binding Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl, Mode=OneWay}"
                                                                 CacheValidity="1:00:00.0"/>
-                                                </Image.Source>
-                                            </Image>
-                                        </Border>
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Border>
 
-                                        <Label 
+                                                <Label 
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Style="{StaticResource MediumLightText14}"
                                             Text="{Binding Snippet.TopLevelComment.Snippet.AuthorDisplayName, Mode=OneWay}" />
 
-                                        <Label 
+                                                <Label 
                                             Grid.Row="0"
                                             Grid.Column="2"
                                             Style="{StaticResource RegularLightText12}"
                                             Text="{Binding Snippet.TopLevelComment.Snippet.PublishedAt, Mode=OneWay, StringFormat='{0:dd-MMM-yyyy}'}" />
 
-                                        <Label 
+                                                <Label 
                                             Grid.Row="1"
                                             Grid.Column="1"
                                             Grid.ColumnSpan="2"
@@ -445,28 +464,14 @@
                                             Style="{StaticResource RegularLightText12}"
                                             Text="{Binding Snippet.TopLevelComment.Snippet.TextDisplay, Mode=OneWay}" />
 
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-
-                        <CollectionView.Footer>
-                            <Button
-                                x:Name="CloseComment"
-                                Grid.Row="7"
-                                Opacity="0"
-                                Margin="0,0,0,16"
-                                Padding="0"
-                                CornerRadius="8"                    
-                                Text="Comments"
-                                TextColor="White"
-                                FontSize="12"
-                                FontFamily="MediumFont"
-                                Background="{StaticResource DarkColor}"
-                                BorderColor="{StaticResource LightBorderColor}"
-                                BorderWidth="0.5"/>
-                        </CollectionView.Footer>
-                    </CollectionView>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+ 
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
                 </bottomsheets:BottomSheet.BottomSheetContent>
             </bottomsheets:BottomSheet>
         </Grid>
