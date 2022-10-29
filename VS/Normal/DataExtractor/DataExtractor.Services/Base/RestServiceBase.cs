@@ -19,15 +19,22 @@ namespace DataExtractor.Services.Base
 
         protected void SetBaseURL(string appBaseUri)
         {
-            _httpClient = new()
+            HttpClientHandler httpClientHandler = new HttpClientHandler()
             {
-                BaseAddress = new Uri(appBaseUri)
+                AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Brotli,
+            };
+            _httpClient = new(httpClientHandler)
+            {
+                BaseAddress = new Uri(appBaseUri),
+                Timeout = TimeSpan.FromMilliseconds(6000000)
             };
 
             _httpClient.DefaultRequestHeaders.Accept.Clear();
+
             _httpClient.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json")
+                new MediaTypeWithQualityHeaderValue("application/json")            
              );
+            _httpClient.DefaultRequestHeaders.Add("Accept-Encoding","gzip, deflate, br");            
         }
 
         protected void AddHttpHeader(string key, string value) =>
@@ -43,7 +50,7 @@ namespace DataExtractor.Services.Base
         }
 
         private async Task<string> GetJsonAsync(string resource)
-        {            
+        { 
             //Extract response from URI
             var response = await _httpClient.GetAsync(new Uri(_httpClient.BaseAddress, resource));
 
@@ -51,8 +58,8 @@ namespace DataExtractor.Services.Base
             response.EnsureSuccessStatusCode();
 
             //Read Response
-            string json = await response.Content.ReadAsStringAsync();
-             
+            string json = await response.Content.ReadAsStringAsync(); 
+           
             //Return the result
             return json;
         }
