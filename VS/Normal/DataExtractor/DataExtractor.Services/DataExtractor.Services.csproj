@@ -7,15 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DServices\**" />
-    <Compile Remove="IServices\**" />
-    <EmbeddedResource Remove="DServices\**" />
-    <EmbeddedResource Remove="IServices\**" />
-    <None Remove="DServices\**" />
-    <None Remove="IServices\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NSE.Model\NSE.Model.csproj" />
   </ItemGroup>
 
