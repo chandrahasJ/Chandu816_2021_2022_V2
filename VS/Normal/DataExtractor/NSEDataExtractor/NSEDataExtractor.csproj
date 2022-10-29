@@ -18,7 +18,9 @@
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NPOI" Version="2.6.0-rc-3" />
+    <PackageReference Include="NPOI.Extension" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

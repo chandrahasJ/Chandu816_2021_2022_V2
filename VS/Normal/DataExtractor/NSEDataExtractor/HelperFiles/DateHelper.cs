@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NSEDataExtractor
+namespace NSEDataExtractor.HelperFiles
 {
     public static class DateHelper
     {
