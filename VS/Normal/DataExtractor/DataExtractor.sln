@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEDataExtractor", "NSEDataExtractor\NSEDataExtractor.csproj", "{D9DFDB1C-9BC5-4234-8F3E-4661D6705C2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.Model", "NSE.Model\NSE.Model.csproj", "{90DBEE73-A066-410A-8CB8-81FAED39AF60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataExtractor.Services", "DataExtractor.Services\DataExtractor.Services.csproj", "{AD7D1AC1-2AF5-456A-AE02-45054A3EF97B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D9DFDB1C-9BC5-4234-8F3E-4661D6705C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DFDB1C-9BC5-4234-8F3E-4661D6705C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DFDB1C-9BC5-4234-8F3E-4661D6705C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DBEE73-A066-410A-8CB8-81FAED39AF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DBEE73-A066-410A-8CB8-81FAED39AF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DBEE73-A066-410A-8CB8-81FAED39AF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DBEE73-A066-410A-8CB8-81FAED39AF60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7D1AC1-2AF5-456A-AE02-45054A3EF97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7D1AC1-2AF5-456A-AE02-45054A3EF97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7D1AC1-2AF5-456A-AE02-45054A3EF97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7D1AC1-2AF5-456A-AE02-45054A3EF97B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
