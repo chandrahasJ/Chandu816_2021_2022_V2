@@ -12,4 +12,13 @@
     <ProjectReference Include="..\NSE.Model\NSE.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="NPOI" Version="2.6.0-rc-3" />
+  </ItemGroup>
+
 </Project>
