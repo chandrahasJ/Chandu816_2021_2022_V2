@@ -27,45 +27,52 @@ namespace NSE.Model
         public double PchangeinOpenInterest { get; set; }
 
         [JsonPropertyName("totalTradedVolume")]
-        public int TotalTradedVolume { get; set; }
+        public int TotalTradedVolume { get; set; }        
 
         [JsonPropertyName("impliedVolatility")]
         public double ImpliedVolatility { get; set; }
 
-        [JsonPropertyName("lastPrice")]
-        public int LastPrice { get; set; }
+        [JsonPropertyName("lastPrice")] 
+        public double LastPrice { get; set; }
 
         [JsonPropertyName("change")]
-        public double Change { get; set; }
+        public double Change { get; set; }   
 
         [JsonPropertyName("pChange")]
-        public double PChange { get; set; }
+        public double PChange { get; set; }   
 
         [JsonPropertyName("totalBuyQuantity")]
         public int TotalBuyQuantity { get; set; }
-
+    
         [JsonPropertyName("totalSellQuantity")]
         public int TotalSellQuantity { get; set; }
-
+    
         [JsonPropertyName("bidQty")]
-        public int BidQty { get; set; }
+        public int BidQty { get; set; }   
 
         [JsonPropertyName("bidprice")]
-        public double Bidprice { get; set; }
+        public double Bidprice { get; set; }    
 
         [JsonPropertyName("askQty")]
-        public int AskQty { get; set; }
+        public int AskQty { get; set; }    
 
         [JsonPropertyName("askPrice")]
-        public double AskPrice { get; set; }
+        public double AskPrice { get; set; }   
 
         [JsonPropertyName("underlyingValue")]
         public double UnderlyingValue { get; set; }
-
-        [JsonPropertyName("totOI")]
-        public int TotOI { get; set; }
+    
+       [JsonPropertyName("totOI")]
+        public int TotOI { get; set; }    
 
         [JsonPropertyName("totVol")]
         public int TotVol { get; set; }
+
+        public override string ToString()
+        {
+            return $"{StrikePrice},{ExpiryDate},{Underlying},{Identifier},{OpenInterest},{ChangeinOpenInterest}," +
+                   $"{PchangeinOpenInterest},{TotalTradedVolume},{ImpliedVolatility},{LastPrice},{Change},{PChange},{TotalBuyQuantity}," +
+                   $"{TotalSellQuantity},{BidQty},{Bidprice},{AskQty},{AskPrice},{UnderlyingValue},{TotOI},{TotVol}";
+        }
     }
 }

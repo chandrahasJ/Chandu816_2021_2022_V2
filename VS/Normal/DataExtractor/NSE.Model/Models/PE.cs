@@ -66,6 +66,13 @@ namespace NSE.Model
 
         [JsonPropertyName("totVol")]
         public int TotVol { get; set; }
+
+        public override string ToString()
+        {
+            return $"{StrikePrice},{ExpiryDate},{Underlying},{Identifier},{OpenInterest},{ChangeinOpenInterest}," +
+                   $"{PchangeinOpenInterest},{TotalTradedVolume},{ImpliedVolatility},{LastPrice},{Change},{PChange},{TotalBuyQuantity}," +
+                   $"{TotalSellQuantity},{BidQty},{Bidprice},{AskQty},{AskPrice},{UnderlyingValue},{TotOI},{TotVol}";
+        }
     }
 
 
