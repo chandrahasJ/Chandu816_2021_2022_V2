@@ -17,16 +17,16 @@ namespace NSE.Model
         public string Identifier { get; set; } = String.Empty;
 
         [JsonPropertyName("openInterest")]
-        public int OpenInterest { get; set; }
+        public double OpenInterest { get; set; }
 
         [JsonPropertyName("changeinOpenInterest")]
-        public int ChangeinOpenInterest { get; set; }
+        public double ChangeinOpenInterest { get; set; }
 
         [JsonPropertyName("pchangeinOpenInterest")]
         public double PchangeinOpenInterest { get; set; }
 
         [JsonPropertyName("totalTradedVolume")]
-        public int TotalTradedVolume { get; set; }
+        public double TotalTradedVolume { get; set; }
 
         [JsonPropertyName("impliedVolatility")]
         public double ImpliedVolatility { get; set; }
@@ -41,13 +41,13 @@ namespace NSE.Model
         public double PChange { get; set; }
 
         [JsonPropertyName("totalBuyQuantity")]
-        public int TotalBuyQuantity { get; set; }
+        public double TotalBuyQuantity { get; set; }
 
         [JsonPropertyName("totalSellQuantity")]
-        public int TotalSellQuantity { get; set; }
+        public double TotalSellQuantity { get; set; }
 
         [JsonPropertyName("bidQty")]
-        public int BidQty { get; set; }
+        public double BidQty { get; set; }
 
         [JsonPropertyName("bidprice")]
         public double Bidprice { get; set; }
@@ -62,10 +62,10 @@ namespace NSE.Model
         public double UnderlyingValue { get; set; }
 
         [JsonPropertyName("totOI")]
-        public int TotOI { get; set; }
+        public double TotOI { get; set; }
 
         [JsonPropertyName("totVol")]
-        public int TotVol { get; set; }
+        public double TotVol { get; set; }
 
         public override string ToString()
         {
