@@ -20,13 +20,13 @@ internal partial class Program
         // obtain logger instance        
         try
         {
+            Console.WriteLine("Process Started");
             if (!Directory.Exists(Constants.ExcelFolderPath))
             {
                 Directory.CreateDirectory(Constants.ExcelFolderPath);
             }
 
-            Settings settings = JsonFileHelper.ConvertJsonStringToObject<Settings>(
-                JsonFileHelper.ReadTheJsonFile($"{Constants.JsonFolderPath}{Constants.SettingFileName}"));
+            Settings settings = GetSettingsFileData<Settings>();
 
             var optionChainService = new OptionChainService();
 
@@ -34,7 +34,9 @@ internal partial class Program
             {
                 try
                 {
+                    Console.WriteLine("Process halted for 10 sec");
                     Thread.Sleep(10000);
+                    Console.WriteLine($"Downloading Started.. {symbol}");
                     var data = optionChainService.GetOptionChainData(symbol)?.Result;
 
                     if (data != null)
@@ -42,27 +44,9 @@ internal partial class Program
                         var filteredData = data.Filtered.Data
                             .Where(x => x.ExpiryDate == DateHelper.GetNextWeekday(DateTime.Now, DayOfWeek.Thursday).ToString("dd-MMM-yyyy"))
                             .ToList();
-                        string fileName = $"{symbol}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
-                        string excelFilePath = $"{Constants.ExcelFolderPath}\\{fileName}";
 
-                        List<CE> ceList = new List<CE>();
-                        List<PE> peList = new List<PE>();
-
-                        foreach (var item in filteredData)
-                        {                            
-                            ceList.Add(item.CE);
-                            peList.Add(item.PE);
-                        }
-                        using (ExcelHelper excelHelper = new ExcelHelper(excelFilePath))
-                        {
-                            excelHelper.DataTableToExcel(ceList.ToDataTable<CE>(), nameof(CE), true);
-                            excelHelper.DataTableToExcel(peList.ToDataTable<PE>(), nameof(PE), true);
-                        }
-                        using (ExcelHelper excelHelper = new ExcelHelper(excelFilePath))
-                        {
-                            excelHelper.DataTableToExcel(ceList.ToDataTable<CE>(), nameof(CE), true);
-                            excelHelper.DataTableToExcel(peList.ToDataTable<PE>(), nameof(PE), true);
-                        }
+                        Console.WriteLine($"Generate Excel Started.. {symbol}");
+                        GenerateExcel(symbol, filteredData);    
                     }
                 }
                 catch (Exception ex)
@@ -75,14 +59,40 @@ internal partial class Program
         {
             log.Error("Outer Error DataExtractor", ex);
         }
-        Console.ReadLine();
+       // Console.ReadLine();
     }
 
-    public static void Get()
+    private static Dictionary<string, DataTable> GenerateDictonary(List<Datum> filteredData)
     {
-        JsonFileHelper.SaveTheJsonFile(JsonFileHelper.CreateTheJsonFile(new Settings()
+        List<CE> ceList = new List<CE>();
+        List<PE> peList = new List<PE>();
+        Dictionary<string, DataTable> dicSheetName_DataTable = new Dictionary<string, DataTable>();
+
+        foreach (var item in filteredData)
         {
-            Symbols = Constants.Symbols
-        }), $"{Constants.JsonFolderPath}{Constants.SettingFileName}");
+            ceList.Add(item.CE);
+            peList.Add(item.PE);
+        }
+        dicSheetName_DataTable.Add(nameof(CE), ceList.ToDataTable<CE>());
+        dicSheetName_DataTable.Add(nameof(PE), peList.ToDataTable<PE>());
+
+        return dicSheetName_DataTable;
+    }
+
+    private static void GenerateExcel(string symbol, List<Datum> filteredData)
+    {
+        string fileName = $"{symbol}_{DateTime.Now.ToString("ddMMyyyyHHmmss")}.xlsx";
+        string excelFilePath = $"{Constants.ExcelFolderPath}\\{fileName}";
+        Console.WriteLine($"Creating Excel for {symbol}");
+        using (ExcelHelper excelHelper = new ExcelHelper(excelFilePath))
+        {
+            excelHelper.DataTablesToExcel(GenerateDictonary(filteredData), true);
+        }
+    }
+
+    private static T GetSettingsFileData<T>() where T : class
+    {
+        return JsonFileHelper.ConvertJsonStringToObject<T>(
+                JsonFileHelper.ReadTheJsonFile($"{Constants.JsonFolderPath}{Constants.SettingFileName}"));
     }
 }
