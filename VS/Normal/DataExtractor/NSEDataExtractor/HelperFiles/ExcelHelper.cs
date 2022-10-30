@@ -1,4 +1,5 @@
 ﻿using NPOI.HSSF.UserModel;
+using NPOI.POIFS.Crypt.Dsig;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.Data;
@@ -81,6 +82,83 @@ namespace NSEDataExtractor.HelperFiles
                 return -1;
             }
         }
+
+        /// <summary>
+        /// Import DataTable data into excel
+        /// </summary>
+        /// <param name="data">Data to be imported</param>
+        /// <param name="isColumnWritten">The column name of the DataTable to import or not</param>
+        /// <param name="sheetName">The name of the excel sheet to import</param>
+        /// <returns>the number of rows of data to import (the row containing the column name)</returns>
+        public int DataTablesToExcel(Dictionary<string, DataTable> dicSheetName_DataTable, bool isColumnWritten)
+        {
+            int i = 0;
+            int j = 0;
+            int count = 0;
+            ISheet sheet = null;
+
+            fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            if (fileName.IndexOf(".xlsx") > 0) // v-2007
+                workbook = new XSSFWorkbook();
+            else if (fileName.IndexOf(".xls") > 0) // v-2003
+                workbook = new HSSFWorkbook();
+
+            try
+            {
+                foreach (var key in dicSheetName_DataTable.Keys)
+                {
+                    if (workbook != null)
+                    {
+                        sheet = workbook.CreateSheet(key);
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+
+                    var data = dicSheetName_DataTable[key];
+
+                    if (isColumnWritten == true) //Write the column names to the DataTable
+                    {
+                        IRow row = sheet.CreateRow(0);                      
+                        for (j = 0; j < data.Columns.Count; ++j)
+                        {
+                            row.CreateCell(j).SetCellValue(data.Columns[j].ColumnName);
+                        }
+                        count = 1;
+                    }
+                    else
+                    {
+                        count = 0;
+                    }
+
+                    for (i = 0; i < data.Rows.Count; ++i)
+                    {
+                        IRow row = sheet.CreateRow(count);
+                        for (j = 0; j < data.Columns.Count; ++j)
+                        {
+                            row.CreateCell(j).SetCellValue(data.Rows[i][j].ToString());
+                        }
+                        ++count;
+                    }                                   
+                }
+                workbook.Write(fs, false); //write to the excel   
+                return count;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+                return -1;
+            }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Dispose();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Import data from excel to DataTable
