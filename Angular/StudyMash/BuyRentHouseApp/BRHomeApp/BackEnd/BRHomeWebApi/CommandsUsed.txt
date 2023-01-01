@@ -4,7 +4,7 @@ dotnet watch run
 DataBase 
 dotnet ef migrations add "NameOfTheMigrations"
 
-dotnet ef update database
+dotnet ef database update
 
 dotnet tool install --global dotnet-ef
 
