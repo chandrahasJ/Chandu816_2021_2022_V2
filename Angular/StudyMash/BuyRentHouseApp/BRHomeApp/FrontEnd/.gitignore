@@ -49,4 +49,4 @@ Thumbs.db
 *.cache
 
 #Ignore .Angular
-!..angular
+!.angular
