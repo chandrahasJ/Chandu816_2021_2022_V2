@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using BRHomeWebApi.Dtos;
 using BRHomeWebApi.Models;
@@ -7,8 +8,8 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
-        {
-            createMaps();
+        {           
+            createMaps();            
         }
 
         private void createMaps()
@@ -32,7 +33,12 @@ namespace BRHomeWebApi.Helpers.AutoMapperHelpers
                  .ForMember(destination => destination.FurnishingType,
                                  option => option.MapFrom(
                                      source => source.FurnishingType.Name
-                                 ));
+                                 ))
+                 .ForMember(destination => destination.Photo, 
+                                    option => option.MapFrom(
+                                        source => source.Photos.FirstOrDefault(x => x.IsPrimary == true).ImageUrl
+                                    )
+                                );
 
             CreateMap<Property,PropertyDetailsDto>()
                  .ForMember(destination => destination.City,

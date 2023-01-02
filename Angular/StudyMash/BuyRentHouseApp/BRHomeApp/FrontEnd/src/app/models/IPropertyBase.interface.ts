@@ -9,6 +9,6 @@ export interface IPropertyBase {
   bhk: number | null;
   city :string;
   readyToMove? : boolean;
-  image? : string;
+  photo? : string;
   estPossessionOn? : string;
 }

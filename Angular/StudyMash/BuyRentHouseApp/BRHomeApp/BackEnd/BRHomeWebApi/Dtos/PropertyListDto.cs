@@ -19,5 +19,6 @@ namespace BRHomeWebApi.Dtos
         public string CountryName { get; set; }
         public bool ReadyToMove { get; set; }
         public DateTime EstPossessionOn { get; set; } 
+        public string Photo { get; set; }
     }
 }
