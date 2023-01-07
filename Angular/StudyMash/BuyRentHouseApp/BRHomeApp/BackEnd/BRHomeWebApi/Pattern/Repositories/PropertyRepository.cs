@@ -47,7 +47,7 @@ namespace BRHomeWebApi.Pattern.Repositories
                                             .Include(i => i.FurnishingType)
                                             .Include(i => i.Photos)
                                             .Where(w => w.Id == id)
-                                            .SingleOrDefaultAsync();
+                                            .FirstOrDefaultAsync();
             return property;
         }
 
@@ -56,7 +56,7 @@ namespace BRHomeWebApi.Pattern.Repositories
              var property = await bRHomeDbContext.Properties                                            
                                             .Include(i => i.Photos)
                                             .Where(w => w.Id == id)
-                                            .SingleOrDefaultAsync();
+                                            .FirstOrDefaultAsync();
             return property;
         }
     }

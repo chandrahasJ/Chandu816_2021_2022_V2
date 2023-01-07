@@ -83,5 +83,34 @@ namespace BRHomeWebApi.Controllers
 
             return StatusCode(201);
         }
+
+        [HttpPost("set-primary-photo/photo/{id}/{publicPhotoId}")]
+        [Authorize]
+        public async Task<ActionResult> SetPrimaryPhoto(int id, string publicPhotoId)
+        {
+             var userId = GetUserId();
+
+            var property = await _uow.propertyRepository.GetPropertyDetailsById(id);
+
+            if(property == null)
+                return BadRequest("No such property or photo exists.");
+
+            if(property.PostedBy != userId)
+                return BadRequest("You are not authorized to change the photo.");
+
+            var photo = property.Photos.FirstOrDefault(p => p.PublicId == publicPhotoId);
+
+            if(photo == null) return BadRequest("No such property exists.");
+
+            if(photo.IsPrimary) return BadRequest("This photo is already primary");
+
+            var currentPrimary = property.Photos.FirstOrDefault(p => p.IsPrimary);
+            if(currentPrimary != null) currentPrimary.IsPrimary = false;
+            photo.IsPrimary = true;
+
+            if(await _uow.SaveAsync()) return NoContent();  
+
+            return StatusCode(201);
+        }
     }
 }
