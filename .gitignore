@@ -69,3 +69,4 @@ cj_data.txt
 
 # Inside vscode
 .vscode
+node_modules
