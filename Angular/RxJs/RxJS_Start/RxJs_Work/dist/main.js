@@ -10590,11 +10590,20 @@ exports.createInvalidObservableTypeError = createInvalidObservableTypeError;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+// Rename it to index.js for execution to happen.
 const rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/dist/cjs/index.js");
-console.log(rxjs_1.Observable);
-console.log('test');
-console.log('teste');
-console.log('teste');
+/**
+ * Observerable wraps the producers
+ */
+const obs = new rxjs_1.Observable((observer) => {
+    let counter = 1;
+    setInterval(() => {
+        observer.next(counter++);
+    }, 1000);
+});
+obs.pipe((0, rxjs_1.catchError)(() => { console.log(''); })).subscribe((data) => { console.log(data); });
+function nextMethod(value) {
+}
 
 
 /***/ }),
@@ -13115,7 +13124,7 @@ module.exports.formatError = function (err) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b0f6bc4bbeb5df722d0b")
+/******/ 		__webpack_require__.h = () => ("3d3bf347784cfeca9e73")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
