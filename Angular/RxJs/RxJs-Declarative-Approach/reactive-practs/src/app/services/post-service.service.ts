@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ITodo } from '../models/ITodo';
+import { IPost } from '../models/Post';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,15 @@ export class PostService {
 
   }
 
-  get post_todos(){
+  get post_data(){
     return this.http
-            .get<{[id:number]: ITodo}>('https://project-rxjs-default-rtdb.firebaseio.com/post_todos.json');
+            .get<{[id: string]: IPost}>('https://project-rxjs-default-rtdb.firebaseio.com/posts.json')
+            .pipe(map(posts => {
+              let postData: IPost[] = [];
+              for (let id in posts) {
+                postData.push({ ...posts[id], id})
+              }
+              return postData;
+            }));
   }
 }
