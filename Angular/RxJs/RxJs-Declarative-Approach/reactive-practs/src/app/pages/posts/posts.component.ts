@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IPost } from 'src/app/models/Post';
-import {  PostService } from 'src/app/services/post-service.service';
+import {  PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -22,7 +22,7 @@ export class PostsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.postsSubscription =  this.postService.post_data.subscribe(data => {
+    this.postsSubscription =  this.postService.post_data_with_category.subscribe(data => {
         this.posts = data;
      })
   }
