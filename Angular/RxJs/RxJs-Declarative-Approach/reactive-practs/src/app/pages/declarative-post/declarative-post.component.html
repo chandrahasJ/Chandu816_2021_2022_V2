@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <select class="form-select" (change)="onCategoryChange($event)">
+    <select title="select category" class="form-select" (change)="onCategoryChange($event)">
       <option value="">Select Caterogy</option>
       <option [value]="cat.id" *ngFor="let cat of dCategory$ | async">
         {{cat.title}}
