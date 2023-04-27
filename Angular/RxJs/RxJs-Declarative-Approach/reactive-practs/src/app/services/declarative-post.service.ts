@@ -1,17 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { combineLatest, map, mergeMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, mergeMap } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeclarativePostService {
+  private selectedPostSubject: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+  selectedPostAction$ = this.selectedPostSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private dCatergoryService: DeclarativeCategoryService
   ) {}
+
+  selectPost(postId: string) {
+    console.log(postId);
+    this.selectedPostSubject.next(postId);
+  }
+
+  get post() {
+    return combineLatest([
+      this.post_with_category,
+      this.selectedPostAction$,
+    ]).pipe(
+      map(([posts, selectedId]) => {
+        return posts.find((post) => post.id === selectedId) as IPost;
+      })
+    );
+  }
 
   get post_data() {
     return this.http
@@ -38,10 +58,11 @@ export class DeclarativePostService {
         return posts.map((post) => {
           return {
             ...post,
-            categoryName: categories.find((category) => category.id == post.categoryId)
-              ?.title,
+            categoryName: categories.find(
+              (category) => category.id == post.categoryId
+            )?.title,
           } as IPost;
-        })
+        });
       })
     );
   }

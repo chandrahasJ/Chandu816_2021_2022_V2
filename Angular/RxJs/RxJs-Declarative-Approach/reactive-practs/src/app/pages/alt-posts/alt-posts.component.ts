@@ -12,15 +12,12 @@ export class AltPostsComponent {
   post$ = this.postService?.post_with_category.pipe(map((posts) => {
     return posts.filter(post => post.categoryName !== undefined)
   }));
-  /**
-   *
-   */
-  constructor(private postService: DeclarativePostService) {
 
+  constructor(private postService: DeclarativePostService) {
   }
 
   onSelectedPost(post: IPost, event: Event){
     event.preventDefault();
-    console.log(post);
+    post.id && this.postService.selectPost(post.id)
   }
 }
