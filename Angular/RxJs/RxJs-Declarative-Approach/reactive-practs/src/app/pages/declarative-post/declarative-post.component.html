@@ -8,6 +8,11 @@
     </select>
   </div>
 </div>
+<div class="row text-center bg-danger text-white p-3 mb-2" *ngIf="errorMessageAction$ | async as errorMessage">
+  <div class="col-md-12">
+    {{errorMessage}}
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <h3>Declarative Post Data</h3>
