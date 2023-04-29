@@ -1,3 +1,8 @@
+<div class="row" *ngIf="errorMessageAction$ | async as errorMessage">
+  <div class="col-md-12">
+    {{errorMessage}}
+  </div>
+</div>
 <div *ngIf="post$ | async as post">
   <div>Id : {{post.id}}</div>
   <div>Title : {{post.title}}</div>

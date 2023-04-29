@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, combineLatest, map, mergeMap } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, mergeMap, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 
 @Injectable({
@@ -45,7 +45,8 @@ export class DeclarativePostService {
             postData.push({ ...posts[id], id });
           }
           return postData;
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -63,7 +64,15 @@ export class DeclarativePostService {
             )?.title,
           } as IPost;
         });
-      })
+      }),
+      catchError(this.handleError)
     );
+  }
+
+  handleError(error: Error){
+    // Write your handle logic here
+    return throwError(() => {
+      return 'something is not right, try after some time.'
+    })
   }
 }

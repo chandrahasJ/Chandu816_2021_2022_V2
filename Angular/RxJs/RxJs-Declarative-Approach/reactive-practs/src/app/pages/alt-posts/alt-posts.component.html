@@ -7,14 +7,14 @@
 </div>
 <div class="row">
   <div class="col-md-4">
-    <div class="list-group">
+    <div class="list-group" *ngIf="post$ | async as posts">
       <a href="#"
         class="list-group-item list-group-item-action disabled" aria-current="true">
         List of Catergory
       </a>
       <a href="#"
         (click)="onSelectedPost(post, $event)"
-        class="list-group-item list-group-item-action" *ngFor="let post of post$ | async">
+        class="list-group-item list-group-item-action" *ngFor="let post of posts">
         {{post.title}} | {{post.categoryName}}
       </a>
     </div>
