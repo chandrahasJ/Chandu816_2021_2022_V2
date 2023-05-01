@@ -18,8 +18,8 @@ export class DeclarativePostComponent {
 
   selectedCategoryId = '';
 
-  dPost$ = this.dPostService.post_with_category;
-  dCategory$ = this.dCategoryService.category_data
+  dPost$ = this.dPostService.post_with_category$;
+  dCategory$ = this.dCategoryService.category_data$
               .pipe( catchError((error) => {
                 this.errorSubject.next(error);
                 return EMPTY;

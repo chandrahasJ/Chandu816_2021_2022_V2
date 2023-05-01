@@ -14,9 +14,9 @@ export class AltPostsComponent {
   // selectedPostIdAction$ = this.postIdSubject.asObservable();
   // [class] = "{active: (selectedPostIdAction$ | async) === post.id}"
 
-  selectedPost$ = this.postService.post;
+  selectedPost$ = this.postService.post$;
 
-  post$ = this.postService?.post_with_category.pipe(map((posts) => {
+  post$ = this.postService?.post_with_category$.pipe(map((posts) => {
     return posts.filter(post => post.categoryName !== undefined)
   }));
 

@@ -22,52 +22,46 @@ export class DeclarativePostService {
     this.selectedPostSubject.next(postId);
   }
 
-  get post() {
-    return combineLatest([
-      this.post_with_category,
-      this.selectedPostAction$,
-    ]).pipe(
-      map(([posts, selectedId]) => {
-        return posts.find((post) => post.id === selectedId) as IPost;
-      })
-    );
-  }
+  post_data$ =  this.http
+                    .get<{ [id: string]: IPost }>(
+                      'https://project-rxjs-default-rtdb.firebaseio.com/posts.json'
+                    )
+                    .pipe(
+                      map((posts) => {
+                        let postData: IPost[] = [];
+                        for (let id in posts) {
+                          postData.push({ ...posts[id], id });
+                        }
+                        return postData;
+                      }),
+                      catchError(this.handleError)
+                    );
 
-  get post_data() {
-    return this.http
-      .get<{ [id: string]: IPost }>(
-        'https://project-rxjs-default-rtdb.firebaseio.com/posts.json'
-      )
-      .pipe(
-        map((posts) => {
-          let postData: IPost[] = [];
-          for (let id in posts) {
-            postData.push({ ...posts[id], id });
-          }
-          return postData;
-        }),
-        catchError(this.handleError)
-      );
-  }
+  post_with_category$ = combineLatest([
+                          this.post_data$,
+                          this.dCatergoryService.category_data$,
+                        ]).pipe(
+                          map(([posts, categories]) => {
+                            return posts.map((post) => {
+                              return {
+                                ...post,
+                                categoryName: categories.find(
+                                  (category) => category.id == post.categoryId
+                                )?.title,
+                              } as IPost;
+                            });
+                          }),
+                          catchError(this.handleError)
+                        );
 
-  get post_with_category() {
-    return combineLatest([
-      this.post_data,
-      this.dCatergoryService.category_data,
-    ]).pipe(
-      map(([posts, categories]) => {
-        return posts.map((post) => {
-          return {
-            ...post,
-            categoryName: categories.find(
-              (category) => category.id == post.categoryId
-            )?.title,
-          } as IPost;
-        });
-      }),
-      catchError(this.handleError)
-    );
-  }
+  post$ = combineLatest([
+    this.post_with_category$,
+    this.selectedPostAction$,
+  ]).pipe(
+    map(([posts, selectedId]) => {
+      return posts.find((post) => post.id === selectedId) as IPost;
+    })
+  );
 
   handleError(error: Error){
     // Write your handle logic here
