@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, catchError, combineLatest, map, mergeMap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, mergeMap, shareReplay, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 
 @Injectable({
@@ -34,7 +34,8 @@ export class DeclarativePostService {
                         }
                         return postData;
                       }),
-                      catchError(this.handleError)
+                      catchError(this.handleError),
+                      shareReplay({bufferSize: 1, refCount: true})
                     );
 
   post_with_category$ = combineLatest([
