@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
 import { IPost } from 'src/app/models/Post';
 import { DeclarativePostService } from 'src/app/services/declarative-post.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -18,10 +18,18 @@ export class AltPostsComponent implements OnInit {
   selectedPost$ = this.postService.post$;
 
   post$ = this.postService?.post_with_category$.pipe(
-    tap(() => this.loaderService.hideLoader()),
+    tap((posts) => {
+      posts[0].id && this.postService.selectPost(posts[0].id)
+      this.loaderService.hideLoader();
+    }),
     map((posts) => {
     return posts.filter(post => post.categoryName !== undefined)
   }));
+
+  viewModel$ = combineLatest([this.post$, this.selectedPost$])
+                .pipe(map(([posts, selectedPost]) =>  {
+                  return {posts, selectedPost}
+                }))
 
   constructor(private postService: DeclarativePostService,
               private loaderService:LoaderService) {

@@ -18,7 +18,7 @@ export class DeclarativePostService {
   ) {}
 
   selectPost(postId: string) {
-    console.log(postId);
+    console.log(postId); 
     this.selectedPostSubject.next(postId);
   }
 
