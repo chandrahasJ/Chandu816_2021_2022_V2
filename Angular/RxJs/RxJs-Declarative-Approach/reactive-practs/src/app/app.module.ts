@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DeclarativePostComponent } from './pages/declarative-post/declarative-post.component';
 import { AltPostsComponent } from './pages/alt-posts/alt-posts.component';
 import { SinglePostComponent } from './components/single-post/single-post.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SinglePostComponent } from './components/single-post/single-post.compon
     HomeComponent,
     DeclarativePostComponent,
     AltPostsComponent,
-    SinglePostComponent
+    SinglePostComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

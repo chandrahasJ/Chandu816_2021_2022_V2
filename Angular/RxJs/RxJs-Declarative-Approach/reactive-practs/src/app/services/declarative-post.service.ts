@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, catchError, combineLatest, map, mergeMap, shareReplay, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, delay, map, mergeMap, shareReplay, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 
 @Injectable({
@@ -27,6 +27,7 @@ export class DeclarativePostService {
                       'https://project-rxjs-default-rtdb.firebaseio.com/posts.json'
                     )
                     .pipe(
+                      delay(2000),
                       map((posts) => {
                         let postData: IPost[] = [];
                         for (let id in posts) {
