@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { IPost } from 'src/app/models/Post';
 import { DeclarativePostService } from 'src/app/services/declarative-post.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-alt-posts',
@@ -9,18 +10,25 @@ import { DeclarativePostService } from 'src/app/services/declarative-post.servic
   styleUrls: ['./alt-posts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AltPostsComponent {
+export class AltPostsComponent implements OnInit {
   // selectedPostIdSubject = new BehaviorSubject<string>('');
   // selectedPostIdAction$ = this.postIdSubject.asObservable();
   // [class] = "{active: (selectedPostIdAction$ | async) === post.id}"
 
   selectedPost$ = this.postService.post$;
 
-  post$ = this.postService?.post_with_category$.pipe(map((posts) => {
+  post$ = this.postService?.post_with_category$.pipe(
+    tap(() => this.loaderService.hideLoader()),
+    map((posts) => {
     return posts.filter(post => post.categoryName !== undefined)
   }));
 
-  constructor(private postService: DeclarativePostService) {
+  constructor(private postService: DeclarativePostService,
+              private loaderService:LoaderService) {
+  }
+
+  ngOnInit(): void {
+    this.loaderService.showLoader();
   }
 
   onSelectedPost(post: IPost, event: Event){
