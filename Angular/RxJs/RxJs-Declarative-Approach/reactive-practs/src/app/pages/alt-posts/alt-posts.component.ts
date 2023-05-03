@@ -14,7 +14,7 @@ export class AltPostsComponent implements OnInit {
   // selectedPostIdSubject = new BehaviorSubject<string>('');
   // selectedPostIdAction$ = this.postIdSubject.asObservable();
   // [class] = "{active: (selectedPostIdAction$ | async) === post.id}"
-
+  showAddPost = false;
   selectedPost$ = this.postService.post$;
 
   post$ = this.postService?.post_with_category$.pipe(
@@ -43,5 +43,9 @@ export class AltPostsComponent implements OnInit {
     event.preventDefault();
     post.id && this.postService.selectPost(post.id);
     //post.id && this.postIdSubject.next(post.id);
+  }
+
+  onAddPost(){
+    this.showAddPost = true;
   }
 }

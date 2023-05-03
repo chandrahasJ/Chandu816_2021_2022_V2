@@ -3,6 +3,9 @@
     <h3>
       Post Details
     </h3>
+    <div class="my-2">
+      <button class="btn btn-primary" (click)="onAddPost()">Add Post</button>
+    </div>
   </div>
 </div>
 <div class="row" *ngIf="viewModel$ | async as viewModel">
@@ -23,6 +26,7 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-single-post></app-single-post>
+    <app-single-post *ngIf="!showAddPost"></app-single-post>
+    <app-add-post *ngIf="showAddPost"></app-add-post>
   </div>
 </div>

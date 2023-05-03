@@ -11,6 +11,7 @@ import { DeclarativePostComponent } from './pages/declarative-post/declarative-p
 import { AltPostsComponent } from './pages/alt-posts/alt-posts.component';
 import { SinglePostComponent } from './components/single-post/single-post.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { AddPostComponent } from './components/add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     DeclarativePostComponent,
     AltPostsComponent,
     SinglePostComponent,
-    LoadingComponent
+    LoadingComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,
