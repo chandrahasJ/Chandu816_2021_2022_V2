@@ -1,0 +1,15 @@
+<table cdk-table [dataSource]="people">
+  <ng-container cdkColumnDef="name">
+    <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+    <td cdk-cell *cdkCellDef="let persone; let i = index" [contentEditable]="true"
+     (blur)="onEdit([ ...persone , name: $event.target ], i)">{{ persone.name }}</td>
+  </ng-container>
+  <ng-container cdkColumnDef="age">
+    <th cdk-header-cell *cdkHeaderCellDef>Age</th>
+    <td cdk-cell *cdkCellDef="let persone; let i = index" [contentEditable]="true" (blur)="onEdit({ ...persone, age: parseInt($event.target.textContent) }, i)">{{ persone.age }}</td>
+  </ng-container>
+  <ng-container cdkColumnDef="gender">
+    <th cdk-header-cell *cdkHeaderCellDef>Gender</th>
+    <td cdk-cell *cdkCellDef="let persone; let i = index" [contentEditable]="true" (blur)="onEdit({ ...persone, gender: $event.target.textContent.trim() }, i)">{{ persone.gender }}</td>
+  </ng-container>
+</table>
