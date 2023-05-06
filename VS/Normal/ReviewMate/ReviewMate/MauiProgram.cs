@@ -1,4 +1,7 @@
-﻿namespace ReviewMate;
+﻿using BarcodeScanner.Mobile;
+using Microsoft.Extensions.Logging;
+
+namespace ReviewMate;
 
 public static class MauiProgram
 {
@@ -11,7 +14,15 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			})
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddBarcodeScannerHandler();
 			});
+
+#if DEBUG
+		
+#endif
 
 		return builder.Build();
 	}
