@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IPost } from 'src/app/models/Post';
 import { DeclarativeCategoryService } from 'src/app/services/declarative-category.service';
+import { DeclarativePostService } from 'src/app/services/declarative-post.service';
 
 @Component({
   selector: 'app-add-post',
@@ -15,7 +17,8 @@ export class AddPostComponent {
   categories$ = this.catergoryService.category_data$;
 
   constructor(private formBuilder: FormBuilder,
-              private catergoryService: DeclarativeCategoryService) {}
+              private catergoryService: DeclarativeCategoryService,
+              private postService: DeclarativePostService) {}
 
   createPostFormGroup() {
     return this.formBuilder.group({
@@ -28,15 +31,21 @@ export class AddPostComponent {
         validators: [Validators.required]
       }),
     });
-    this.postFormGroup.controls['catergoryId'].patchValue('');
   }
 
   onAddPost(){
     console.log(this.postFormGroup.value);
+    let purePost = this.postFormGroup.value as IPost;
+
+    let post = {
+      ...purePost,
+      categoryName : ''
+    } as IPost
+
+    this.postService.addPost(post);
   }
 
   validateForm(){
-    console.log(this.postFormGroup.invalid);
     return this.postFormGroup.invalid;
   }
 }

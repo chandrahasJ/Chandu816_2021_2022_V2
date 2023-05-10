@@ -17,13 +17,13 @@ export class AltPostsComponent implements OnInit {
   showAddPost = false;
   selectedPost$ = this.postService.post$;
 
-  post$ = this.postService?.post_with_category$.pipe(
+  post$ = this.postService?.all_post$.pipe(
     tap((posts) => {
       posts[0].id && this.postService.selectPost(posts[0].id)
       this.loaderService.hideLoader();
     }),
     map((posts) => {
-    return posts.filter(post => post.categoryName !== undefined)
+      return posts.filter(post => post.categoryName !== undefined)
   }));
 
   viewModel$ = combineLatest([this.post$, this.selectedPost$])
