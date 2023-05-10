@@ -1,1 +1,25 @@
-<p>add-post works!</p>
+<div>
+  <h3>Add Post</h3>
+<div>
+  <form [formGroup]="postFormGroup" (submit)="onAddPost()">
+    <div class="my-2">
+      <label>Title</label>
+      <input title="Title" type="text" class="form-control" formControlName="title"/>
+    </div>
+    <div class="my-2">
+      <label>Description</label>
+      <textarea class="form-control" title="Description" formControlName="description"></textarea>
+    </div>
+    <div class="my-2">
+      <label>Catergory</label>
+      <select formControlName="catergoryId" title="Select Category" class="form-select">
+        <option value="">Select Category</option>
+        <option [value]="catergory.id" *ngFor="let catergory of categories$ | async" >{{catergory.title}}</option>
+      </select>
+    </div>
+    <div class="my-2">
+      <button type="submit" class="btn btn-primary" [disabled]="validateForm()">Add Post</button>
+    </div>
+  </form>
+</div>
+</div>
