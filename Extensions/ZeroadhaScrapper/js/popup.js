@@ -44,7 +44,7 @@ function getDataFromBackgroundJS(){
             chrome.runtime.sendMessage({type: "getScrappedData", id: tabs[0].id}, function(object) {
             try{
                 /* ... */ 
-                var tableData = '<table class="table table-dark">';
+                var tableData = '<table class="table table-striped">';
                 tableData = tableData + getTableHeader();
                 if(object != null && object.marketDepths != null && object.marketDepths.length != 0){            
                     for (const marketDepth of object.marketDepths) {
