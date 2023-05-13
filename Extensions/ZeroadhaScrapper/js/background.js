@@ -15,6 +15,7 @@ chrome.runtime.onMessage.addListener(
         catch(ex) {
             console.log('Error occured in background js' +ex)
         }
+        return true;
     }
 ); 
  
