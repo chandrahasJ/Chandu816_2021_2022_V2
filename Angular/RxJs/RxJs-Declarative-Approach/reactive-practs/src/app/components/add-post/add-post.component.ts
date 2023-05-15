@@ -34,7 +34,6 @@ export class AddPostComponent {
   }
 
   onAddPost(){
-    console.log(this.postFormGroup.value);
     let purePost = this.postFormGroup.value as IPost;
 
     let post = {

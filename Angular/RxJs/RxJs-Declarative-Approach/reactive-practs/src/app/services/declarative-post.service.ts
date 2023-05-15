@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, Subject, catchError, combineLatest, map, merge, mergeMap, scan, shareReplay, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, shareReplay, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 import { CRUDAction } from '../models/CRUDAction';
 
@@ -9,6 +9,8 @@ import { CRUDAction } from '../models/CRUDAction';
   providedIn: 'root',
 })
 export class DeclarativePostService {
+
+  url = 'https://project-rxjs-default-rtdb.firebaseio.com/posts.json';
   private selectedPostSubject: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
   selectedPostAction$ = this.selectedPostSubject.asObservable();
@@ -29,21 +31,17 @@ export class DeclarativePostService {
     this.selectedPostSubject.next(postId);
   }
 
-  post_data$ = this.http
-    .get<{ [id: string]: IPost }>(
-      'https://project-rxjs-default-rtdb.firebaseio.com/posts.json'
-    )
-    .pipe(
-      map((posts) => {
-        let postData: IPost[] = [];
-        for (let id in posts) {
-          postData.push({ ...posts[id], id });
-        }
-        return postData;
-      }),
-      catchError(this.handleError),
-      shareReplay({ bufferSize: 1, refCount: true })
-    );
+  post_data$ = this.http.get<{ [id: string]: IPost }>(this.url).pipe(
+    map((posts) => {
+      let postData: IPost[] = [];
+      for (let id in posts) {
+        postData.push({ ...posts[id], id });
+      }
+      return postData;
+    }),
+    catchError(this.handleError),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   post_with_category$ = combineLatest([
     this.post_data$,
@@ -75,15 +73,52 @@ export class DeclarativePostService {
 
   all_post$ = merge(
     this.post_with_category$,
-    this.postCRUDAction$
-    .pipe(map((data) => {
-      return [data.data];
-    }))
+    this.postCRUDAction$.pipe(
+      concatMap((postAction) =>
+        this.savePost(postAction).pipe(
+          map((post) => ({
+            ...postAction,
+            data: post,
+          }))
+        )
+      )
+    )
   ).pipe(
     scan((posts, value) => {
-      return [...posts, ...value];
+      return this.modifyPosts(posts, value);
     }, [] as IPost[])
   );
+
+  savePost(postAction: CRUDAction<IPost>) {
+    if (postAction.action === 'add') {
+      return this.addPostToServer(postAction.data);
+    }
+    return of(postAction.data);
+  }
+
+  addPostToServer(post: IPost) {
+    return this.http.post<{ name: string }>(this.url, post).pipe(
+      map((id) => {
+        return {
+          ...post,
+          id: id.name,
+        };
+      })
+    );
+  }
+
+  modifyPosts(posts: IPost[],
+              value: IPost[] | CRUDAction<IPost>): IPost[] {
+    if(!(value instanceof Array)){
+      if(value.action === 'add'){
+        return [...posts, value.data]
+      }
+    } else {
+      return value;
+    }
+
+    return posts;
+  }
 
   handleError(error: Error) {
     // Write your handle logic here
