@@ -11,14 +11,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function contains(string, substring) {
+    return string.indexOf(substring) !== -1;
+}
+
+function checkAndSetPEorCE(name){
+    if(contains(name, " CE")){
+        return "class='lightGreen'"
+    } 
+    else if(contains(name, " PE")){
+        return "class='lightRed'"
+    } else {
+        return ""
+    }
+}
+
 function getTableHeader(){
     var header =  
         `<thead>
             <tr>
                 <th scope="col"><label>Name</label></th>
                 <th scope="col"><label>Strike Price</label></th>
-                <th scope="col"><label>Bid Buy</label></th>
-                <th scope="col"><label>Bid Sell</label></th>
+                <th scope="col"><label>Buy</label></th>
+                <th scope="col"><label>Sell</label></th>
                 <th scope="col"><label>O</label></th>
                 <th scope="col"><label>H</label></th>
                 <th scope="col"><label>L</label></th>
@@ -32,7 +47,7 @@ function getTableHeader(){
 
 function getTableBody(marketDepth){
     var bodyData  =
-    `<tr>
+    `<tr ${checkAndSetPEorCE(marketDepth.name)}>
         <td>${marketDepth.name}</td>
         <td>${marketDepth.strikePrice}</td>
         <td>${marketDepth.buyBidTotal}</td>

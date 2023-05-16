@@ -7,9 +7,16 @@ widthAuto{
 
 
 body {
-    min-width: 350px; /* your desired width */
+    min-width: 500px; /* your desired width */
     max-width: 100%;
     position: relative;
     vertical-align:middle;
 }
 
+.lightGreen{
+    background-color: #D4E5BB;
+}
+
+.lightRed{
+    background-color: #F1CDE6;
+}
