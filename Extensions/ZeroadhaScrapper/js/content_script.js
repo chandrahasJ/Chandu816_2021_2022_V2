@@ -31,6 +31,26 @@ let generateJsonDataForMarketDepth = () => {
             .find("div.ohlc> div.row:eq(2) > div.columns:eq(0) > span.value")
             .text()
             .trim();
+          let o = $(marketDepthObject)
+                  .find("div.ohlc> div.row:eq(0) > div.columns:eq(0) > a.value")
+                  .text()
+                  .trim();
+          let h = $(marketDepthObject)
+                  .find("div.ohlc> div.row:eq(0) > div.columns:eq(1) > a.value")
+                  .text()
+                  .trim();
+          let l = $(marketDepthObject)
+                  .find("div.ohlc> div.row:eq(1) > div.columns:eq(0) > a.value")
+                  .text()
+                  .trim();
+          let c = $(marketDepthObject)
+                  .find("div.ohlc> div.row:eq(1) > div.columns:eq(1) > a.value")
+                  .text()
+                  .trim();
+          let oi = $(marketDepthObject)
+                  .find("div.ohlc> div.row:eq(4) > div.columns:eq(1) > span.value")
+                  .text()
+                  .trim();
 
           var marketDepthData = {
             name: name,
@@ -38,6 +58,11 @@ let generateJsonDataForMarketDepth = () => {
             buyBidTotal: buyBidTotal,
             sellBidTotal: sellBidTotal,
             volume: volume,
+            o : o,
+            h : h,
+            l : l,
+            c : c,
+            oi : oi
           };
           zeroadhaScapper.marketDepths.push(marketDepthData);
         } catch (ex) {
@@ -72,4 +97,4 @@ let generateJsonDataForMarketDepth = () => {
   }
 };
 
-var disposeIDForSetInterval = setInterval(generateJsonDataForMarketDepth, 1000);
+var disposeIDForSetInterval = setInterval(generateJsonDataForMarketDepth, 700);
