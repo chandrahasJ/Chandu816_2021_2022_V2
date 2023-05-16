@@ -13,6 +13,7 @@ import { SinglePostComponent } from './components/single-post/single-post.compon
 import { LoadingComponent } from './components/loading/loading.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AltPostsComponent,
     SinglePostComponent,
     LoadingComponent,
-    AddPostComponent
+    AddPostComponent,
+    UpdatePostComponent
   ],
   imports: [
     BrowserModule,
