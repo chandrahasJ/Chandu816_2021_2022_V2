@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, shareReplay, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, share, shareReplay, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 import { CRUDAction } from '../models/CRUDAction';
 
@@ -9,7 +9,6 @@ import { CRUDAction } from '../models/CRUDAction';
   providedIn: 'root',
 })
 export class DeclarativePostService {
-
   url = 'https://project-rxjs-default-rtdb.firebaseio.com/posts.json';
   private selectedPostSubject: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
@@ -61,15 +60,6 @@ export class DeclarativePostService {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  post$ = combineLatest([
-    this.post_with_category$,
-    this.selectedPostAction$,
-  ]).pipe(
-    map(([posts, selectedId]) => {
-      return posts.find((post) => post.id === selectedId) as IPost;
-    }),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
 
   all_post$ = merge(
     this.post_with_category$,
@@ -77,8 +67,8 @@ export class DeclarativePostService {
       concatMap((postAction) =>
         this.savePost(postAction).pipe(
           map((post) => ({
-            ...postAction,
-            data: post,
+              ...postAction,
+              data: post,
           }))
         )
       )
@@ -86,12 +76,24 @@ export class DeclarativePostService {
   ).pipe(
     scan((posts, value) => {
       return this.modifyPosts(posts, value);
-    }, [] as IPost[])
+    }, [] as IPost[]),
+    shareReplay({ bufferSize: 1, refCount: true })
   );
 
   savePost(postAction: CRUDAction<IPost>) {
     if (postAction.action === 'add') {
-      return this.addPostToServer(postAction.data);
+      return this.addPostToServer(postAction.data).pipe(
+        concatMap(post =>
+          this.dCatergoryService.category_data$.pipe(
+            map((categories) => {
+              return {
+                ...post,
+                categoryName: categories.find((x) => x.id == post.categoryId)?.title
+              };
+            })
+          )
+        )
+      );
     }
     return of(postAction.data);
   }
@@ -107,11 +109,10 @@ export class DeclarativePostService {
     );
   }
 
-  modifyPosts(posts: IPost[],
-              value: IPost[] | CRUDAction<IPost>): IPost[] {
-    if(!(value instanceof Array)){
-      if(value.action === 'add'){
-        return [...posts, value.data]
+  modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>): IPost[] {
+    if (!(value instanceof Array)) {
+      if (value.action === 'add') {
+        return [...posts, value.data];
       }
     } else {
       return value;
@@ -119,6 +120,16 @@ export class DeclarativePostService {
 
     return posts;
   }
+
+  post$ = combineLatest([
+    this.all_post$,
+    this.selectedPostAction$,
+  ]).pipe(
+    map(([posts, selectedId]) => {
+      return posts.find((post) => post.id === selectedId) as IPost;
+    }),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
   handleError(error: Error) {
     // Write your handle logic here

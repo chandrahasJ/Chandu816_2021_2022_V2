@@ -19,7 +19,7 @@ export class AltPostsComponent implements OnInit {
 
   post$ = this.postService?.all_post$.pipe(
     tap((posts) => {
-      posts[0].id && this.postService.selectPost(posts[0].id)
+      posts.length != 0 && posts[0].id && this.postService.selectPost(posts[0].id)
       this.loaderService.hideLoader();
     }),
     map((posts) => {
@@ -41,6 +41,7 @@ export class AltPostsComponent implements OnInit {
 
   onSelectedPost(post: IPost, event: Event){
     event.preventDefault();
+    this.showAddPost = false;
     post.id && this.postService.selectPost(post.id);
     //post.id && this.postIdSubject.next(post.id);
   }

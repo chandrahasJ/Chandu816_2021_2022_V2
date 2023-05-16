@@ -27,7 +27,7 @@ export class AddPostComponent {
         validators: [Validators.required]
       }),
       description: new FormControl<string>(''),
-      catergoryId: new FormControl<string | null>('',{
+      categoryId: new FormControl<string | null>('',{
         validators: [Validators.required]
       }),
     });
@@ -36,12 +36,7 @@ export class AddPostComponent {
   onAddPost(){
     let purePost = this.postFormGroup.value as IPost;
 
-    let post = {
-      ...purePost,
-      categoryName : ''
-    } as IPost
-
-    this.postService.addPost(post);
+    this.postService.addPost(purePost);
   }
 
   validateForm(){

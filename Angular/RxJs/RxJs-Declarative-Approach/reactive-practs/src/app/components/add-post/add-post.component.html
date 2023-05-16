@@ -12,9 +12,9 @@
     </div>
     <div class="my-2">
       <label>Catergory</label>
-      <select formControlName="catergoryId" title="Select Category" class="form-select">
+      <select formControlName="categoryId" title="Select Category" class="form-select">
         <option value="">Select Category</option>
-        <option [value]="catergory.id" *ngFor="let catergory of categories$ | async" >{{catergory.title}}</option>
+        <option [value]="category.id" *ngFor="let category of categories$ | async" >{{category.title}}</option>
       </select>
     </div>
     <div class="my-2">
