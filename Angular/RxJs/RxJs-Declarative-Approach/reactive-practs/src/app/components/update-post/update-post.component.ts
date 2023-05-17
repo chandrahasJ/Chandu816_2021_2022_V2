@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { tap } from 'rxjs';
 import { IPost } from 'src/app/models/Post';
 import { DeclarativeCategoryService } from 'src/app/services/declarative-category.service';
 import { DeclarativePostService } from 'src/app/services/declarative-post.service';
@@ -11,6 +12,12 @@ import { DeclarativePostService } from 'src/app/services/declarative-post.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpdatePostComponent {
+
+  post$ = this.postService
+              .post$
+              .pipe(tap(postData => {
+                  postData && this.postFormGroup.patchValue(postData);
+              }));
 
   postFormGroup = this.createPostFormGroup();
 

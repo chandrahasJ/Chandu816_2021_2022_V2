@@ -1,6 +1,6 @@
 <div>
   <h3>Update Post</h3>
-<div>
+<div *ngIf="post$ | async">
   <form [formGroup]="postFormGroup" (submit)="onUpdatePost()">
     <div class="my-2">
       <label>Title</label>
