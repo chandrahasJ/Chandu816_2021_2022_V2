@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, share, shareReplay, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, share, shareReplay, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 import { CRUDAction } from '../models/CRUDAction';
 
@@ -10,6 +10,7 @@ import { CRUDAction } from '../models/CRUDAction';
 })
 export class DeclarativePostService {
   url = 'https://project-rxjs-default-rtdb.firebaseio.com/posts.json';
+  postPatchDeleteURL = 'https://project-rxjs-default-rtdb.firebaseio.com/posts/';
   private selectedPostSubject: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
   selectedPostAction$ = this.selectedPostSubject.asObservable();
@@ -24,6 +25,10 @@ export class DeclarativePostService {
 
   addPost(post: IPost) {
     this.postCRUDSubject.next({ action: 'add', data: post });
+  }
+
+  updatePost(post: IPost) {
+    this.postCRUDSubject.next({ action: 'update', data: post });
   }
 
   selectPost(postId: string) {
@@ -81,21 +86,29 @@ export class DeclarativePostService {
   );
 
   savePost(postAction: CRUDAction<IPost>) {
+    let postObservable$! : Observable<IPost>;
+
     if (postAction.action === 'add') {
-      return this.addPostToServer(postAction.data).pipe(
-        concatMap(post =>
-          this.dCatergoryService.category_data$.pipe(
-            map((categories) => {
-              return {
-                ...post,
-                categoryName: categories.find((x) => x.id == post.categoryId)?.title
-              };
-            })
-          )
-        )
-      );
+      postObservable$! = this.addPostToServer(postAction.data)
     }
-    return of(postAction.data);
+
+    if (postAction.action === 'update') {
+      postObservable$! = this.updatePostToServer(postAction.data)
+    }
+
+    return postObservable$.pipe(
+      concatMap(post =>
+        this.dCatergoryService.category_data$.pipe(
+          map((categories) => {
+            return {
+              ...post,
+              categoryName: categories
+                            .find((x) => x.id == post.categoryId)?.title
+            };
+          })
+        )
+      )
+    );
   }
 
   addPostToServer(post: IPost) {
@@ -109,10 +122,18 @@ export class DeclarativePostService {
     );
   }
 
+  updatePostToServer(post: IPost) {
+    return this.http.patch<IPost>(this.postPatchDeleteURL+`${post.id}.json`, post);
+  }
+
   modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>): IPost[] {
     if (!(value instanceof Array)) {
       if (value.action === 'add') {
         return [...posts, value.data];
+      }
+      if (value.action === 'update') {
+        return posts.map(post =>
+          post.id === value.data.id ? value.data : post);
       }
     } else {
       return value;

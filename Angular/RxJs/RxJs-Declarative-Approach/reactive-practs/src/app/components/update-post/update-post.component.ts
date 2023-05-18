@@ -29,6 +29,7 @@ export class UpdatePostComponent {
 
   createPostFormGroup() {
     return this.formBuilder.group({
+      id: new FormControl<string | null>(null),
       title: new FormControl<string | null>(null,{
         nonNullable: true,
         validators: [Validators.required]
@@ -43,7 +44,7 @@ export class UpdatePostComponent {
   onUpdatePost(){
     let purePost = this.postFormGroup.value as IPost;
 
-    this.postService.addPost(purePost);
+    this.postService.updatePost(purePost);
   }
 
   validateForm(){

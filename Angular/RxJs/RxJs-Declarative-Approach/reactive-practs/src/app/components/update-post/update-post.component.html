@@ -2,6 +2,10 @@
   <h3>Update Post</h3>
 <div *ngIf="post$ | async">
   <form [formGroup]="postFormGroup" (submit)="onUpdatePost()">
+    <div class="my-2 visually-hidden">
+      <label>Id</label>
+      <input title="Id" type="text" class="form-control" formControlName="id"/>
+    </div>
     <div class="my-2">
       <label>Title</label>
       <input title="Title" type="text" class="form-control" formControlName="title"/>
