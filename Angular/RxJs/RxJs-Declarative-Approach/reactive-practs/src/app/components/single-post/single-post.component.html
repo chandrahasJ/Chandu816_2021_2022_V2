@@ -6,6 +6,8 @@
 <div class="row" *ngIf="post$ | async as post">
   <div class="col-md-4">
     <button class="btn btn-warning" (click)="onUpdatePost()">Update Post</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class=" btn btn-danger" (click)="onDeletePost(post)">Delete Post</button>
   </div>
   <div class="col-md-12" *ngIf="!showUpdatePost">
     <h3>Post Details</h3>

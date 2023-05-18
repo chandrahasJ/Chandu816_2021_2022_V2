@@ -31,6 +31,10 @@ export class DeclarativePostService {
     this.postCRUDSubject.next({ action: 'update', data: post });
   }
 
+  deletePost(post: IPost) {
+    this.postCRUDSubject.next({ action: 'delete', data: post });
+  }
+
   selectPost(postId: string) {
     this.selectedPostSubject.next(postId);
   }
@@ -96,6 +100,11 @@ export class DeclarativePostService {
       postObservable$! = this.updatePostToServer(postAction.data)
     }
 
+    if (postAction.action === 'delete') {
+      return this.deletePostToServer(postAction.data)
+                 .pipe(map(post => postAction.data))
+    }
+
     return postObservable$.pipe(
       concatMap(post =>
         this.dCatergoryService.category_data$.pipe(
@@ -103,7 +112,8 @@ export class DeclarativePostService {
             return {
               ...post,
               categoryName: categories
-                            .find((x) => x.id == post.categoryId)?.title
+                            .find((x) =>
+                                x.id == post.categoryId)?.title
             };
           })
         )
@@ -126,6 +136,10 @@ export class DeclarativePostService {
     return this.http.patch<IPost>(this.postPatchDeleteURL+`${post.id}.json`, post);
   }
 
+  deletePostToServer(post: IPost) {
+    return this.http.delete(this.postPatchDeleteURL+`${post.id}.json`);
+  }
+
   modifyPosts(posts: IPost[], value: IPost[] | CRUDAction<IPost>): IPost[] {
     if (!(value instanceof Array)) {
       if (value.action === 'add') {
@@ -135,10 +149,12 @@ export class DeclarativePostService {
         return posts.map(post =>
           post.id === value.data.id ? value.data : post);
       }
+      if (value.action === 'delete') {
+        return posts.filter(post => post.id !== value.data.id);
+      }
     } else {
       return value;
     }
-
     return posts;
   }
 
