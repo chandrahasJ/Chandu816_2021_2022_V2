@@ -1,3 +1,14 @@
+PE = {
+    "Sell" : 0,
+    "Buy" : 0
+};
+
+CE = {
+    "Sell" : 0,
+    "Buy" : 0
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     var links = document.getElementsByTagName("a");
     for (var i = 0; i < links.length; i++) {
@@ -10,6 +21,19 @@ document.addEventListener('DOMContentLoaded', function () {
         })();
     }
 });
+
+function calculatePEAndCE(marketDepth){
+    if(contains(marketDepth.name, " PE")){
+        PE.Buy = Number(PE.Buy) + Number(marketDepth.buyBidTotal);
+         PE.Sell = Number(PE.Sell) + Number(marketDepth.sellBidTotal);
+    } 
+    else if(contains(marketDepth.name, " CE")){
+        CE.Buy = Number(CE.Buy) + Number(marketDepth.buyBidTotal);
+        CE.Sell = Number(CE.Sell) + Number(marketDepth.sellBidTotal);
+    } else {
+        //Not Required...
+    }
+}
 
 function contains(string, substring) {
     return string.indexOf(substring) !== -1;
@@ -62,19 +86,48 @@ function getTableBody(marketDepth){
     return bodyData;
 }
 
+function getTableBodyForPEorCE(PEorCE, className){
+    var bodyData  =
+    `<tr class="${className}"> 
+        <td class="block"></td>      
+        <td class="block">Total</td>  
+        <td>${PEorCE.Buy}</td>
+        <td>${PEorCE.Sell}</td>
+        <td colspan="6"></td>
+    </tr>`;
+    return bodyData;
+}
+
 
 function getDataFromBackgroundJS(){    
     try{
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.runtime.sendMessage({type: "getScrappedData", id: tabs[0].id}, function(object) {
             try{
-                /* ... */ 
                 var tableData = '<table class="table">';
                 tableData = tableData + getTableHeader();
-                if(object != null && object.marketDepths != null && object.marketDepths.length != 0){            
-                    for (const marketDepth of object.marketDepths) {
-                        tableData += getTableBody(marketDepth) 
-                    }            
+                if(object != null && object.marketDepths != null && object.marketDepths.length != 0){    
+                    let tableBody = ''        
+                    PE.Buy = 0;
+                    PE.Sell = 0;
+                    CE.Buy = 0;
+                    CE.Sell = 0;
+
+                    for (const marketDepth of object.marketDepths) {                        
+                        tableBody += getTableBody(marketDepth);
+                        calculatePEAndCE(marketDepth);
+                    }        
+
+                    let tableBodyForPEAndCE = '';                                
+                    if(CE.Buy != 0 || CE.Sell != 0) {
+                        tableBodyForPEAndCE += getTableBodyForPEorCE(CE, "lightGreen")
+                    }
+                    if(PE.Buy != 0 || PE.Sell != 0){
+                        tableBodyForPEAndCE += getTableBodyForPEorCE(PE, "lightRed")
+                    }
+
+                    tableData += tableBodyForPEAndCE;
+                    tableData += tableBody;
                 }
                 else{
                     tableData += '<tr><td colspan="10"><h4>No Data</h4></td><tr>'
