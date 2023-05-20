@@ -1,7 +1,7 @@
 {
     "name": "Zeroadha Market Depth Scrapper",
     "description": "Scrap Zeroadha for relavant market depth data in tabular format.",
-    "version": "0.1.0",
+    "version": "3.0.0",
     "manifest_version": 3,
     "icons": {
         "16": "/images/scraper.png"
