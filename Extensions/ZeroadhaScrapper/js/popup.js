@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function calculatePEAndCE(marketDepth){
     if(contains(marketDepth.name, " PE")){
-        PE.Buy = Number(PE.Buy) + Number(marketDepth.buyBidTotal);
-         PE.Sell = Number(PE.Sell) + Number(marketDepth.sellBidTotal);
+        PE.Buy = parseFloat(PE.Buy) + parseFloat(marketDepth.buyBidTotal.replaceAll(',',''));
+         PE.Sell = parseFloat(PE.Sell) + parseFloat(marketDepth.sellBidTotal.replaceAll(',',''));
     } 
     else if(contains(marketDepth.name, " CE")){
-        CE.Buy = Number(CE.Buy) + Number(marketDepth.buyBidTotal);
-        CE.Sell = Number(CE.Sell) + Number(marketDepth.sellBidTotal);
+        CE.Buy = parseFloat(CE.Buy) + parseFloat(marketDepth.buyBidTotal.replaceAll(',',''));
+        CE.Sell = parseFloat(CE.Sell) + parseFloat(marketDepth.sellBidTotal.replaceAll(',',''));
     } else {
         //Not Required...
     }
@@ -91,8 +91,8 @@ function getTableBodyForPEorCE(PEorCE, className){
     `<tr class="${className}"> 
         <td class="block"></td>      
         <td class="block">Total</td>  
-        <td>${PEorCE.Buy}</td>
-        <td>${PEorCE.Sell}</td>
+        <td>${PEorCE.Buy.toLocaleString()}</td>
+        <td>${PEorCE.Sell.toLocaleString()}</td>
         <td colspan="6"></td>
     </tr>`;
     return bodyData;
