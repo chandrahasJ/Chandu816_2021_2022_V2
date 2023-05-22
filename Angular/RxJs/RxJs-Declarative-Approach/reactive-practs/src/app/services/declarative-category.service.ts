@@ -23,7 +23,6 @@ export class DeclarativeCategoryService {
                           return categoryData;
                         }),
                         catchError(this.handleError),
-                        shareReplay({bufferSize: 1, refCount: true})
                       );
 
   handleError(error: Error) {

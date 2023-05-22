@@ -48,7 +48,6 @@ export class DeclarativePostService {
       return postData;
     }),
     catchError(this.handleError),
-    shareReplay({ bufferSize: 1, refCount: true })
   );
 
   post_with_category$ = combineLatest([
@@ -66,7 +65,6 @@ export class DeclarativePostService {
       });
     }),
     catchError(this.handleError),
-    shareReplay({ bufferSize: 1, refCount: true })
   );
 
 
@@ -165,7 +163,6 @@ export class DeclarativePostService {
     map(([posts, selectedId]) => {
       return posts.find((post) => post.id === selectedId) as IPost;
     }),
-    shareReplay({ bufferSize: 1, refCount: true })
   );
 
   handleError(error: Error) {

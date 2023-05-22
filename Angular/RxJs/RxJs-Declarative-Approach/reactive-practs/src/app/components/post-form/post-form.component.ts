@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map, tap } from 'rxjs';
@@ -10,8 +10,11 @@ import { DeclarativePostService } from 'src/app/services/declarative-post.servic
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostFormComponent {
+
+  postId : string| null = null;
 
   postFormGroup = this.createPostFormGroup();
 
@@ -19,6 +22,9 @@ export class PostFormComponent {
 
   selectedPost$ = this.router.paramMap.pipe(map(paramMaps => {
     let id = paramMaps.get('id');
+    if(id){
+      this.postId = id;
+    }
     this.postService.selectPost(id + '');
     return id;
   }))
@@ -52,8 +58,11 @@ export class PostFormComponent {
 
   onPostSubmit() {
     let purePost = this.postFormGroup.value as IPost;
-
-    this.postService.updatePost(purePost);
+    if(this.postId){
+      this.postService.updatePost(purePost);
+    } else {
+      this.postService.addPost(purePost);
+    }
   }
 
   validateForm() {
