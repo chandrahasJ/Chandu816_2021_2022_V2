@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from '../models/Post';
-import { BehaviorSubject, Observable, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, share, shareReplay, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, combineLatest, concatMap, map, merge, mergeMap, of, scan, share, shareReplay, tap, throwError } from 'rxjs';
 import { DeclarativeCategoryService } from './declarative-category.service';
 import { CRUDAction } from '../models/CRUDAction';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class DeclarativePostService {
 
   constructor(
     private http: HttpClient,
-    private dCatergoryService: DeclarativeCategoryService
+    private dCatergoryService: DeclarativeCategoryService,
+    private notificationService: NotificationService
   ) {}
 
   addPost(post: IPost) {
@@ -92,15 +94,27 @@ export class DeclarativePostService {
 
     if (postAction.action === 'add') {
       postObservable$! = this.addPostToServer(postAction.data)
+                              .pipe(tap((post) => {
+                                this.notificationService
+                                  .setSuccessMessage('Post added successfully.')
+                              }))
     }
 
     if (postAction.action === 'update') {
       postObservable$! = this.updatePostToServer(postAction.data)
+                              .pipe(tap((post) => {
+                                this.notificationService
+                                  .setSuccessMessage('Post updated successfully.')
+                              }))
     }
 
     if (postAction.action === 'delete') {
       return this.deletePostToServer(postAction.data)
-                 .pipe(map(post => postAction.data))
+                 .pipe(map(post => postAction.data),
+                      tap((post) => {
+                        this.notificationService
+                          .setSuccessMessage('Post updated successfully.')
+                      }))
     }
 
     return postObservable$.pipe(
