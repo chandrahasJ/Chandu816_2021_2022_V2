@@ -19,6 +19,9 @@ export class DeclarativePostService {
   private postCRUDSubject = new Subject<CRUDAction<IPost>>();
   postCRUDAction$ = this.postCRUDSubject.asObservable();
 
+  private postCRUDNotification = new Subject<boolean>();
+  postCRUDNotificationAction$ = this.postCRUDNotification.asObservable();
+
   constructor(
     private http: HttpClient,
     private dCatergoryService: DeclarativeCategoryService,
@@ -97,6 +100,7 @@ export class DeclarativePostService {
                               .pipe(tap((post) => {
                                 this.notificationService
                                   .setSuccessMessage('Post added successfully.')
+                                this.postCRUDNotification.next(true);
                               }))
     }
 
@@ -105,6 +109,7 @@ export class DeclarativePostService {
                               .pipe(tap((post) => {
                                 this.notificationService
                                   .setSuccessMessage('Post updated successfully.')
+                                  this.postCRUDNotification.next(true);
                               }))
     }
 
@@ -114,6 +119,7 @@ export class DeclarativePostService {
                       tap((post) => {
                         this.notificationService
                           .setSuccessMessage('Post updated successfully.')
+                          this.postCRUDNotification.next(true);
                       }))
     }
 

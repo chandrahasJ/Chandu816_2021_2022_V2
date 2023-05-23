@@ -15,13 +15,13 @@ export class AppComponent {
   errorMessage$ = this.notificationService
                       .errorMessageAction$.pipe(
                         tap((message)=>{
-                          this.hideTheMessage()
+                          message && this.hideTheMessage()
                         })
                       );
   successMessage$ = this.notificationService
                         .successMessageAction$.pipe(
                           tap((message)=>{
-                            this.hideTheMessage()
+                            message && this.hideTheMessage()
                           })
                         );
 
