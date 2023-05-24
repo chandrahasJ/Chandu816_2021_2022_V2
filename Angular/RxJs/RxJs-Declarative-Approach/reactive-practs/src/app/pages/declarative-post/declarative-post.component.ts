@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BehaviorSubject, EMPTY, Subject, catchError, combineLatest, map } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BehaviorSubject, EMPTY, Subject, catchError, combineLatest, map, tap } from 'rxjs';
 import { DeclarativeCategoryService } from 'src/app/services/declarative-category.service';
 import { DeclarativePostService } from 'src/app/services/declarative-post.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-declarative-post',
@@ -9,7 +10,7 @@ import { DeclarativePostService } from 'src/app/services/declarative-post.servic
   styleUrls: ['./declarative-post.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeclarativePostComponent {
+export class DeclarativePostComponent implements OnInit {
   selectedCatergorySubject = new BehaviorSubject<string>('');
   selectedCatergoryAction$ = this.selectedCatergorySubject.asObservable();
 
@@ -18,8 +19,8 @@ export class DeclarativePostComponent {
 
   selectedCategoryId = '';
 
-  dPost$ = this.dPostService.post_with_category;
-  dCategory$ = this.dCategoryService.category_data
+  dPost$ = this.dPostService.post_with_category$;
+  dCategory$ = this.dCategoryService.category_data$
               .pipe( catchError((error) => {
                 this.errorSubject.next(error);
                 return EMPTY;
@@ -29,6 +30,7 @@ export class DeclarativePostComponent {
     this.dPost$,
     this.selectedCatergoryAction$,
   ]).pipe(
+    tap(data => this.loaderService.hideLoader()),
     map(([posts, selectedCategoryId]) => {
       return posts.filter((post) => {
         return selectedCategoryId ? post.categoryId == selectedCategoryId : true;
@@ -47,6 +49,11 @@ export class DeclarativePostComponent {
 
   constructor(
     private dPostService: DeclarativePostService,
-    private dCategoryService: DeclarativeCategoryService
+    private dCategoryService: DeclarativeCategoryService,
+    private loaderService: LoaderService
   ) {}
+
+  ngOnInit(): void {
+    this.loaderService.showLoader();
+  }
 }

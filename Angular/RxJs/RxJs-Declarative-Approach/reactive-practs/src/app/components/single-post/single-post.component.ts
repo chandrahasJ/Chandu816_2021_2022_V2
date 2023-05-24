@@ -11,7 +11,7 @@ import { DeclarativePostService } from 'src/app/services/declarative-post.servic
 export class SinglePostComponent {
   errorSubject = new BehaviorSubject<string>('');
   errorMessageAction$ = this.errorSubject.asObservable();
-  post$ = this.postService.post
+  post$ = this.postService.post$
           .pipe(catchError((error) => {
             this.errorSubject.next(error);
             return EMPTY;
