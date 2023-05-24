@@ -12,6 +12,9 @@ import { AltPostsComponent } from './pages/alt-posts/alt-posts.component';
 import { SinglePostComponent } from './components/single-post/single-post.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,15 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     AltPostsComponent,
     SinglePostComponent,
     LoadingComponent,
-    AddPostComponent
+    AddPostComponent,
+    UpdatePostComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

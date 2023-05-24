@@ -1,7 +1,11 @@
 <div>
-  <h3>Add Post</h3>
-<div>
-  <form [formGroup]="postFormGroup" (submit)="onAddPost()">
+<div *ngIf=" vm$ | async as vm">
+  <h3>{{postId ? 'Update Post' : 'Add Post'}}</h3>
+  <form [formGroup]="postFormGroup" (submit)="onPostSubmit()">
+    <div class="my-2 visually-hidden">
+      <label>Id</label>
+      <input title="Id" type="text" class="form-control" formControlName="id"/>
+    </div>
     <div class="my-2">
       <label>Title</label>
       <input title="Title" type="text" class="form-control" formControlName="title"/>
@@ -18,7 +22,9 @@
       </select>
     </div>
     <div class="my-2">
-      <button type="submit" class="btn btn-primary" [disabled]="validateForm()">Add Post</button>
+      <button type="submit" class="btn btn-primary" [disabled]="validateForm()">
+        {{postId ? 'Update Post' : 'Add Post'}}
+      </button>
     </div>
   </form>
 </div>

@@ -1,4 +1,7 @@
 <div class="row">
+  <h2>Declartive Post</h2>
+</div>
+<div class="row">
   <div class="col-md-4">
     <select title="select category" class="form-select" (change)="onCategoryChange($event)">
       <option value="">Select Caterogy</option>
@@ -7,15 +10,17 @@
       </option>
     </select>
   </div>
+  <div class="col-md-8 text-end">
+    <a routerLink="/declarative-post/add" class="btn btn-primary">Add Post</a>
+  </div>
 </div>
 <div class="row text-center bg-danger text-white p-3 mb-2" *ngIf="errorMessageAction$ | async as errorMessage">
-  <div class="col-md-12">
+  <div class="col-md-4">
     {{errorMessage}}
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3>Declarative Post Data</h3>
     <table class="table">
       <thead>
         <tr>
@@ -23,6 +28,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Category</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody *ngIf="dFilterData$ | async as posts">
@@ -31,6 +37,7 @@
           <td>{{post.title}}</td>
           <td>{{post.description}}</td>
           <td>{{post.categoryName}}</td>
+          <td><a class="btn btn-primary" [routerLink]="['/declarative-post/edit/', post.id]">Update Post</a></td>
         </tr>
       </tbody>
     </table>
