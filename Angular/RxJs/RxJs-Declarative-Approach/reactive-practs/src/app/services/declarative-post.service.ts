@@ -89,7 +89,8 @@ export class DeclarativePostService {
     scan((posts, value) => {
       return this.modifyPosts(posts, value);
     }, [] as IPost[]),
-    shareReplay({ bufferSize: 1, refCount: true })
+    shareReplay({ bufferSize: 1, refCount: true }),
+    catchError(this.handleError)
   );
 
   savePost(postAction: CRUDAction<IPost>) {
@@ -101,7 +102,7 @@ export class DeclarativePostService {
                                 this.notificationService
                                   .setSuccessMessage('Post added successfully.')
                                 this.postCRUDNotification.next(true);
-                              }))
+                              }), catchError(this.handleError))
     }
 
     if (postAction.action === 'update') {
@@ -110,7 +111,7 @@ export class DeclarativePostService {
                                 this.notificationService
                                   .setSuccessMessage('Post updated successfully.')
                                   this.postCRUDNotification.next(true);
-                              }))
+                              }), catchError(this.handleError))
     }
 
     if (postAction.action === 'delete') {
@@ -118,9 +119,9 @@ export class DeclarativePostService {
                  .pipe(map(post => postAction.data),
                       tap((post) => {
                         this.notificationService
-                          .setSuccessMessage('Post updated successfully.')
+                          .setSuccessMessage('Post deleted successfully.')
                           this.postCRUDNotification.next(true);
-                      }))
+                      }), catchError(this.handleError))
     }
 
     return postObservable$.pipe(

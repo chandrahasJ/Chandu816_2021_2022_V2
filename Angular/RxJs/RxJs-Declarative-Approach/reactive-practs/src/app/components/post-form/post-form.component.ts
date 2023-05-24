@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, map, startWith, tap } from 'rxjs';
+import { EMPTY, catchError, combineLatest, map, of, startWith, tap } from 'rxjs';
 import { IPost } from 'src/app/models/Post';
 import { DeclarativeCategoryService } from 'src/app/services/declarative-category.service';
 import { DeclarativePostService } from 'src/app/services/declarative-post.service';
@@ -32,6 +32,15 @@ export class PostFormComponent {
 
   post$ = this.postService.post$.pipe(tap(postData => {
     postData && this.postFormGroup.patchValue(postData);
+  }), catchError(error => {
+    this.notificationService.setErrorMessage(error);
+    // postCRUDSubject in the declartive-post.service
+    // stops working it will not invoke the all_post$
+    // in-turn you will not able to see the any error
+    // msgs. Hence I redirected it to details page
+    // as workaround.
+    this.router.navigateByUrl('/declarative-post')
+    return EMPTY;
   }))
 
   notification$ = this.postService
@@ -52,6 +61,7 @@ export class PostFormComponent {
     private formBuilder: FormBuilder,
     private catergoryService: DeclarativeCategoryService,
     private postService: DeclarativePostService,
+    private notificationService: NotificationService,
     private router: Router,
     private route : ActivatedRoute
   ) {}
