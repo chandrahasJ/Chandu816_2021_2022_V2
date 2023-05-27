@@ -1,0 +1,42 @@
+{
+    "name": "Zeroadha Market Depth Scrapper",
+    "description": "Scrap Zeroadha for relavant market depth data in tabular format.",
+    "version": "3.0.1",
+    "manifest_version": 3,
+    "icons": {
+        "16": "/images/scraper.png"
+    },
+    "background": {
+        "service_worker": "/js/background.js" 
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/scraper.png"
+        }
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "http://kite.zerodha.com/*",
+        "https://kite.zerodha.com/*"
+    ],     
+    "content_scripts": [
+    {
+        "matches": ["http://kite.zerodha.com/*",
+                    "https://kite.zerodha.com/*"],
+        "css": ["/css/styles.css"],
+        "js": [
+        "js/jquery-3.7.0.min.js",
+        "js/content_script.js"
+        ]
+    }
+    ],
+    "content_security_policy": {
+        "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; "
+      }      
+}
