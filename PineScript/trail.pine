@@ -1,0 +1,43 @@
+//@version=5
+MAX_LABELS = 500
+indicator("", max_labels_count = MAX_LABELS)
+qtyLabelsInput = input.int(5, "Labels to keep", minval = 0, maxval = MAX_LABELS)
+myRSI = ta.rsi(close, 20)
+if myRSI > ta.highest(myRSI, 20)[1]
+    label.new(bar_index, myRSI, str.tostring(myRSI, "#.00"), style = label.style_none)
+    if array.size(label.all) > qtyLabelsInput
+        label.delete(array.get(label.all, 0))
+plot(myRSI)
+
+
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © mayur1322
+//@version=5
+indicator(title='cs', shorttitle='cs', overlay=true)
+
+greenhammer= close>open and (open-low)>=2*(close-open) and (high-close)<(close-open) and 
+(((open-low)/10)>=(high-close))
+
+
+
+//plotshape(greenhammer,title= "green hammer",  color=color.green, style=shape.arrowup, 
+location=location.belowbar, text="Hmr\nHng")
+//barcolor(greenhammer ? color.green : na, title = "Green Hammer")
+
+redhammer= close<open and (close-low)>=2*(open-close) and (high-open)<(open-close) and (((close-low)/10)>=(high-open))
+//plotshape(redhammer,title= "red hammer",  color=color.red, style=shape.arrowup, location=location.belowbar, text="Hmr\nHng")
+//barcolor(redhammer ? color.red : na, title = "Red Hammer")
+
+myLabel = label.new(na, na, color=color.lime, size=size.large)
+ label.set_x(myLabel, greenhammer)
+//label.set_tooltip(id=myLabel, tooltip="Close: " + str.tostring(close) + "\nVolume: " + str.tostring(volume, format.volume))
+
+
+ label.new(greenhammer, high, color=color.lime, size=size.large)
+
+ //@version=5
+indicator("Four displays of text", overlay = true)
+
+greenhammer= close>open and (open-low)>=2*(close-open) and (high-close)<(close-open) 
+ 
+ label.new(x=greenhammer, y=high,color=color.lime, size=size.large)
